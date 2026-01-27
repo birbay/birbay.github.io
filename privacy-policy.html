@@ -147,6 +147,26 @@
             font-size: 14px;
         }
 
+        .language-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .language-switcher a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 6px;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        .language-switcher a.active {
+            background: rgba(56, 189, 248, 0.3);
+            border-color: rgba(56, 189, 248, 0.6);
+        }
+
         /* Footer */
         footer {
             background: rgba(2, 6, 23, 0.95);
@@ -208,6 +228,11 @@
     <!-- Main Content -->
     <div class="container">
         <a href="index.html" class="back-button">← Ana Sayfa'ya Dön</a>
+
+        <div class="language-switcher">
+            <a href="privacy-policy.html" class="active">Türkçe</a>
+            <a href="privacy-policy-en.html">English</a>
+        </div>
 
         <h1>Gizlilik Politikası</h1>
 
