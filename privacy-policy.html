@@ -5,491 +5,734 @@
     <title>Gizlilik Politikası | Bircan Bayram</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="PokeMe ve GreenCam uygulamaları gizlilik politikası">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark: #0f0f23;
+            --darker: #070714;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
-            color: #e5e7eb;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--darker) 0%, #0a0a1a 50%, #12122a 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
         }
 
         /* Header */
         header {
-            background: rgba(2, 6, 23, 0.95);
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(7, 7, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 16px 0;
         }
 
         nav {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #38bdf8;
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        nav a {
-            color: #e5e7eb;
+        .logo svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+            background: transparent;
+            border: 1px solid transparent;
         }
 
-        nav a:hover {
-            color: #38bdf8;
+        .lang-btn:hover {
+            color: var(--text);
         }
 
-        /* Main Container */
-        .container {
+        .lang-btn.active {
+            background: var(--glass);
+            border-color: var(--glass-border);
+            color: var(--text);
+        }
+
+        /* Main Content */
+        main {
             max-width: 900px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 120px 24px 80px;
         }
 
-        h1 {
-            color: #38bdf8;
-            margin-bottom: 40px;
-            font-size: 40px;
+        /* Page Header */
+        .page-header {
             text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header h1 {
+            font-size: clamp(36px, 6vw, 52px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text), var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .last-updated svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .content-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .intro-text {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 32px;
+        }
+
+        .intro-text a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .intro-text a:hover {
+            color: var(--secondary);
+        }
+
+        /* Section Styling */
+        .policy-section {
+            margin-bottom: 40px;
+        }
+
+        .policy-section:last-child {
+            margin-bottom: 0;
         }
 
         h2 {
-            color: #38bdf8;
-            margin-top: 40px;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
             margin-bottom: 20px;
-            font-size: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
 
         h3 {
-            color: #7c3aed;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-size: 18px;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-top: 24px;
+            margin-bottom: 12px;
         }
 
         p {
-            margin-bottom: 15px;
-            color: #cbd5f5;
-            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        p strong {
+            color: var(--text);
         }
 
         ul, ol {
-            margin-left: 30px;
-            margin-bottom: 15px;
-            color: #cbd5f5;
+            margin-left: 24px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
         }
 
         li {
             margin-bottom: 10px;
-            line-height: 1.7;
+            font-size: 15px;
+            position: relative;
+        }
+
+        li strong {
+            color: var(--text);
         }
 
         a {
-            color: #38bdf8;
+            color: var(--primary-light);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         a:hover {
-            color: #7c3aed;
+            color: var(--secondary);
         }
 
-        .back-button {
-            display: inline-block;
-            margin-bottom: 30px;
-            padding: 10px 20px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 8px;
-            color: #38bdf8;
-            transition: all 0.3s;
-        }
-
-        .back-button:hover {
-            background: rgba(56, 189, 248, 0.2);
-            border-color: rgba(56, 189, 248, 0.5);
-        }
-
+        /* Table */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         table td {
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 12px;
-            color: #cbd5f5;
+            padding: 16px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         table td:first-child {
             font-weight: 600;
-            color: #7c3aed;
-        }
-
-        .last-modified {
-            text-align: center;
-            color: #9ca3af;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .language-switcher {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .language-switcher a {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 6px;
-            margin: 0 5px;
-            font-size: 14px;
-        }
-
-        .language-switcher a.active {
-            background: rgba(56, 189, 248, 0.3);
-            border-color: rgba(56, 189, 248, 0.6);
+            color: var(--primary-light);
+            width: 40%;
         }
 
         /* Footer */
         footer {
-            background: rgba(2, 6, 23, 0.95);
-            border-top: 1px solid rgba(56, 189, 248, 0.1);
-            padding: 30px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
             text-align: center;
-            color: #64748b;
-            font-size: 14px;
+            border-top: 1px solid var(--glass-border);
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        footer p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 40px 20px;
+            main {
+                padding: 100px 16px 60px;
             }
 
-            h1 {
-                font-size: 28px;
-                margin-bottom: 30px;
+            .content-card {
+                padding: 32px 24px;
+                border-radius: 20px;
             }
 
             h2 {
-                font-size: 20px;
-            }
-
-            h3 {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             nav {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+                padding: 0 16px;
             }
 
-            table {
-                font-size: 14px;
-            }
-
-            table td {
-                padding: 8px;
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <div class="bg-animation"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <header>
-        <nav class="container">
-            <a href="index.html" class="logo">← birbay Apps</a>
+        <nav>
+            <a href="index.html" class="logo">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                birbay
+            </a>
+            <div class="lang-switch">
+                <a href="privacy-policy.html" class="lang-btn active">TR</a>
+                <a href="privacy-policy-en.html" class="lang-btn">EN</a>
+            </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <a href="index.html" class="back-button">← Ana Sayfa'ya Dön</a>
-
-        <div class="language-switcher">
-            <a href="privacy-policy.html" class="active">Türkçe</a>
-            <a href="privacy-policy-en.html">English</a>
+    <main>
+        <div class="page-header">
+            <h1>Gizlilik Politikası</h1>
+            <div class="last-updated">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                Son Güncelleme: 28 Ocak 2026
+            </div>
         </div>
 
-        <h1>Gizlilik Politikası</h1>
+        <div class="content-card">
+            <p class="intro-text">
+                PokeMe ve GreenCam uygulamalarımızda gizlilik çok önemlidir. Sorularınız veya endişeleriniz varsa,
+                <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a> adresine iletişime geçmekten çekinmeyin.
+            </p>
 
-        <div class="last-modified">
-            <strong>Son Güncelleme:</strong> 28 Ocak 2026
+            <div class="policy-section">
+                <h2>I. GENEL KOŞULLAR</h2>
+                <p>
+                    Bu Gizlilik Politikası, PokeMe ve GreenCam uygulamalarının ("biz," "bizim," veya "bizim") veri koruma uygulamalarının
+                    özeti ve uygulamalarımızı kullanırken hangi bilgi türlerini işleyebileceğimizi açıklar.
+                </p>
+                <p>
+                    "Kişisel veriler" veya "kişisel bilgiler" terimi, tanımlanmış veya tanımlanabilir bir doğal kişiyle ilgili herhangi bir
+                    bilgiyi ifade eder.
+                </p>
+                <h3>Veri Sorumlusu</h3>
+                <p>
+                    6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında veri sorumlusu:<br>
+                    <strong>Bircan Bayram</strong><br>
+                    E-posta: <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a>
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>II. İŞLENEN BİLGİLER</h2>
+                <p>İşleyebileceğimiz birkaç bilgi kategorisi vardır:</p>
+                <ul>
+                    <li>İşlevsel veriler</li>
+                    <li>Ödeme Bilgileri</li>
+                    <li>Otomatik İşlenen Veriler</li>
+                    <li>İletişim Bilgileri</li>
+                </ul>
+
+                <h3>Çocuğun Gizliliği</h3>
+                <p>
+                    Uygulamalarımız 18 yaş ve üstü bireyler için tasarlanmıştır ve 18 yaşın altında hiç kimsenin kişisel bilgilerini
+                    bilinçli olarak toplamayız. 18 yaşın altındaysanız, lütfen bu Uygulamayı kullanmayın veya herhangi bir bilgi sağlamayın.
+                    18 yaşın altında bir çocuktan parental onay olmadan kişisel bilgi topladığımızı öğrenersek, bu bilgileri mümkün olan en
+                    kısa sürede sileceğiz.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>III. VERİLERİN İŞLENMESİNİN AMAÇLARI</h2>
+                <p>Bilgilerinizi aşağıdaki amaçlarla kullanıyoruz:</p>
+
+                <h3>Uygulamayı ve Hizmetlerini Sağlamak</h3>
+                <p>
+                    Uygulamayı ve hizmetlerini size sağlamak için bilgilerinizi kullanıyoruz. Buna işlevsel bilgileri ve otomatik olarak
+                    işlenen bilgileri işlemek dahildir.
+                </p>
+
+                <h3>(a) İşlevsel Veriler</h3>
+                <p>
+                    Sözleşmelerimizi yerine getirmek ve istenen hizmetleri sağlamak için işlevsel veriler gerekir.
+                    Bu, Uygulamanın tam işlevselliğini garanti etmek için kesinlikle gereklidir.
+                </p>
+                <p>
+                    <strong>Kullanıcı İçeriği:</strong> Bu, ileti alanına girdiğiniz ve Uygulama aracılığıyla gönderdiğiniz herhangi bir
+                    metin veya diğer içerik ("Giriş") ile yapay zeka aracılığıyla Uygulama tarafından oluşturulan herhangi bir metin veya
+                    diğer içerik ("Çıkış") içerir.
+                </p>
+                <p>
+                    <strong>İletişim Bilgileri:</strong> E-posta veya destek formu aracılığıyla bizimle iletişime geçerken sağladığınız
+                    adınız, e-posta adresiniz ve diğer tüm içerikleri içerir. Bu bilgileri depolamak ve işlemek için bulut depolama
+                    sağlayıcılarımızı kullanıyoruz. Sorularınıza cevap vermek, isteklerinizi yerine getirmek ve istenen hizmetleri veya
+                    iletişimleri sağlamak için bu bilgileri kullanıyoruz.
+                </p>
+
+                <h3>(b) Fotoğraf ve Görsel Veriler (GreenCam)</h3>
+                <p>
+                    GreenCam uygulaması, arkaplan değiştirme özelliği için kameranıza ve fotoğraf galerinize erişim talep eder.
+                    <strong>Fotoğraflarınız tamamen cihazınızda işlenir ve sunucularımıza yüklenmez.</strong>
+                    Görsel verileriniz üçüncü taraflarla paylaşılmaz. Uygulama, yüz tanıma veya biyometrik veri toplamaz.
+                </p>
+
+                <h3>(c) Ödeme Bilgileri</h3>
+                <p>
+                    Apple, uygulama içi satın almalar için güvenli bir şekilde işlemek ve kişisel bilgilerinizi güvenli bir şekilde
+                    işlemekten sorumludur. Kredi kartı veya banka kartı bilgilerinize erişimimiz yoktur.
+                </p>
+
+                <h3>Uygulamayı İyileştirmek ve Deneyiminizi Kişiselleştirmek</h3>
+                <p>
+                    Kullanıcıların Uygulamayla nasıl etkileşim kurduğunu analiz etmek, iyileştirme alanlarını tanımlamak ve yeni
+                    özellikler test etmek için otomatik olarak işlenen bilgileri kullanıyoruz.
+                </p>
+
+                <h3>(d) Otomatik İşlenen Veriler</h3>
+                <p><strong>Günlük dosyası bilgileri:</strong> Uygulamayı eriştiğinizde, günlük dosyası bilgileri otomatik olarak oluşturulur.</p>
+                <p>
+                    <strong>Mobil Cihaz Verileri:</strong> "Cihaz tanımlayıcıları" dahildir. Cihaz tanımlayıcıları, mobil cihazınızda
+                    depolanan veya ilişkilendirilen küçük veri dosyaları veya benzer veri yapılarıdır ve mobil cihazınızı benzersiz şekilde
+                    tanımlar. Otomatik olarak işlenen bilgiler şunları içerir: cihaz türü, işletim sistemi türü ve sürümü, model ve üretici.
+                </p>
+                <p>
+                    <strong>Çerezler ve Benzer Teknolojiler:</strong> Uygulamayı kullandığınızda, çerezler ve benzer teknolojiler
+                    (piksel, web işaretleri, komut dosyaları) kullanılabilir.
+                </p>
+
+                <h3>Size İletişim Kurmak</h3>
+                <p>
+                    Uygulamayı ve hizmetlerini, size güncellemeler sağlamak, sorularınıza yanıt vermek ve müşteri desteği sağlamak için
+                    iletişime geçmek amacıyla iletişim bilgilerinizi kullanabiliriz.
+                </p>
+
+                <h3>Politikamızı Uygulamak ve Haklarımızı Korumak</h3>
+                <p>
+                    Politikamızı uygulamak ve haklarımızı korumak için bilgilerinizi kullanabiliriz; buna dolandırıcılık, spam veya diğer
+                    yetkisiz faaliyetleri araştırma ve önlemek ve yasal yükümlülüklere uyum sağlamak da dahildir.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>IV. VERİLERİN SAKLANMASI VE KULLANMASI SÜRESİ</h2>
+                <p>
+                    Kişisel bilgileriniz yalnızca Uygulamanın işlevsel hizmetini sağlamak ve yasal yükümlülüklerimizi yerine getirmek için
+                    gerektiği sürece tutarız. Belirli veriler, kanun tarafından gerekli olması (vergilendirme, muhasebe veya denetim amaçları gibi)
+                    veya verilerin güvenliğini ve yedeklenmesini korumak, dolandırıcılığı önlemek için sınırlı bir süre depolanabilir.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>V. VERİLERİN PAYLAŞILMASI</h2>
+                <p>
+                    Harici hizmetleri entegre ettiğimizde, kişisel verilerinizi korumak için uygun teknik ve örgütsel önlemleri sağlayan
+                    üçüncü taraf sağlayıcıları dikkatlice seçeriz.
+                </p>
+                <p>
+                    <strong>Kişisel verileriniz satılmaz veya kiralanmaz,</strong> ancak çerezler, günlük dosyaları, cihaz tanımlayıcıları
+                    gibi araçlardan alınan bilgileri üçüncü taraf kuruluşlarla paylaşabiliriz.
+                </p>
+                <p>Hizmetlerimizin sunumu ve iyileştirilmesi için aşağıdaki üçüncü taraf hizmet sağlayıcılarını kullanabiliriz:</p>
+                <table>
+                    <tr>
+                        <td>Firebase / Google LLC (USA)</td>
+                        <td>Kimlik doğrulama, analitik ve pazarlama hizmet sağlayıcısı. <a href="https://policies.google.com/privacy">Google Gizlilik Politikası</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="policy-section">
+                <h2>VI. ULUSLARARASI VERİ TRANSFERLERİ</h2>
+                <p>
+                    Uygulamayı otomatik veri işleme teknolojileri sağlayan üçüncü taraf kuruluşlar,
+                    otomatik olarak işlenen bilgileri dünya çapında diğer ülkelere veya yetki alanlarına aktarabilir.
+                </p>
+                <p>
+                    <strong>Uygulamayı kullanarak,</strong> kişisel verilerinizin herhangi bir üçüncü ülkeye aktarılabileceğini kabul edersiniz.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>VII. HAKLARINIZI KULLANMAK</h2>
+                <p>Geçerli veri koruma yasaları kişisel bilgilerinizle ilgili size belirli haklar verir:</p>
+                <ul>
+                    <li><strong>Veri Erişimi ve Taşınabilirliği:</strong> Kişisel bilgilerinizin kopyalarını isteyebilirsiniz.</li>
+                    <li><strong>Verileri Değiştirme veya Düzeltme:</strong> Verilerinizi düzeltme, değiştirme veya güncelleme talebinde bulunabilirsiniz.</li>
+                    <li><strong>Veri Saklaması ve Silme:</strong> Kullanıcı verilerine ilişkin silme talebinde bulunabilirsiniz.</li>
+                    <li><strong>Veri Paylaşımı Hakkında Bilgi:</strong> Verilerinizin üçüncü taraflarla paylaşılıp paylaşılmadığını bilirsiniz.</li>
+                </ul>
+                <p>
+                    Bu haklardan herhangi birini <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a> ile iletişime geçerek
+                    kullanabilirsiniz.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>VIII. OPT-OUT (İZİNDEN VAZGEÇME) YAPMAK</h2>
+                <h3>Konum Verileri İşleme</h3>
+                <p>
+                    iOS cihazında Ayarlar > Gizlilik > Konum Hizmetleri'ne gidin. İlgili Uygulamayı seçin ve "Konum Paylaş" durumunu
+                    "Asla" olarak ayarlayın.
+                </p>
+                <h3>Pazarlama İzlemesi</h3>
+                <p>
+                    iOS cihazında Ayarlar > Gizlilik > Reklam seçeneklerinde "Reklam İzlemesini Sınırla" seçeneğini seçin.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>IX. VERİ GÜVENLİĞİ</h2>
+                <p>
+                    Kişisel bilgilerinizin güvenliğini ciddiye alıyoruz ve kayıp, kötüye kullanım ve yetkisiz erişimden korumak için
+                    önlemler uyguladık. Transmisyon sırasında bize sunulan kişisel bilgileri korumak için endüstri standardı uygulamalarını izliyoruz.
+                </p>
+                <p>
+                    Kişisel bilgilerinizi güvence altına almak için, veri koruma ilkeleriyle uyumlu teknik ve örgütsel önlemler alıyoruz.
+                    Kişisel verilerinizi güvence altına almak için şifreleme algoritmaları kullanıyoruz.
+                </p>
+                <p>
+                    Ancak, internet üzerinde hiçbir iletim yöntemi %100 güvenli değildir. Kişisel verilerinizi korumak için uygun önlemler
+                    alırken, mutlak güvenliğini garanti edemeyiz.
+                </p>
+                <p>
+                    <strong>Veri İhlali Bildirimi:</strong> Kişisel bilgilerinizi tehlikeye atan bir güvenlik ihlali durumunda,
+                    yasal gereklilikler doğrultusunda sizi en kısa sürede bilgilendireceğiz.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>X. GİZLİLİK POLİTİKASINDA YAPILAN DEĞİŞİKLİKLER</h2>
+                <p>
+                    Uygulamalarımızın uygulamaları ve yasal yükümlülükleri güncel tutmak için bu Gizlilik Politikasında düzenli güncellemeler
+                    yapıyoruz.
+                </p>
+                <p>
+                    Bu Gizlilik Politikasında değişiklik yaparsak, bunu güncelleyecek ve bu sayfada ve diğer ilgili yerlerde yayınlayacağız.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>XI. ABONELİK PLANLARI</h2>
+                <p>
+                    Uygulamımız, kullanıcılarına ek özelliklere erişim sağlayan bir Aylık ve Yıllık Abonelik Planı sunmaktadır. Bu abonelikle ilgili bilgiler:
+                </p>
+                <h3>Abonelik Süresi</h3>
+                <p>Abonelikler, aylık veya yıllık olarak yenilenen bir plana tabidir.</p>
+                <h3>Ödeme ve Yenileme</h3>
+                <p>
+                    Abonelik ücretleri, Apple'ın App Store ödeme altyapısı üzerinden tahsil edilir. Aboneliğiniz, mevcut süresi sona ermeden önce iptal edilmediği takdirde otomatik olarak yenilenir.
+                </p>
+                <h3>Aboneliği Yönetme ve İptal</h3>
+                <p>
+                    Kullanıcılar, aboneliklerini Apple Kimliği hesap ayarları üzerinden yönetebilir ve iptal edebilirler.
+                    Abonelik iptali, mevcut dönemin sonunda geçerli olur. İade talepleri için Apple'ın <a href="https://support.apple.com/tr-tr/HT204084" target="_blank">iade politikası</a> geçerlidir.
+                </p>
+                <h3>Veri Kullanımı</h3>
+                <p>
+                    Abonelik işlemleri sırasında, ödeme bilgileri gibi veriler doğrudan Apple tarafından işlenir ve bizim tarafımızdan saklanmaz. <a href="https://www.apple.com/privacy/" target="_blank">Apple'ın Gizlilik Politikası'na</a> göz atmak için buraya tıklayabilirsiniz.
+                </p>
+            </div>
+
+            <div class="policy-section">
+                <h2>XII. BU GİZLİLİK POLİTİKASI HAKKINDA BİZE NASIL ULAŞABİLİRSUNUZ</h2>
+                <p>
+                    Bu Gizlilik Politikası hakkında sorularınız varsa, bize <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a>
+                    adresiyle ulaşabilirsiniz.
+                </p>
+                <p>
+                    <strong>PokeMe ve GreenCam uygulamalarını kullanarak,</strong> bu Gizlilik Politikasını kabul etmiş olursunuz.
+                </p>
+            </div>
         </div>
+    </main>
 
-        <p>
-            PokeMe ve GreenCam uygulamalarımızda gizlilik çok önemlidir. Sorularınız veya endişeleriniz varsa, 
-            <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a> adresine iletişime geçmekten çekinmeyin.
-        </p>
-
-        <h2>I. GENEL KOŞULLAR</h2>
-        
-        <p>
-            Bu Gizlilik Politikası, PokeMe ve GreenCam uygulamalarının ("biz," "bizim," veya "bizim") veri koruma uygulamalarının 
-            özeti ve uygulamalarımızı kullanırken hangi bilgi türlerini işleyebileceğimizi açıklar.
-        </p>
-
-        <p>
-            "Kişisel veriler" veya "kişisel bilgiler" terimi, tanımlanmış veya tanımlanabilir bir doğal kişiyle ilgili herhangi bir 
-            bilgiyi ifade eder.
-        </p>
-
-        <h2>II. İŞLENEN BİLGİLER</h2>
-
-        <p>İşleyebileceğimiz birkaç bilgi kategorisi vardır:</p>
-        <ul>
-            <li>İşlevsel veriler</li>
-            <li>Ödeme Bilgileri</li>
-            <li>Otomatik İşlenen Veriler</li>
-            <li>İletişim Bilgileri</li>
-        </ul>
-
-        <h3>Çocuğun Gizliliği</h3>
-        <p>
-            Uygulamalarımız 18 yaş ve üstü bireyler için tasarlanmıştır ve 18 yaşın altında hiç kimsenin kişisel bilgilerini 
-            bilinçli olarak toplamayız. 18 yaşın altındaysanız, lütfen bu Uygulamayı kullanmayın veya herhangi bir bilgi sağlamayın. 
-            18 yaşın altında bir çocuktan parental onay olmadan kişisel bilgi topladığımızı öğrenersek, bu bilgileri mümkün olan en 
-            kısa sürede sileceğiz.
-        </p>
-
-        <h2>III. VERİLERİN İŞLENMESİNİN AMAÇLARI</h2>
-
-        <p>Bilgilerinizi aşağıdaki amaçlarla kullanıyoruz:</p>
-
-        <h3>Uygulamayı ve Hizmetlerini Sağlamak</h3>
-        <p>
-            Uygulamayı ve hizmetlerini size sağlamak için bilgilerinizi kullanıyoruz. Buna işlevsel bilgileri ve otomatik olarak 
-            işlenen bilgileri işlemek dahildir.
-        </p>
-
-        <h3>(a) İşlevsel Veriler</h3>
-        <p>
-            Sözleşmelerimizi yerine getirmek ve istenen hizmetleri sağlamak için işlevsel veriler gerekir. 
-            Bu, Uygulamanın tam işlevselliğini garanti etmek için kesinlikle gereklidir.
-        </p>
-
-        <p>
-            <strong>Kullanıcı İçeriği:</strong> Bu, ileti alanına girdiğiniz ve Uygulama aracılığıyla gönderdiğiniz herhangi bir 
-            metin veya diğer içerik ("Giriş") ile yapay zeka aracılığıyla Uygulama tarafından oluşturulan herhangi bir metin veya 
-            diğer içerik ("Çıkış") içerir.
-        </p>
-
-        <p>
-            <strong>İletişim Bilgileri:</strong> E-posta veya destek formu aracılığıyla bizimle iletişime geçerken sağladığınız 
-            adınız, e-posta adresiniz ve diğer tüm içerikleri içerir. Bu bilgileri depolamak ve işlemek için bulut depolama 
-            sağlayıcılarımızı kullanıyoruz. Sorularınıza cevap vermek, isteklerinizi yerine getirmek ve istenen hizmetleri veya 
-            iletişimleri sağlamak için bu bilgileri kullanıyoruz.
-        </p>
-
-        <h3>(b) Ödeme Bilgileri</h3>
-        <p>
-            Apple, uygulama içi satın almalar için güvenli bir şekilde işlemek ve kişisel bilgilerinizi güvenli bir şekilde 
-            işlemekten sorumludur. Kredi kartı veya banka kartı bilgilerinize erişimimiz yoktur.
-        </p>
-
-        <h3>Uygulamayı İyileştirmek ve Deneyiminizi Kişiselleştirmek</h3>
-        <p>
-            Kullanıcıların Uygulamayla nasıl etkileşim kurduğunu analiz etmek, iyileştirme alanlarını tanımlamak ve yeni 
-            özellikler test etmek için otomatik olarak işlenen bilgileri kullanıyoruz.
-        </p>
-
-        <h3>(c) Otomatik İşlenen Veriler</h3>
-
-        <p><strong>Günlük dosyası bilgileri:</strong> Uygulamayı eriştiğinizde, günlük dosyası bilgileri otomatik olarak oluşturulur.</p>
-
-        <p>
-            <strong>Mobil Cihaz Verileri:</strong> "Cihaz tanımlayıcıları" dahildir. Cihaz tanımlayıcıları, mobil cihazınızda 
-            depolanan veya ilişkilendirilen küçük veri dosyaları veya benzer veri yapılarıdır ve mobil cihazınızı benzersiz şekilde 
-            tanımlar. Otomatik olarak işlenen bilgiler şunları içerir: cihaz türü, işletim sistemi türü ve sürümü, model ve üretici.
-        </p>
-
-        <p>
-            <strong>Çerezler ve Benzer Teknolojiler:</strong> Uygulamayı kullandığınızda, çerezler ve benzer teknolojiler 
-            (piksel, web işaretleri, komut dosyaları) kullanılabilir.
-        </p>
-
-        <h3>Size İletişim Kurmak</h3>
-        <p>
-            Uygulamayı ve hizmetlerini, size güncellemeler sağlamak, sorularınıza yanıt vermek ve müşteri desteği sağlamak için 
-            iletişime geçmek amacıyla iletişim bilgilerinizi kullanabiliriz.
-        </p>
-
-        <h3>Politikamızı Uygulamak ve Haklarımızı Korumak</h3>
-        <p>
-            Politikamızı uygulamak ve haklarımızı korumak için bilgilerinizi kullanabiliriz; buna dolandırıcılık, spam veya diğer 
-            yetkisiz faaliyetleri araştırma ve önlemek ve yasal yükümlülüklere uyum sağlamak da dahildir.
-        </p>
-
-        <h2>IV. VERİLERİN SAKLANMASI VE KULLANMASI SÜRESİ</h2>
-
-        <p>
-            Kişisel bilgileriniz yalnızca Uygulamanın işlevsel hizmetini sağlamak ve yasal yükümlülüklerimizi yerine getirmek için 
-            gerektiği sürece tutarız. Belirli veriler, kanun tarafından gerekli olması (vergilendirme, muhasebe veya denetim amaçları gibi) 
-            veya verilerin güvenliğini ve yedeklenmesini korumak, dolandırıcılığı önlemek için sınırlı bir süre depolanabilir.
-        </p>
-
-        <h2>V. VERİLERİN PAYLAŞILMASI</h2>
-
-        <p>
-            Harici hizmetleri entegre ettiğimizde, kişisel verilerinizi korumak için uygun teknik ve örgütsel önlemleri sağlayan 
-            üçüncü taraf sağlayıcıları dikkatlice seçeriz.
-        </p>
-
-        <p>
-            <strong>Kişisel verileriniz satılmaz veya kiralanmaz,</strong> ancak çerezler, günlük dosyaları, cihaz tanımlayıcıları 
-            gibi araçlardan alınan bilgileri üçüncü taraf kuruluşlarla paylaşabiliriz.
-        </p>
-
-        <p>
-            Hizmetlerimizin sunumu ve iyileştirilmesi için aşağıdaki üçüncü taraf hizmet sağlayıcılarını kullanabiliriz:
-        </p>
-
-        <table>
-            <tr>
-                <td>Firebase / Google LLC (USA)</td>
-                <td>Kimlik doğrulama, analitik ve pazarlama hizmet sağlayıcısı. <a href="https://policies.google.com/privacy">Google Gizlilik Politikası</a></td>
-            </tr>
-
-        </table>
-
-        <h2>VI. ULUSLARARASI VERİ TRANSFERLERİ</h2>
-
-        <p>
-            Uygulamayı otomatik veri işleme teknolojileri sağlayan üçüncü taraf kuruluşlar, 
-            otomatik olarak işlenen bilgileri dünya çapında diğer ülkelere veya yetki alanlarına aktarabilir.
-        </p>
-
-        <p>
-            <strong>Uygulamayı kullanarak,</strong> kişisel verilerinizin herhangi bir üçüncü ülkeye aktarılabileceğini kabul edersiniz.
-        </p>
-
-        <h2>VII. HAKLARINIZI KULLANMAK</h2>
-
-        <p>Geçerli veri koruma yasaları kişisel bilgilerinizle ilgili size belirli haklar verir:</p>
-
-        <ul>
-            <li><strong>Veri Erişimi ve Taşınabilirliği:</strong> Kişisel bilgilerinizin kopyalarını isteyebilirsiniz.</li>
-            <li><strong>Verileri Değiştirme veya Düzeltme:</strong> Verilerinizi düzeltme, değiştirme veya güncelleme talebinde bulunabilirsiniz.</li>
-            <li><strong>Veri Saklaması ve Silme:</strong> Kullanıcı verilerine ilişkin silme talebinde bulunabilirsiniz.</li>
-            <li><strong>Veri Paylaşımı Hakkında Bilgi:</strong> Verilerinizin üçüncü taraflarla paylaşılıp paylaşılmadığını bilirsiniz.</li>
-        </ul>
-
-        <p>
-            Bu haklardan herhangi birini <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a> ile iletişime geçerek 
-            kullanabilirsiniz.
-        </p>
-
-        <h2>VIII. OPT-OUT (İZİNDEN VAZGEÇME) YAPMAK</h2>
-
-        <h3>Konum Verileri İşleme</h3>
-        <p>
-            iOS cihazında Ayarlar > Gizlilik > Konum Hizmetleri'ne gidin. İlgili Uygulamayı seçin ve "Konum Paylaş" durumunu 
-            "Asla" olarak ayarlayın.
-        </p>
-
-        <h3>Pazarlama İzlemesi</h3>
-        <p>
-            iOS cihazında Ayarlar > Gizlilik > Reklam seçeneklerinde "Reklam İzlemesini Sınırla" seçeneğini seçin.
-        </p>
-
-        <h2>IX. VERİ GÜVENLİĞİ</h2>
-
-        <p>
-            Kişisel bilgilerinizin güvenliğini ciddiye alıyoruz ve kayıp, kötüye kullanım ve yetkisiz erişimden korumak için 
-            önlemler uyguladık. Transmisyon sırasında bize sunulan kişisel bilgileri korumak için endüstri standardı uygulamalarını izliyoruz.
-        </p>
-
-        <p>
-            Kişisel bilgilerinizi güvence altına almak için, veri koruma ilkeleriyle uyumlu teknik ve örgütsel önlemler alıyoruz. 
-            Kişisel verilerinizi güvence altına almak için şifreleme algoritmaları kullanıyoruz.
-        </p>
-
-        <p>
-            Ancak, internet üzerinde hiçbir iletim yöntemi %100 güvenli değildir. Kişisel verilerinizi korumak için uygun önlemler 
-            alırken, mutlak güvenliğini garanti edemeyiz.
-        </p>
-
-        <h2>X. GİZLİLİK POLİTİKASINDA YAPILAN DEĞİŞİKLİKLER</h2>
-
-        <p>
-            Uygulamalarımızın uygulamaları ve yasal yükümlülükleri güncel tutmak için bu Gizlilik Politikasında düzenli güncellemeler 
-            yapıyoruz.
-        </p>
-
-        <p>
-            Bu Gizlilik Politikasında değişiklik yaparsak, bunu güncelleyecek ve bu sayfada ve diğer ilgili yerlerde yayınlayacağız.
-        </p>
-
-        <h2>X. ABONELİK PLANLARI</h2>
-
-        <p>
-            Uygulamımız, kullanıcılarına ek özelliklere erişim sağlayan bir Aylık ve Yıllık Abonelik Planı sunmaktadır. Bu abonelikle ilgili bilgiler:
-        </p>
-
-        <h3>Abonelik Süresi</h3>
-        <p>
-            Abonelikler, aylık veya yıllık olarak yenilenen bir plana tabidir.
-        </p>
-
-        <h3>Ödeme ve Yenileme</h3>
-        <p>
-            Abonelik ücretleri, Apple'ın App Store ödeme altyapısı üzerinden tahsil edilir. Aboneliğiniz, mevcut süresi sona ermeden önce iptal edilmediği takdirde otomatik olarak yenilenir.
-        </p>
-
-        <h3>Aboneliği Yönetme</h3>
-        <p>
-            Kullanıcılar, aboneliklerini Apple Kimliği hesap ayarları üzerinden yönetebilir ve iptal edebilirler.
-        </p>
-
-        <h3>Veri Kullanımı</h3>
-        <p>
-            Abonelik işlemleri sırasında, ödeme bilgileri gibi veriler doğrudan Apple tarafından işlenir ve bizim tarafımızdan saklanmaz. <a href="https://www.apple.com/privacy/" target="_blank">Apple'ın Gizlilik Politikası'na</a> göz atmak için buraya tıklayabilirsiniz.
-        </p>
-
-        <h2>XI. BU GİZLİLİK POLİTİKASI HAKKINDA BİZE NASIL ULAŞABILIRSUNUZ</h2>
-
-        <p>
-            Bu Gizlilik Politikası hakkında sorularınız varsa, bize <a href="mailto:bircanbayram16@gmail.com">bircanbayram16@gmail.com</a> 
-            adresiyle ulaşabilirsiniz.
-        </p>
-
-        <p>
-            <strong>PokeMe ve GreenCam uygulamalarını kullanarak,</strong> bu Gizlilik Politikasını kabul etmiş olursunuz.
-        </p>
-
-        <p style="margin-top: 40px; text-align: center; color: #64748b; font-size: 12px;">
-            © 2026 Bircan Bayram. Tüm hakları saklıdır.
-        </p>
-    </div>
-
-    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Bircan Bayram. Tüm hakları saklıdır.</p>
-        </div>
+        <p>&copy; 2026 Bircan Bayram. Tüm hakları saklıdır.</p>
     </footer>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </a>
+
+    <script>
+        // Scroll progress
+        const scrollProgress = document.getElementById('scrollProgress');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+
+            if (scrollTop > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll to top
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
