@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr" data-theme="konsol">
+<html lang="tr" data-theme="yumusak">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -385,6 +385,110 @@ input.inp,select.inp{display:block}
 .modal-open .stamp{display:none}
 .stamp .d{width:6px;height:6px;border-radius:50%;background:#ffb020;flex-shrink:0}
 @media (max-width:900px){ .stamp{right:8px;left:8px;bottom:66px;font-size:9.5px;padding:5px 9px;justify-content:center} }
+
+/* ---------- kavram ipuçları (ⓘ) ---------- */
+.ci{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;
+  border-radius:50%;border:1px solid var(--line2);background:var(--sf);color:var(--ink3);
+  font:italic 700 10px/1 Georgia,"Times New Roman",serif;text-transform:none;letter-spacing:0;
+  margin-left:6px;cursor:pointer;vertical-align:middle;flex-shrink:0;user-select:none;position:relative;top:-1px}
+.ci:hover,.ci:focus-visible{border-color:var(--ac);color:var(--ac-fg);background:var(--ac-soft);outline:none}
+.cpop{position:fixed;z-index:210;max-width:320px;background:var(--sf);color:var(--ink);
+  border:var(--bw) solid var(--line2);border-radius:var(--r);box-shadow:0 14px 36px rgba(8,10,14,.24);
+  padding:11px 13px;font-size:12.5px;line-height:1.6;animation:pop .16s ease}
+.cpop .cpt{display:block;font-weight:700;font-size:13px;margin-bottom:3px}
+
+/* ---------- sayfa rehberi ---------- */
+.guide{position:fixed;top:58px;right:0;bottom:0;width:340px;z-index:45;background:var(--sf);
+  border-left:var(--bw) solid var(--line);display:flex;flex-direction:column;
+  box-shadow:-10px 0 30px rgba(8,10,14,.06);animation:gdin .22s cubic-bezier(.2,.8,.3,1)}
+@keyframes gdin{from{transform:translateX(24px);opacity:0}}
+.guide-on .main{margin-right:340px}
+#helpbtn[aria-pressed="true"]{background:var(--ac-soft);border-color:var(--ac);color:var(--ac-fg);font-weight:700}
+.gd-hd{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-bottom:var(--bw) solid var(--line)}
+.gd-hd .x{margin-left:auto}
+.gd-bd{flex:1;overflow-y:auto;padding:4px 16px 16px}
+.gd-sec{padding:13px 0;border-bottom:var(--bw) solid var(--line)}
+.gd-sec:last-child{border-bottom:none}
+.gd-sec p{margin:5px 0 0;font-size:12.5px;line-height:1.6;color:var(--ink2)}
+.gd-it{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;
+  border:none;background:none;padding:8px 9px;margin:2px -9px 0;width:calc(100% + 18px);
+  border-radius:var(--r);cursor:pointer;color:var(--ink)}
+.gd-it:hover{background:var(--sf3)}
+.gd-it b{font-size:12.5px;font-weight:600}
+.gd-it b:before{content:"›";color:var(--ac-fg);margin-right:7px;font-weight:800}
+.gd-it span{font-size:11.5px;color:var(--ink3);line-height:1.5;padding-left:14px}
+.gd-tip{background:var(--ac-soft);border-radius:var(--r);padding:11px 12px!important;margin-top:12px;
+  border:none!important;font-size:12.5px;line-height:1.6;color:var(--ink)}
+.gd-ft{padding:12px 16px;border-top:var(--bw) solid var(--line);background:var(--sf2);
+  display:flex;flex-direction:column;gap:8px}
+.gd-flash{outline:2px solid var(--ac)!important;outline-offset:3px;animation:gdpulse 1s ease 2;
+  scroll-margin:90px}
+@keyframes gdpulse{0%{box-shadow:0 0 0 0 var(--ac-soft)}50%{box-shadow:0 0 0 12px var(--ac-soft)}100%{box-shadow:0 0 0 0 transparent}}
+@media (max-width:900px){
+  .guide{top:auto;left:0;width:auto;max-height:72vh;border-left:none;border-top:var(--bw) solid var(--line);
+    border-radius:var(--rlg) var(--rlg) 0 0;z-index:56;box-shadow:0 -14px 40px rgba(8,10,14,.25);
+    animation:up .24s cubic-bezier(.2,.8,.3,1)}
+  .guide-on .main{margin-right:0}
+}
+
+/* ---------- karşılama ---------- */
+.wel-hd{display:flex;gap:13px;align-items:center;padding:22px 20px 6px}
+.wel-hd .mark{width:42px;height:42px;font-size:19px;flex-shrink:0}
+.wel-opt{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;text-align:left;
+  padding:14px 16px;border:var(--bw) solid var(--line2);border-radius:var(--rlg);background:var(--sf);
+  cursor:pointer;color:var(--ink)}
+.wel-opt:hover{border-color:var(--ac);background:var(--ac-soft)}
+.wel-opt b{font-size:14px}
+.wel-opt span{font-size:12px;color:var(--ink2);line-height:1.5}
+.wel-opt.pri{background:var(--ac);border-color:var(--ac);color:var(--ac-on)}
+.wel-opt.pri span{color:var(--ac-on);opacity:.86}
+.wel-opt.pri:hover{background:var(--ac);opacity:.93}
+
+/* ---------- hizmet ekle: seçilebilir tedarikçi ---------- */
+.suprow.blk{opacity:.55;cursor:not-allowed}
+
+/* ---------- hikâye turu ---------- */
+.tr-blk{position:fixed;z-index:240;background:transparent}
+.tr-blk.dim{background:rgba(8,10,14,.58)}
+.tr-spot{position:fixed;z-index:241;pointer-events:none;border-radius:calc(var(--rlg) + 4px);
+  box-shadow:0 0 0 2px var(--ac),0 0 0 9999px rgba(8,10,14,.58);
+  transition:top .3s cubic-bezier(.2,.8,.3,1),left .3s cubic-bezier(.2,.8,.3,1),
+             width .3s cubic-bezier(.2,.8,.3,1),height .3s cubic-bezier(.2,.8,.3,1)}
+.tr-spot.try{box-shadow:0 0 0 3px var(--ac),0 0 0 9px var(--ac-soft),0 0 0 9999px rgba(8,10,14,.58);
+  animation:trpulse 1.4s ease infinite}
+@keyframes trpulse{50%{box-shadow:0 0 0 3px var(--ac),0 0 0 15px var(--ac-soft),0 0 0 9999px rgba(8,10,14,.58)}}
+.tr-card{position:fixed;z-index:250;width:330px;background:var(--sf);color:var(--ink);
+  border:var(--bw) solid var(--line2);border-radius:var(--rlg);box-shadow:0 22px 60px rgba(8,10,14,.38);
+  padding:14px 16px 12px;transition:top .3s cubic-bezier(.2,.8,.3,1),left .3s cubic-bezier(.2,.8,.3,1)}
+.tr-top{display:flex;align-items:center;gap:8px}
+.tr-ch{font-size:10.5px;font-weight:700;letter-spacing:var(--lbtr);text-transform:var(--lbtf);color:var(--ac-fg)}
+.tr-n{margin-left:auto;font-size:11px;color:var(--ink3)}
+.tr-x{border:none;background:none;color:var(--ink3);font-size:19px;line-height:1;cursor:pointer;
+  width:26px;height:26px;border-radius:var(--r);margin-right:-6px}
+.tr-x:hover{background:var(--sf3);color:var(--ink)}
+.tr-t{font-family:var(--dp),var(--ft),sans-serif;font-weight:var(--dpw);letter-spacing:var(--dptr);
+  font-size:16.5px;line-height:1.3;margin:6px 0 7px}
+.tr-b{font-size:13px;line-height:1.62;color:var(--ink2)}
+.tr-b b{color:var(--ink)}
+.tr-try{background:var(--ac-soft);color:var(--ac-fg);border-radius:var(--r);padding:9px 11px;
+  font-size:12.5px;line-height:1.55}
+.tr-dots{display:flex;gap:3px;margin:13px 0 11px;flex-wrap:wrap}
+.tr-dot{width:11px;height:5px;border-radius:3px;border:none;padding:0;background:var(--line2);cursor:pointer}
+.tr-dot.done{background:var(--ac-soft);box-shadow:inset 0 0 0 1px var(--ac)}
+.tr-dot.on{background:var(--ac);width:20px}
+.tr-dot.gap{margin-left:7px}
+.tr-ft{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tr-kb{font-size:10.5px;color:var(--ink3);margin-top:9px}
+.tour-on .stamp,.tour-on .tip{display:none!important}
+.guide-on .stamp{right:354px}
+@media (max-width:900px){ .guide-on .stamp{display:none} }
+.tour-on #toast .toast{z-index:246}
+@media (max-width:900px){
+  .tr-card{left:8px!important;right:8px;width:auto!important;max-height:46vh;overflow-y:auto;padding:12px 14px 10px}
+  .tr-t{font-size:15px}
+  .tr-b{font-size:12.5px}
+}
+@media (prefers-reduced-motion:reduce){ .tr-spot,.tr-card{transition:none} .tr-spot.try{animation:none} }
 </style>
 
 <div class="shell">
@@ -396,8 +500,8 @@ input.inp,select.inp{display:block}
     </div>
     <nav class="nav" id="nav"></nav>
     <div class="sidefoot">
-      <div class="av" style="background:var(--ac)">BB</div>
-      <div style="min-width:0"><div style="font-size:12.5px;font-weight:700">Bircan Bayram</div>
+      <div class="av" id="meav" style="background:var(--ac)">BB</div>
+      <div style="min-width:0"><div style="font-size:12.5px;font-weight:700" id="mename">Bircan Bayram</div>
       <div class="fnt" style="font-size:10.5px" id="merole">Yönetici</div></div>
     </div>
   </aside>
@@ -408,6 +512,12 @@ input.inp,select.inp{display:block}
         <div class="fnt desk" id="sub" style="font-size:11.5px"></div>
       </div>
       <div class="spread row" style="gap:8px">
+        <button class="chip" id="helpbtn" aria-pressed="false" aria-label="Bu sayfanın rehberi"
+          data-tip="Bu sayfada ne var, ne işe yarar, neyi nerede bulursunuz. Hikâye turu da buradan başlar.">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/>
+            <path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg>
+          <span class="desk">Rehber</span></button>
         <button class="chip" id="gsearch">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/>
@@ -426,8 +536,11 @@ input.inp,select.inp{display:block}
 <nav class="mnav" id="mnav"></nav>
 <div id="modal"></div>
 <div id="toast"></div>
+<aside id="guide" class="guide" hidden aria-label="Sayfa rehberi"></aside>
+<div id="cpop" class="cpop" role="tooltip" hidden></div>
+<div id="tour" aria-live="polite"></div>
 <div class="stamp"><span class="d"></span>
-  <span><b>ÖRNEK TASARIM</b> · temsili veri · Sürüm 1.0 · 29.08.2026</span></div>
+  <span><b>ÖRNEK TASARIM</b> · temsili veri · Sürüm 1.2 · 25.09.2026</span></div>
 
 <script>
 /* ===================================================================
@@ -1205,16 +1318,127 @@ function groupKey(scope, row, g){
 }
 
 /* ===================================================================
+   DEMO DOSYASI — Onay kuyruğundaki Ford maili (Ahmet Yılmaz, F-88214)
+   Onaylanınca bu dosya açılır. Tur her adımda durumu buradan kurar;
+   ensure… ve purge… fonksiyonları idempotent — ileri/geri gitmek güvenli.
+   =================================================================== */
+var DEMO_ID = 'cDEMO';
+var DEMO_MAIL_LOC = [38.7507, 30.5567];          // maildaki adresten: şehir merkezi, yaklaşık
+var DEMO_WA_LOC   = [38.721836, 30.598412];      // WhatsApp'tan gelen kesin konum
+var DEMO_WA_LINK  = 'https://maps.google.com/?q=38.721836,30.598412';
+
+/** Hizmet ekle formunun türe göre varsayılanları — form da, oluşan satır da buradan beslenir */
+var SVC_DEMO = {
+  konaklama:{gross:11400, days:3, det:{kisi:4, oda:2, gece:3, kahvalti:true}},
+  ikame:    {gross:3300,  days:3, det:{gun:3, arac:'Fiat Egea', plaka:'03 AFY 118', segment:'B'}},
+  taksi:    {gross:650,   days:0, det:{nereden:'Olay yeri — 14. km', nereye:'Otel', km:18}},
+  lastik:   {gross:4800,  days:0, det:{adet:2, ebat:'205/55 R16'}},
+  ucak:     {gross:6400,  days:0, det:{kisi:2, nereden:'KZR', nereye:'IST', pnr:'TK4X9Q'}},
+  otobus:   {gross:1100,  days:0, det:{kisi:2, nereden:'Afyonkarahisar', nereye:'Bursa', arac:'Pamukkale Turizm'}},
+  vip:      {gross:3200,  days:0, det:{kisi:4, nereden:'Olay yeri', nereye:'Otel', arac:'Mercedes Vito'}},
+  diger:    {gross:1500,  days:0, det:{aciklama:'Çekici hizmeti'}}
+};
+
+var _newSvc = 0, _newPay = 0;
+function purge(arr, fn){ for(var i=arr.length-1;i>=0;i--) if(fn(arr[i])) arr.splice(i,1); }
+function dataChanged(){ _byId={}; window.__cust=null; }
+
+function makeService(c, k, sup, id){
+  var T=TYPE[k], D=SVC_DEMO[k], st=dayStart(TODAY);
+  return { id:id||('sN'+(++_newSvc)), caseId:c.id, type:k, supplier:sup.id, supplierName:sup.n,
+    startAt:st, endAt:addDays(st, D.days||1), gross:D.gross, vat:T.vat, mg:null,
+    parentId:null, seq:1, det:JSON.parse(JSON.stringify(D.det)), status:'planlandi' };
+}
+function makePayment(c, s, method, by, id){
+  var sup=SUPPLIERS.filter(function(x){return x.id===s.supplier;})[0]||{};
+  var n=++_newPay;
+  return { id:id||('pN'+n), caseId:c.id, serviceId:s.id, svcType:s.type, supplier:s.supplier,
+    supplierName:s.supplierName, iban:sup.iban, amount:s.gross, dir:'out', method:method,
+    card: method==='havale' ? null : {last4:'4417', bank:'Ziraat'},
+    ref: (method==='havale'?'HVL':method==='kart'?'KRT':'MOR')+'-'+(418200+n),
+    paidAt:new Date(TODAY.getTime()), enteredBy:by, hasDoc:false, status:'odendi', warn:null };
+}
+/** Ödemesi girilmemiş son hizmet; hepsi ödenmişse son hizmet */
+function payTargetService(c){
+  var svcs=svcOf(c.id), paid={};
+  payOf(c.id).forEach(function(p){ if(p.dir==='out') paid[p.serviceId]=1; });
+  return svcs.filter(function(s){ return !paid[s.id]; }).slice(-1)[0] || svcs.slice(-1)[0] || null;
+}
+
+function demoCase(){ return caseByIdRaw(DEMO_ID); }
+function ensureDemoCase(){
+  var c=demoCase(); if(c) return c;
+  c={ id:DEMO_ID, no:'HLP-2026-000451', ext:'F-88214', co:'FORD', cu:'Ahmet Yılmaz',
+      phone:'+90 532 448 21 07', plate:'34ABC123', brand:'Ford', model:'Focus', year:2021,
+      city:'Afyonkarahisar', district:'Merkez', issue:'Motor arızası · yolda kaldı',
+      prio:'acil', status:'acik', user:'AY', openedAt:new Date(2026,7,28,9,21), closedAt:null,
+      formNeeded:true, docMissing:false, formMissing:true, mg:null,
+      addr:'Merkez · Afyon–Konya karayolu 14. km',
+      lat:DEMO_MAIL_LOC[0], lng:DEMO_MAIL_LOC[1], locSource:'mail', locUpdatedAt:null, locUpdatedBy:null };
+  CASES.unshift(c);
+  FORMS.push({ id:'fDEMO', caseId:DEMO_ID, type:'Otel', status:'olusturuldu', sentAt:null, signedAt:null });
+  dataChanged(); return c;
+}
+function removeDemo(){
+  purge(CASES,    function(x){ return x.id===DEMO_ID; });
+  purge(SERVICES, function(x){ return x.caseId===DEMO_ID; });
+  purge(PAYMENTS, function(x){ return x.caseId===DEMO_ID; });
+  purge(DOCS,     function(x){ return x.caseId===DEMO_ID; });
+  purge(FORMS,    function(x){ return x.caseId===DEMO_ID; });
+  dataChanged();
+}
+/** Demo dosyasını belirli bir aşamanın öncesine geri sarar: 'svc' | 'pay' | 'doc' */
+function demoRewind(stage){
+  var c=demoCase(); if(!c) return;
+  if(stage==='svc'){ purge(SERVICES, function(x){ return x.caseId===DEMO_ID; }); c.status='acik'; }
+  if(stage==='svc'||stage==='pay') purge(PAYMENTS, function(x){ return x.caseId===DEMO_ID; });
+  purge(DOCS, function(x){ return x.caseId===DEMO_ID; });
+  payOf(DEMO_ID).forEach(function(p){ p.hasDoc=false; });
+  c.docMissing = payOf(DEMO_ID).length>0;
+  dataChanged();
+}
+function demoSetLoc(kind){
+  var c=ensureDemoCase();
+  if(kind==='mail'){ c.lat=DEMO_MAIL_LOC[0]; c.lng=DEMO_MAIL_LOC[1]; c.locSource='mail';
+    c.locUpdatedAt=null; c.locUpdatedBy=null; }
+  else { c.lat=DEMO_WA_LOC[0]; c.lng=DEMO_WA_LOC[1]; c.locSource='whatsapp';
+    c.locUpdatedAt=new Date(TODAY.getTime()); c.locUpdatedBy='AY'; }
+}
+function ensureDemoService(){
+  var c=ensureDemoCase();
+  var s=svcOf(DEMO_ID).filter(function(x){ return x.type==='konaklama'; })[0];
+  if(s) return s;
+  var sup=suppliersFor('konaklama', c.city).filter(function(x){ return !x.s.black; })[0].s;
+  s=makeService(c,'konaklama',sup,'sDEMO'); SERVICES.push(s);
+  if(c.status==='acik') c.status='devam';
+  dataChanged(); return s;
+}
+function ensureDemoPayment(){
+  var s=ensureDemoService(), c=demoCase();
+  var p=payOf(DEMO_ID)[0]; if(p) return p;
+  p=makePayment(c, s, 'havale', 'AY', 'pDEMO'); PAYMENTS.push(p);
+  c.docMissing=true; dataChanged(); return p;
+}
+function ensureDemoDoc(){
+  var p=ensureDemoPayment(), c=demoCase();
+  if(p.hasDoc) return;
+  DOCS.push({ id:'dDEMO', caseId:DEMO_ID, paymentId:p.id, name:p.supplierName+' dekontu',
+    tag:'Dekont', kind:'image', bytesOrig:2940000, bytes:236000, by:'AY', at:new Date(TODAY.getTime()) });
+  p.hasDoc=true; c.docMissing=false; dataChanged();
+}
+
+/* ===================================================================
    HELPIST PROTOTİP — ARAYÜZ
    =================================================================== */
-var S = { screen:'dashboard', theme:'konsol', role:'admin', modal:null, caseId:null,
+var S = { screen:'dashboard', theme:'yumusak', role:'admin', modal:null, caseId:null,
           customer:null, gq:'', editSvc:null, editScope:null,
           openPay:{}, payId:null, docFile:null, locDraft:null, casesTab:'cases',
-          svcType:'konaklama', newCase:null, drawer:null };
+          svcType:'konaklama', newCase:null, drawer:null,
+          guide:false, supId:null, payMethod:'havale' };
 try{
   var _t=localStorage.getItem('helpist.theme'); if(_t) S.theme=_t;
   var _r=localStorage.getItem('helpist.role'); if(_r) S.role=_r;
-  if(!_t && window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches) S.theme='kokpit';
+  // ilk ziyaret: kayıtlı tema yoksa Yumuşak kart (sistem koyu modda olsa bile)
 }catch(e){}
 
 var THEMES=[
@@ -1240,6 +1464,8 @@ function mk(n){ return n>=1000000 ? (n/1000000).toFixed(1).replace('.',',')+'M'
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function H(){ return S.role==='admin'; }
+/** Oturumdaki kişi: yönetici rolünde Bircan, operasyonda Ayşe */
+function ME(){ return H() ? ADMIN : USERS[0]; }
 
 function icon(n){
   var p={dash:'<path d="M3 12h4l3 8 4-16 3 8h4"/>',
@@ -1257,7 +1483,9 @@ function icon(n){
    back:'<path d="M15 5l-7 7 7 7"/>', check:'<path d="m4 12 5 5L20 6"/>',
    filter:'<path d="M3 5h18l-7 8v6l-4-2v-4z"/>',
    up:'<path d="M20 15v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4"/><path d="M12 3v13M7 8l5-5 5 5"/>',
-   search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'}[n]||'';
+   search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+   help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/>',
+   play:'<path d="M7 5l11 7-11 7z"/>'}[n]||'';
   return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
          'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
 }
@@ -1301,6 +1529,9 @@ function render(){
     (function(){ var c=caseById(S.caseId); return c.no+' · '+c.cu+' · '+c.co; })()
     : (sc==='customer' && S.customer) ? S.customer : t[1];
   document.getElementById('merole').textContent = H()?'Yönetici':'Operasyon kullanıcısı';
+  var _me=ME(), _av=document.getElementById('meav'), _mn=document.getElementById('mename');
+  if(_av){ _av.textContent=_me.k; _av.style.background=_me.c; } if(_mn) _mn.textContent=_me.n;
+  var _hb=document.getElementById('helpbtn'); if(_hb) _hb.setAttribute('aria-pressed', S.guide?'true':'false');
   document.getElementById('rolebtn').innerHTML =
     '<span style="width:7px;height:7px;border-radius:50%;background:'+(H()?'var(--ac)':'var(--ink3)')+'"></span>'+
     (H()?'Yönetici':'Operasyon');
@@ -1345,6 +1576,9 @@ function render(){
   document.body.style.overflow = S.modal ? 'hidden' : '';
   document.body.classList.toggle('modal-open', !!S.modal);
   window.scrollTo(0,0);
+  if(typeof renderGuide==='function') renderGuide();
+  if(typeof hideConcept==='function') hideConcept();
+  if(typeof tourOnRender==='function') tourOnRender();
 }
 function curScope(){ return (S.screen==='cases' && S.casesTab==='services') ? 'services' : S.screen; }
 function go(id){ if(id==='__more'){ S.modal='more'; render(); return; }
@@ -1357,10 +1591,10 @@ function toast(msg){
     '<path d="m4 12 5 5L20 6"/></svg>'+esc(msg)+'</div>';
   clearTimeout(window.__tt); window.__tt=setTimeout(function(){ el.innerHTML=''; },4500);
 }
-function kpi(l,v,d,col){ return '<div class="kpi"><div class="lb">'+esc(l)+'</div>'+
+function kpi(l,v,d,col,ck){ return '<div class="kpi"><div class="lb">'+esc(l)+(ck?ci(ck):'')+'</div>'+
   '<div class="kpiv dp num"'+(col?' style="color:'+col+'"':'')+'>'+v+'</div>'+
   '<div class="fnt" style="font-size:11.5px">'+d+'</div></div>'; }
-function sv(l,v){ return '<div class="row"><span class="mut" style="font-size:12.5px">'+esc(l)+
+function sv(l,v,ck){ return '<div class="row"><span class="mut" style="font-size:12.5px">'+esc(l)+(ck?ci(ck):'')+
   '</span><span class="spread">'+v+'</span></div>'; }
 
 /* =============== İPUCU BALONU =============== */
@@ -1499,10 +1733,10 @@ function fbarHTML(scope){
     (f.q?'<button data-unchip="q" aria-label="aramayı temizle">×</button>':'')+
     '</div><span class="vr desk"></span>'+quick+
     '<span class="vr desk"></span>'+
-    '<select class="sel" data-fset="dateField"'+dfTip+'>'+dfs+'</select>'+
+    '<select class="sel" data-fset="dateField"'+dfTip+'>'+dfs+'</select>'+ci('dateField')+
     grp+
     '<button class="btn sm" data-drawer="'+scope+'"'+
-      tip('Firma, durum, hizmet tipi, sorumlu, tutar ve marj aralığına göre süz. Seçtiklerin üstte etiket olarak kalır.')+
+      tip('Firma, durum, hizmet tipi, sorumlu'+(H()?', tutar ve marj aralığına':' ve tutar aralığına')+' göre süz. Seçtiklerin üstte etiket olarak kalır.')+
       '>'+icon('filter')+'Detaylı filtre'+
       (nActive?'<span class="cnt hot">'+nActive+'</span>':'')+'</button>'+
     (scope==='receivables' ? '<button class="btn pri sm" data-act="collect"'+
@@ -1577,11 +1811,11 @@ function vRecScreen(){
     kpi('Toplam alacak', m0(bal), rows.length+' fatura')+
     kpi('Vadesi geçen', m0(odS), od.length+' fatura'+(od.length?' · en eskisi '+
       Math.max.apply(null,od.map(function(r){return daysBetween(r.due,TODAY);}))+' gün':''),'var(--dg)')+
-    kpi('Kesinti', m0(ded), 'firma kesintileri','var(--wn)')+
+    kpi('Kesinti', m0(ded), 'firma kesintileri','var(--wn)','deduction')+
     kpi('Ort. tahsilat süresi','47 gün','vade ortalama 45 gün')+'</div>'+
    '<div class="grid" style="grid-template-columns:1fr 320px;align-items:start">'+
     '<div class="card">'+fbarHTML('receivables')+'<div id="results">'+resultsHTML('receivables')+'</div></div>'+
-    '<div class="card"><div class="chd"><div class="ct">Alacak yaşlandırma</div></div>'+
+    '<div class="card"><div class="chd"><div class="ct">Alacak yaşlandırma'+ci('aging')+'</div></div>'+
      '<div class="cbd stack" style="gap:14px">'+
      ag.map(function(g){ return '<div><div class="row" style="font-size:12px;margin-bottom:5px">'+
        '<span class="mut" style="font-weight:600">'+g.l+'</span><b class="num spread">'+m0(g.v)+'</b></div>'+
@@ -1732,35 +1966,38 @@ function svcDetLine(s){
 /** Birim ücret: gecelik / günlük / kişi başı — yoksa tire */
 function svcUnit(s){
   var d=s.det||{};
-  if(s.type==='konaklama' && d.gece) return m0(s.gross/d.gece)+' /gece';
+  if(s.type==='konaklama' && d.gece) return (d.oda>1 ? m0(s.gross/d.gece/d.oda)+' /oda·gece'
+                                                     : m0(s.gross/d.gece)+' /gece');
   if(s.type==='ikame' && d.gun)      return m0(s.gross/d.gun)+' /gün';
   if(d.kisi && d.kisi>1)             return m0(s.gross/d.kisi)+' /kişi';
   return '—';
 }
-/** Hizmet ekle formunda türe göre değişen alanlar */
+/** Hizmet ekle formunda türe göre değişen alanlar — değerler SVC_DEMO'dan (oluşan satırla aynı) */
 function svcFormFields(k){
+  var D=SVC_DEMO[k], d=D.det, st=fmtD(TODAY), en=fmtD(addDays(TODAY, D.days||0));
   var G3='<div class="grid g3" style="gap:12px">', G2='<div class="grid g2" style="gap:12px">', E='</div>';
   switch(k){
     case 'konaklama':
-      return G3+fg('Giriş tarihi','29.08.2026',1)+fg('Çıkış tarihi','01.09.2026',1)+fg('Gece','3',1)+E+
-             G3+fg('Kişi sayısı','2',1)+fg('Oda sayısı','1',1)+fg('Kahvaltı','Dâhil')+E;
+      return G3+fg('Giriş tarihi',st,1)+fg('Çıkış tarihi',en,1)+fg('Gece',String(d.gece),1)+E+
+             G3+fg('Kişi sayısı',String(d.kisi),1)+fg('Oda sayısı',String(d.oda),1)+
+             fg('Kahvaltı',d.kahvalti?'Dâhil':'Yok')+E;
     case 'ikame':
-      return G3+fg('Başlangıç','29.08.2026',1)+fg('Bitiş','01.09.2026',1)+fg('Gün','3',1)+E+
-             G2+fg('Araç / segment','B — Fiat Egea')+fg('Plaka','06 FKR 118',1)+E;
+      return G3+fg('Başlangıç',st,1)+fg('Bitiş',en,1)+fg('Gün',String(d.gun),1)+E+
+             G2+fg('Araç / segment',d.segment+' — '+d.arac)+fg('Plaka',d.plaka,1)+E;
     case 'taksi':
-      return G3+fg('Tarih','29.08.2026',1)+fg('Nereden','Olay yeri — 14. km')+fg('Nereye','Otel')+E+
-             G2+fg('Mesafe (km)','18',1)+fg('Dönüş','Yok')+E;
+      return G3+fg('Tarih',st,1)+fg('Nereden',d.nereden)+fg('Nereye',d.nereye)+E+
+             G2+fg('Mesafe (km)',String(d.km),1)+fg('Dönüş','Yok')+E;
     case 'lastik':
-      return G3+fg('Tarih','29.08.2026',1)+fg('Adet','2',1)+fg('Ebat','205/55 R16')+E;
+      return G3+fg('Tarih',st,1)+fg('Adet',String(d.adet),1)+fg('Ebat',d.ebat)+E;
     case 'ucak':
-      return G3+fg('Uçuş tarihi','29.08.2026',1)+fg('Kişi sayısı','2',1)+fg('PNR','TK4X9Q',1)+E+
-             G2+fg('Nereden','Afyonkarahisar')+fg('Nereye','İstanbul')+E;
+      return G3+fg('Uçuş tarihi',st,1)+fg('Kişi sayısı',String(d.kisi),1)+fg('PNR',d.pnr,1)+E+
+             G2+fg('Nereden',d.nereden)+fg('Nereye',d.nereye)+E;
     case 'otobus': case 'vip':
-      return G3+fg('Tarih','29.08.2026',1)+fg('Kişi sayısı','2',1)+
-             fg(k==='vip'?'Araç':'Firma', k==='vip'?'Mercedes Vito':'Pamukkale')+E+
-             G2+fg('Nereden','Afyonkarahisar')+fg('Nereye','Bursa')+E;
+      return G3+fg('Tarih',st,1)+fg('Kişi sayısı',String(d.kisi),1)+
+             fg(k==='vip'?'Araç':'Firma', d.arac)+E+
+             G2+fg('Nereden',d.nereden)+fg('Nereye',d.nereye)+E;
     default:
-      return G2+fg('Tarih','29.08.2026',1)+fg('Açıklama','Yakıt ikmali ve yol yardımı')+E;
+      return G2+fg('Tarih',st,1)+fg('Açıklama',d.aciklama)+E;
   }
 }
 function tPayments(rows){
@@ -2064,8 +2301,14 @@ function vInbox(){
      '<div class="inp warn">Merkez</div></div></div>'+
      fg('Sorunun özeti','Motor arızası, Afyon–Konya karayolu 14. km. Yanında eşi ve iki çocuğu var, konaklama acil.')+
      '<div class="note g"><b>Dosya no kontrolü yapıldı:</b> F-88214 sistemde yok, yeni dosya açılabilir.</div></div>'+
-    '<div class="mft"><button class="btn pri" data-act="approve">Onayla ve dosya aç</button>'+
-    '<button class="btn">Düzelt</button><button class="btn spread">Yoksay</button></div></div>'+
+    (demoCase()
+      ? '<div class="mft"><span class="bdg b-ok">Onaylandı</span>'+
+        '<span class="mut" style="font-size:12.5px">'+demoCase().no+' açıldı</span>'+
+        '<button class="btn pri sm spread" data-open="'+DEMO_ID+'">Dosyayı aç</button></div>'
+      : '<div class="mft"><button class="btn pri" data-act="approve"'+
+        tip('Formdaki bilgilerle yeni dosya açar ve sizi dosyaya götürür. Sarı alanı düzeltmeden de onaylanabilir; değişiklik loglanır.')+
+        '>Onayla ve dosya aç</button>'+
+        '<button class="btn">Düzelt</button><button class="btn spread">Yoksay</button></div>')+'</div>'+
   '</div></div>';
 }
 
@@ -2086,8 +2329,9 @@ function vDetail(){
   });
 
   var chk=[
-    [svc.every(function(s){return s.status==='tamamlandi';}),'Tüm hizmetler tamamlandı'],
-    [svc.every(function(s){return s.gross>0;}),'Tüm maliyetler girildi'],
+    [svc.length>0 && svc.every(function(s){return s.status==='tamamlandi';}),
+      svc.length?'Tüm hizmetler tamamlandı':'Henüz hizmet eklenmedi'],
+    [svc.length>0 && svc.every(function(s){return s.gross>0;}),'Tüm maliyetler girildi'],
     [pays.every(function(p){return p.hasDoc;}),'Tüm ödemelerin dekontu var'],
     [!c.formNeeded || (form && form.status==='imzali_geldi'),
       c.formNeeded?'İmzalı Ford formu geldi':'Ford formu gerekmiyor']
@@ -2102,7 +2346,7 @@ function vDetail(){
     (c.prio==='acil'?'<span class="bdg b-dg">ACİL</span>':'')+
     '<span class="bdg '+(ready?'b-ok':'b-wn')+'">'+(ready?'Faturaya hazır':'Faturaya hazır değil')+'</span>'+
     '<span class="spread row" style="gap:7px">'+
-    (c.user===ADMIN.k
+    (c.user===ME().k
       ? '<button class="btn sm" disabled'+tip('Bu dosya zaten sizde.')+'>Sizde</button>'
       : '<button class="btn sm" data-act="takeover"'+
         tip('Dosyanın sorumlusu siz olursunuz. '+u.n+' listesinden çıkar, sizin "Bende olanlar" listenize girer. İşlem gerekçesiyle birlikte aktivite geçmişine yazılır.')+
@@ -2128,7 +2372,7 @@ function vDetail(){
           ? 'Konum firmadan gelen mailden okundu — genelde yaklaşık. Kesin konumu müşteriden WhatsApp ile isteyin.'
           : c.locSource==='whatsapp'
           ? 'Müşteri WhatsApp\'tan konum gönderdi, operatör yapıştırdı. Kesin konum.'
-          : 'Operatör haritada elle işaretledi.')+'>'+LOC_SRC[c.locSource].n+'</span>'+
+          : 'Operatör haritada elle işaretledi.')+'>'+LOC_SRC[c.locSource].n+'</span>'+ci('locsrc')+
         '<span class="num fnt" style="font-size:11.5px">'+(c.lat!=null? c.lat+', '+c.lng : '—')+'</span>'+
         (c.locUpdatedAt?'<span class="fnt" style="font-size:11px">'+fmtD(c.locUpdatedAt)+' · '+
           ((USERS.filter(function(x){return x.k===c.locUpdatedBy;})[0]||ADMIN).n)+'</span>':'')+
@@ -2146,6 +2390,8 @@ function vDetail(){
      (svc.some(function(s){return s.parentId;})?' · uzatma var':'')+'</span>'+
      '<button class="btn sm spread" data-act="addsvc">+ Hizmet</button></div>'+
      '<div class="cbd stack" style="gap:12px">'+
+     (groups.length?'':'<div class="mut" style="font-size:12.5px;text-align:center;padding:18px">'+
+       'Henüz hizmet yok. Otel, taksi, ikame araç gibi hizmetleri <b>+ Hizmet</b> ile ekleyin.</div>')+
      groups.map(function(g){
       var T=TYPE[g.main.type];
       var sg=g.lines.reduce(function(a,s){return a+svcCalc(s).gross;},0);
@@ -2158,7 +2404,7 @@ function vDetail(){
         (g.main.status==='tamamlandi'?'Tamamlandı':g.main.status==='devam'?'Devam ediyor':'Planlandı')+'</span>'+
         '<span class="fnt spread" style="font-size:11px">KDV %'+g.main.vat+'</span>'+
         (g.main.type==='ikame'?'<button class="btn sm" data-act="extend"'+
-          tip('Mevcut satırı değiştirmez. Aynı türden ikinci bir satır ekleyip ilkine bağlar; araç, tedarikçi, KDV ve marj oranı ana satırdan devralınır.')+
+          tip('Mevcut satırı değiştirmez. Aynı türden ikinci bir satır ekleyip ilkine bağlar; araç, tedarikçi'+(H()?', KDV ve marj oranı':' ve KDV')+' ana satırdan devralınır.')+
           '>Uzat</button>':'')+'</div>'+
        '<div style="padding:2px 12px 10px">'+
        g.lines.map(function(s){ var kk=svcCalc(s);
@@ -2170,7 +2416,7 @@ function vDetail(){
          (svcDetLine(s)?'<div style="font-size:11.5px;margin-top:2px">'+svcDetLine(s)+'</div>':'')+
          '<div class="fnt" style="font-size:11px">'+(s.parentId? esc(s.reason||'uzatma')+' · ana satırdan devraldı'
            : esc(s.supplierName))+'</div></div>'+
-         (s.parentId?'<span class="bdg b-nt">uzatma</span>':'')+
+         (s.parentId?'<span class="bdg b-nt">uzatma</span>'+ci('ext'):'')+
          '<div class="r" style="width:110px"><div class="num"><b>'+m(kk.gross)+'</b></div>'+
          (svcUnit(s)!=='—'?'<div class="num fnt" style="font-size:10.5px">'+svcUnit(s)+'</div>':'')+
          '<div class="num fnt" style="font-size:10.5px">matrah '+m(kk.net)+'</div></div>'+
@@ -2190,7 +2436,8 @@ function vDetail(){
 
     '<div class="grid g2">'+
      '<div class="card"><div class="chd"><div class="ct">Ödemeler</div>'+
-      '<button class="btn sm spread" data-act="payment"'+tip('Tedarikçiye yapılan ödemeyi veya tedarikçiden gelen iadeyi kaydeder. Dekont zorunlu; IBAN kayıtlıdan farklıysa uyarır.')+'>+ Ödeme</button></div><div>'+
+      '<button class="btn sm spread" data-act="payment"'+tip('Tedarikçiye yapılan ödemeyi kaydeder: havale/EFT, kredi kartı veya mail order. Dekont sonra Belgeler\'den yüklenip ödemeye bağlanır.')+'>+ Ödeme</button></div><div>'+
+      (pays.length?'':'<div class="mut" style="font-size:12.5px;text-align:center;padding:18px">Henüz ödeme yok.</div>')+
       pays.map(function(p){ return '<div class="row" style="padding:10px 15px;'+
        'border-bottom:var(--bw) solid var(--line);flex-wrap:wrap">'+
        '<div style="min-width:130px;flex:1"><div style="font-size:12.5px;font-weight:600">'+
@@ -2224,9 +2471,9 @@ function vDetail(){
      '</div>'+
 
     docsCard(c)+
+   '</div>'+   // sol sütun sonu
 
-
-   '<div class="stack">'+
+   '<div class="stack">'+   // sağ sütun
     '<div class="card"><div class="chd"><div class="ct">Özet</div></div><div class="cbd stack" style="gap:10px">'+
      sv('Durum','<span class="bdg '+ST_CLS[c.status]+'">'+ST_LABEL[c.status]+'</span>')+
      sv('Sorumlu','<b>'+u.n+'</b>')+
@@ -2241,12 +2488,12 @@ function vDetail(){
       :'<span class="bdg b-nt spread">Operasyon</span>')+'</div>'+
      '<div class="cbd stack" style="gap:9px">'+
       sv('Ödenen (brüt)','<b class="num">'+m(k.gross)+'</b>')+
-      sv('Matrah (KDV hariç)','<b class="num">'+m(k.net)+'</b>')+
-      sv('İndirilecek KDV','<b class="num">'+m(k.vatIn)+'</b>')+
+      sv('Matrah (KDV hariç)','<b class="num">'+m(k.net)+'</b>','matrah')+
+      sv('İndirilecek KDV','<b class="num">'+m(k.vatIn)+'</b>','vatIn')+
       (H()? '<div style="padding-top:9px;border-top:1px dashed var(--line2)" class="stack">'+
-        sv('Kâr marjı','<b class="num" style="color:var(--ok)">+'+m(k.margin)+'</b>')+
-        sv('Fatura matrahı','<b class="num">'+m(k.base)+'</b>')+
-        sv('Hesaplanan KDV %20','<b class="num">'+m(k.vatOut)+'</b>')+
+        sv('Kâr marjı','<b class="num" style="color:var(--ok)">+'+m(k.margin)+'</b>','margin')+
+        sv('Fatura matrahı','<b class="num">'+m(k.base)+'</b>','base')+
+        sv('Hesaplanan KDV %20','<b class="num">'+m(k.vatOut)+'</b>','vatOut')+
         '<div class="row" style="padding-top:9px;border-top:var(--bw) solid var(--line);font-size:14.5px">'+
         '<b>Fatura toplamı</b><b class="num spread">'+m(k.invoice)+'</b></div>'+
         '<div class="fnt" style="font-size:11px">Efektif marj %'+
@@ -2254,7 +2501,7 @@ function vDetail(){
        : '')+
      '</div></div>'+
 
-    '<div class="card"><div class="chd"><div class="ct">Faturaya hazır mı?</div></div>'+
+    '<div class="card"><div class="chd"><div class="ct">Faturaya hazır mı?'+ci('ready')+'</div></div>'+
      '<div class="cbd stack" style="gap:9px;font-size:12.5px">'+
      chk.map(function(x){ return '<div class="row" style="align-items:flex-start;gap:9px">'+
       '<b style="width:14px;color:var(--'+(x[0]?'ok':'dg')+')">'+(x[0]?'✓':'✕')+'</b>'+
@@ -2266,7 +2513,7 @@ function docsCard(c){
   var list=docsOf(c.id).slice().sort(function(a,b){ return (b.at||0)-(a.at||0); });
   var totalOrig=list.reduce(function(a,d){return a+d.bytesOrig;},0);
   var totalNow =list.reduce(function(a,d){return a+d.bytes;},0);
-  return '<div class="card"><div class="chd"><div class="ct">Belgeler</div>'+
+  return '<div class="card"><div class="chd"><div class="ct">Belgeler'+ci('compress')+'</div>'+
    '<span class="fnt" style="font-size:11px">'+list.length+' belge · '+kb(totalNow)+
    (totalNow<totalOrig?' <span class="bdg b-ok">%'+Math.round((1-totalNow/totalOrig)*100)+' tasarruf</span>':'')+
    '</span>'+
@@ -2380,8 +2627,8 @@ function vBilling(){
    lack.dekont+' dosya dekontsuz · '+lack.form+' Ford formu eksik.</div>'+
    '<div class="grid g4">'+
     kpi('Hazır dosya', String(ready.length), notReady.length+' dosya hazır değil')+
-    kpi('Toplam matrah', m0(T.base),'net '+m0(T.net)+' + marj '+m0(T.mg))+
-    kpi('Kâr marjı', m0(T.mg),'efektif %'+(T.net? (T.mg/T.net*100).toFixed(1).replace('.',',') :'0'),'var(--ok)')+
+    kpi('Toplam matrah', m0(T.base),'net '+m0(T.net)+' + marj '+m0(T.mg),null,'base')+
+    kpi('Kâr marjı', m0(T.mg),'efektif %'+(T.net? (T.mg/T.net*100).toFixed(1).replace('.',',') :'0'),'var(--ok)','margin')+
     kpi('Fatura toplamı', m0(T.inv),'hesaplanan KDV '+m0(T.vatOut)+' dâhil')+'</div>'+
    '<div class="card"><div class="fbar">'+
     '<button class="chip" aria-pressed="true">Durum: Faturaya hazır</button>'+
@@ -2473,7 +2720,7 @@ function vReports(){
       '<span class="num fnt spread">'+m0(byType[t])+'</span></div>'+
       '<div class="bar"><div style="width:'+Math.round(byType[t]/mxT*100)+'%;background:var(--ac)"></div></div>'+
       '</div>'; }).join('')+'</div></div>'+
-    (A?'<div class="card"><div class="chd"><div class="ct">KDV özeti</div></div>'+
+    (A?'<div class="card"><div class="chd"><div class="ct">KDV özeti'+ci('vatOut')+'</div></div>'+
      '<div class="cbd stack" style="gap:11px;font-size:12.5px">'+
      sv('İndirilecek KDV','<b class="num">'+m0(vatIn)+'</b>')+
      sv('Hesaplanan KDV','<b class="num">'+m0(vatOut)+'</b>')+
@@ -2706,11 +2953,11 @@ var MODALS={
    var c=caseById(S.caseId), u=USERS.filter(function(x){return x.k===c.user;})[0]||ADMIN;
    return shell('Dosyayı devral','',
     '<div class="note b">Devralınca <b>ne olur:</b><br>'+
-    '① Dosyanın sorumlusu <b>'+ADMIN.n+'</b> olur.<br>'+
+    '① Dosyanın sorumlusu <b>'+ME().n+'</b> olur.<br>'+
     '② '+esc(u.n)+' kişisinin "Bende olanlar" listesinden çıkar, sizinkine girer.<br>'+
     '③ Aktivite geçmişine "kim, kimden, ne zaman, neden" olarak yazılır.<br>'+
     '④ '+esc(u.n)+' bildirim alır. Hizmetler, ödemeler ve belgeler değişmez.</div>'+
-    '<div class="grid g2" style="gap:12px">'+fg('Mevcut sorumlu',u.n)+fg('Yeni sorumlu',ADMIN.n)+'</div>'+
+    '<div class="grid g2" style="gap:12px">'+fg('Mevcut sorumlu',u.n)+fg('Yeni sorumlu',ME().n)+'</div>'+
     fg('Devralma gerekçesi','Sorumlu izinde, ay sonu kapanışı için devralındı'),
     '<button class="btn pri" data-act="dotakeover">Devral</button>'+
     '<button class="btn" data-close>Vazgeç</button>', 560);
@@ -2778,6 +3025,8 @@ var MODALS={
    rest.map(function(x){ return '<button class="nv" data-go="'+x.id+'" style="height:46px">'+
     icon(x.i)+esc(x.t)+'</button>'; }).join('')+
    '<div style="height:1px;background:var(--line);margin:8px 0"></div>'+
+   '<button class="nv" data-act="guide" style="height:46px">'+icon('help')+'Bu sayfanın rehberi</button>'+
+   '<button class="nv" data-act="tourstart" style="height:46px">'+icon('play')+'Hikâye turu</button>'+
    '<button class="nv" data-act="torole2" style="height:46px">'+icon('set')+
    'Rol: '+(H()?'Yönetici':'Operasyon')+'<span class="cnt spread">değiştir</span></button>'+
    '</div></div></div>'; },
@@ -2793,20 +3042,22 @@ var MODALS={
    '<button class="btn" data-close>Vazgeç</button>'); },
  addService:function(){
   var c = S.caseId ? caseById(S.caseId) : CASES[0];
-  var T = TYPE[S.svcType];
+  var T = TYPE[S.svcType], G = SVC_DEMO[S.svcType].gross;
   var sup = suppliersFor(S.svcType, c.city);
   // üst grup: aynı şehirdekiler + daha önce çalıştığımız her tedarikçi
   var near = sup.filter(function(x){ return x.rank<=2; });
   var far  = sup.filter(function(x){ return x.rank>=3; });
+  var selId = S.supId || ((near.filter(function(x){return !x.s.black;})[0]||
+                            far.filter(function(x){return !x.s.black;})[0]||{s:{}}).s.id);
   function supRow(x,i){
-    var s=x.s, sel=(i===0);
+    var s=x.s, sel=(s.id===selId);
     var lbl = s.black?'Kara liste'
       : x.rank===0?'① Aynı şehir · çalıştık'
       : x.rank===1?'② Aynı şehir · ilk kez'
       : x.rank===2?'③ Daha önce çalıştık · '+x.km+' km'
       : '④ Uzak · ilk kez';
-    return '<div class="suprow'+(sel?' on':'')+'"'+
-     tip(x.uses? 'Bu tedarikçiyle daha önce '+x.uses+' kez çalışıldı. Ortalama '+m0(x.avg)+'.'+
+    return '<div class="suprow'+(sel?' on':'')+(s.black?' blk':'')+'" data-sup="'+s.id+'"'+
+     tip(s.black? 'Kara listede — seçilemez. Neden kara listede olduğu tedarikçi kartında yazar.' : x.uses? 'Bu tedarikçiyle daha önce '+x.uses+' kez çalışıldı. Ortalama '+m0(x.avg)+'.'+
                  (x.same?'':' Farklı şehirde — yaklaşık '+x.km+' km.')
                : (x.same? 'Aynı şehirde kayıtlı ama bu tedarikçiyle henüz çalışılmamış.'
                         : 'Farklı şehirde (~'+x.km+' km) ve hiç çalışılmamış. Son çare.'))+'>'+
@@ -2831,20 +3082,20 @@ var MODALS={
       (c.locSource==='whatsapp'?'Müşteri WhatsApp\'tan konum gönderdi — kesin.'
        :c.locSource==='manual'?'Operatör haritada elle işaretledi.'
        :'Maildeki adresten okundu, yaklaşık. Kesin konum için müşteriden WhatsApp konumu isteyin.'))+'>'+
-      LOC_SRC[c.locSource].n+'</span>'+
+      LOC_SRC[c.locSource].n+'</span>'+ci('locsrc')+
    '</div>'+
    mapBox(c, S.svcType, 190)+
    '<div><span class="lb">Hizmet türü</span>'+
    '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin-top:6px">'+
    TKEYS.map(function(k){ return '<button class="btn'+(S.svcType===k?' pri':'')+'" data-type="'+k+'"'+
-    tip(TYPE[k].n+' · varsayılan kâr marjı %'+TYPE[k].mg+', KDV %'+TYPE[k].vat+
+    tip(TYPE[k].n+' · '+(H()?'varsayılan kâr marjı %'+TYPE[k].mg+', ':'')+'KDV %'+TYPE[k].vat+
         '. Seçince tedarikçi listesi bu türe ve dosyanın konumuna göre filtrelenir.')+
     ' style="height:58px;flex-direction:column;gap:2px;justify-content:center">'+
     '<b style="font-size:12.5px">'+TYPE[k].n+'</b>'+
-    '<span style="font-size:10.5px;opacity:.75">%'+TYPE[k].mg+' · KDV %'+TYPE[k].vat+'</span></button>';
+    '<span style="font-size:10.5px;opacity:.75">'+(H()?'%'+TYPE[k].mg+' · ':'')+'KDV %'+TYPE[k].vat+'</span></button>';
    }).join('')+'</div></div>'+
-   '<div><div class="row"><span class="lb">Önerilen '+T.n.toLowerCase()+' tedarikçileri · '+
-   'daha önce çalıştıklarımız üstte</span>'+
+   '<div class="supsec"><div class="row"><span class="lb">Önerilen '+T.n.toLowerCase()+' tedarikçileri · '+
+   'daha önce çalıştıklarımız üstte'+ci('supRank')+'</span>'+
    '<span class="fnt spread" style="font-size:11px">'+
    near.filter(function(x){return x.uses>0;}).length+' daha önce çalışıldı · '+
    near.filter(function(x){return x.same;}).length+' aynı şehirde</span></div>'+
@@ -2860,21 +3111,22 @@ var MODALS={
    tip('Kendi veritabanımızda uygun tedarikçi yoksa son çare. Google Places kotası sınırlı olduğu için otomatik çağrılmaz, yalnız bu düğmeye basınca sorgulanır.')+
    '>'+icon('search')+'Google\'da ara: '+esc(c.district)+', '+esc(c.city)+' yakınındaki '+
    T.n.toLowerCase()+'</button></div></div>'+
+   '<div class="svcform stack" style="gap:12px">'+
    svcFormFields(S.svcType)+
    '<div class="grid g3" style="gap:12px">'+
-   '<div class="fg"><span class="lb">Ödenen tutar (brüt) *</span><div class="inp num hl">₺11.000,00</div></div>'+
+   '<div class="fg"><span class="lb">Ödenen tutar (brüt) *</span><div class="inp num hl">'+m(G)+'</div></div>'+
    fg('KDV oranı','%'+T.vat+' · '+T.n.toLowerCase(),1)+
-   '<div class="fg"><span class="lb">Matrah (otomatik)</span><div class="inp num" '+
-   'style="background:var(--sf2);color:var(--ink2)">'+m(r2(11000/(1+T.vat/100)))+'</div></div></div>'+
+   '<div class="fg"><span class="lb">Matrah (otomatik)'+ci('matrah')+'</span><div class="inp num" '+
+   'style="background:var(--sf2);color:var(--ink2)">'+m(r2(G/(1+T.vat/100)))+'</div></div></div></div>'+
    '<div class="note b">Brüt tutarı yazmanız yeterli — matrahı ve KDV\'yi sistem ayırır.'+
    (H()?' Kâr marjı '+T.n.toLowerCase()+' kuralından <b>%'+T.mg+'</b>, matrah üzerine: <b>+'+
-    m(r2(r2(11000/(1+T.vat/100))*T.mg/100))+'</b>. Eklendikten sonra satırdan değiştirilebilir.':'')+'</div>',
+    m(r2(r2(G/(1+T.vat/100))*T.mg/100))+'</b>. Eklendikten sonra satırdan değiştirilebilir.':'')+'</div>',
    '<button class="btn pri" data-act="createsvc">Hizmeti ekle</button>'+
    '<button class="btn" data-close>Vazgeç</button>', 720); },
  extend:function(){
   return shell('Hizmeti uzat','',
    '<div class="note b">Mevcut kayıt <b>değiştirilmez</b>. Aynı türden ikinci bir satır eklenir ve '+
-   'ilkine bağlanır. Araç, tedarikçi, KDV oranı ve marj kuralı ana satırdan devralınır.</div>'+
+   'ilkine bağlanır. Araç, tedarikçi'+(H()?', KDV oranı ve marj kuralı':' ve KDV oranı')+' ana satırdan devralınır.</div>'+
    '<div class="grid g3" style="gap:12px">'+fg('Yeni bitiş','03.09.2026',1)+fg('Ek gün','3',1)+
    '<div class="fg"><span class="lb">Ek tutar (brüt)</span><div class="inp num hl">₺3.000,00</div></div></div>'+
    fg('Sebep','Servis parça bekliyor, teslim gecikti')+
@@ -2883,17 +3135,33 @@ var MODALS={
    '<button class="btn pri" data-act="createext">Uzatmayı ekle</button>'+
    '<button class="btn" data-close>Vazgeç</button>', 580); },
  payment:function(){
-  return shell('Ödeme kaydı','',
-   '<div class="grid g2" style="gap:12px">'+fg('Yön','Tedarikçiye ödeme')+fg('Tedarikçi *','Kemer Taksi Durağı')+'</div>'+
-   '<div class="fg"><span class="lb">IBAN *</span><div class="inp num warn">TR33 0006 1005 1978 6457 8413 26</div></div>'+
-   '<div class="note"><b>Bu tedarikçinin kayıtlı IBAN\'ı farklı.</b> Kayıtlı: TR12 …8841 91. '+
-   'Değişikliği tedarikçiyle telefonda teyit ettiniz mi? İşlem engellenmez, kayıt altına alınır.</div>'+
-   '<div class="grid g3" style="gap:12px">'+
-   '<div class="fg"><span class="lb">Tutar *</span><div class="inp num hl">₺450,00</div></div>'+
-   fg('Yöntem','FAST')+fg('Tarih','28.08.2026',1)+'</div>'+
-   '<div class="fg"><span class="lb">Dekont *</span><div class="inp ph" '+
-   'style="border-style:dashed;justify-content:center;gap:8px;min-height:70px">'+icon('up')+
-   'Dosya sürükleyin veya telefondan fotoğraf çekin</div></div>',
+  var c=caseById(S.caseId), sv=c && payTargetService(c);
+  if(!sv) return shell('Ödeme kaydı','',
+    '<div class="note">Bu dosyada henüz hizmet yok. Ödeme bir hizmete bağlanır — önce <b>+ Hizmet</b> ile ekleyin.</div>',
+    '<button class="btn" data-close>Kapat</button>', 520);
+  var sup=SUPPLIERS.filter(function(x){return x.id===sv.supplier;})[0]||{};
+  var pm=S.payMethod||'havale';
+  var chips=['havale','kart','mailorder'].map(function(k){
+    return '<button class="chip" data-pm="'+k+'"'+(pm===k?' aria-pressed="true"':'')+'>'+PAY_METHOD[k].n+'</button>'; }).join('');
+  var det = pm==='havale'
+    ? '<div class="fg"><span class="lb">Alıcı IBAN</span><div class="inp num">'+esc(sup.iban||'—')+'</div></div>'+
+      '<div class="note g">Tedarikçinin <b>kayıtlı IBAN\'ı</b> ile eşleşiyor. Farklı bir IBAN girilirse sistem uyarır ve '+
+      'telefonla teyit ister — sahte "IBAN\'ımız değişti" maili en yaygın dolandırıcılık yolu.</div>'
+    : pm==='kart'
+    ? '<div class="grid g2" style="gap:12px">'+fg('Kart','Ziraat ···· 4417',1)+fg('Provizyon no','KRT-'+(418200+_newPay+1),1)+'</div>'+
+      '<div class="note b">Kart numarasının tamamı saklanmaz; yalnız banka ve son 4 hane.</div>'
+    : '<div class="grid g2" style="gap:12px">'+fg('Mail order formu','Otele gönderildi · imzalı')+fg('Referans','MOR-'+(418200+_newPay+1),1)+'</div>'+
+      '<div class="note b">Otel kartı imzalı mail order formuyla kendisi çeker. Çekim dekontu gelince Belgeler\'e yüklenir.</div>';
+  return shell('Ödeme kaydı', c.no+' · '+c.cu,
+   '<div class="grid g2" style="gap:12px">'+fg('Tedarikçi',sv.supplierName)+
+     fg('Hizmet',TYPE[sv.type].n+' · '+fmtD(sv.startAt)+' → '+fmtD(sv.endAt))+'</div>'+
+   '<div class="paysec stack" style="gap:12px"><div><span class="lb">Ödeme tipi'+ci('payType')+'</span>'+
+     '<div class="cbs">'+chips+'</div></div>'+det+'</div>'+
+   '<div class="grid g2" style="gap:12px">'+
+     '<div class="fg"><span class="lb">Tutar</span><div class="inp num hl">'+m(sv.gross)+'</div></div>'+
+     fg('Tarih',fmtD(TODAY),1)+'</div>'+
+   '<div class="note">Dekont bu ekranda değil, dosyanın <b>Belgeler</b> bölümünden yüklenir ve bu ödemeye bağlanır. '+
+   'Dekont gelene kadar ödeme <b>dekont eksik</b> görünür, dosya faturaya hazır sayılmaz.</div>',
    '<button class="btn pri" data-act="createpay">Ödemeyi kaydet</button>'+
    '<button class="btn" data-close>Vazgeç</button>', 600); },
  collection:function(){
@@ -2957,6 +3225,17 @@ function gsResults(q){
 /* =============== OLAYLAR =============== */
 document.addEventListener('click', function(e){
   var t;
+  if((t=e.target.closest('[data-concept]'))){ e.preventDefault(); showConcept(t); return; }
+  if((t=e.target.closest('[data-flash]'))){ flashEl(t.getAttribute('data-flash')); return; }
+  if(e.target.closest('#helpbtn')){ S.guide=!S.guide; if(S.guide) S.modal=null; render(); return; }
+  if(e.target.closest('[data-guideclose]')){ S.guide=false; render(); return; }
+  if((t=e.target.closest('[data-pm]'))){ S.payMethod=t.getAttribute('data-pm'); render(); return; }
+  if((t=e.target.closest('.suprow[data-sup]')) && !e.target.closest('.supph')){
+    var sid=t.getAttribute('data-sup');
+    if(t.classList.contains('blk')){ toast('Kara listedeki tedarikçi seçilemez'); return; }
+    S.supId=sid;
+    var on=document.querySelectorAll('.suprow.on'); for(var z=0;z<on.length;z++) on[z].classList.remove('on');
+    t.classList.add('on'); return; }
   if((t=e.target.closest('[data-settheme]'))){
     S.theme=t.getAttribute('data-settheme');
     try{ localStorage.setItem('helpist.theme',S.theme); }catch(err){}
@@ -3011,7 +3290,7 @@ document.addEventListener('click', function(e){
     resetFilter(sc2);
     if(S.modal==='filter'){ render(); } else { render(); }
     toast('Filtreler temizlendi'); return; }
-  if((t=e.target.closest('[data-type]'))){ S.svcType=t.getAttribute('data-type'); render(); return; }
+  if((t=e.target.closest('[data-type]'))){ S.svcType=t.getAttribute('data-type'); S.supId=null; render(); return; }
   if(e.target.closest('#rolebtn')){ setRole(H()?'user':'admin'); return; }
   if(e.target.closest('#newbtn')){ S.modal='newCase'; render(); return; }
   if((t=e.target.closest('[data-act]'))){ act(t.getAttribute('data-act')); return; }
@@ -3072,7 +3351,7 @@ function compressImage(file, cb){
   img.onerror=function(){ URL.revokeObjectURL(url); cb(null,null); };
   img.src=url;
 }
-function handleDocFile(file){
+function handleDocFile(file, after){
   if(!file) return;
   var ext=(file.name.split('.').pop()||'').toLowerCase();
   var kind = /^(jpg|jpeg|png|webp|gif|bmp|heic|heif)$/.test(ext) ? 'image'
@@ -3083,6 +3362,7 @@ function handleDocFile(file){
       S.docFile={ origName:file.name, name:base, kind:'image', bytesOrig:file.size,
         bytes: blob? blob.size : file.size, url: URL.createObjectURL(blob||file),
         dim:dim, tag:'Dekont' };
+      if(after) after(S.docFile);
       render();
     });
   } else {
@@ -3168,7 +3448,11 @@ document.addEventListener('pointermove', function(e){
 document.addEventListener('pointerup', function(){ _drag=false; });
 
 document.addEventListener('keydown', function(e){
+  if(e.key==='Escape' && typeof conceptOpen==='function' && conceptOpen()){ hideConcept(); return; }
+  if((e.key==='Enter'||e.key===' ') && e.target.closest && e.target.closest('[data-concept]')){
+    e.preventDefault(); showConcept(e.target.closest('[data-concept]')); return; }
   if(e.key==='Escape' && S.modal){ S.modal=null; S.drawer=null; render(); return; }
+  if(e.key==='Escape' && S.guide){ S.guide=false; render(); return; }
   var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName||''));
   if(((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='k') || (e.key==='/' && !typing)){
     e.preventDefault(); S.modal='search'; render();
@@ -3183,12 +3467,17 @@ function setRole(r){
                     : 'Operasyon görünümü — marj ve fatura alanları hiç gönderilmiyor'); }
 
 function act(a){
-  if(a==='approve'){ S.caseId=CASES[0].id; S.screen='detail'; S.modal=null; render();
-    toast(CASES[0].no+' açıldı — Ford maili onaylandı'); return; }
+  if(a==='approve'){ var dc=ensureDemoCase(); S.caseId=dc.id; S.screen='detail'; S.modal=null; render();
+    toast(dc.no+' açıldı — Ford maili onaylandı'); return; }
+  if(a==='tourstart'){ S.modal=null; tourStart(0); return; }
+  if(a==='guide'){ S.modal=null; S.guide=true; render(); return; }
+  if(a==='welfree'){ S.modal=null; render();
+    toast('Her ekranda sağ üstteki Rehber o sayfayı anlatır'); return; }
+  if(a==='welops'){ S.modal=null; setRole('user'); return; }
   if(a==='allsvc'){ S.casesTab='services'; S.screen='cases'; S.modal=null; render(); return; }
-  if(a==='addsvc'){ S.modal='addService'; render(); return; }
+  if(a==='addsvc'){ S.supId=null; S.modal='addService'; render(); return; }
   if(a==='extend'){ S.modal='extend'; render(); return; }
-  if(a==='payment'){ S.modal='payment'; render(); return; }
+  if(a==='payment'){ S.payMethod='havale'; S.modal='payment'; render(); return; }
   if(a==='collect'){ S.modal='collection'; render(); return; }
   if(a==='torole'){ setRole('admin'); return; }
   if(a==='torole2'){ setRole(H()?'user':'admin'); return; }
@@ -3202,10 +3491,22 @@ function act(a){
     F.cases.preset='gun'; F.cases.dateField='opened';
     S.modal=null; S.screen='cases'; render();
     toast('HLP-2026-000452 açıldı — filtre "Bugün"e alındı, yeni dosya listede'); return; }
-  if(a==='createsvc'){ S.modal=null; render();
-    toast(TYPE[S.svcType].n+' hizmeti eklendi — brüt ₺11.000,00'); return; }
+  if(a==='createsvc'){
+    var cs=caseById(S.caseId), k=S.svcType, list=suppliersFor(k, cs.city);
+    var pk=list.filter(function(x){ return x.s.id===S.supId && !x.s.black; })[0] ||
+           list.filter(function(x){ return !x.s.black; })[0];
+    var ns=makeService(cs, k, pk.s); SERVICES.push(ns);
+    if(cs.status==='acik') cs.status='devam';
+    dataChanged(); S.supId=null; S.modal=null; render();
+    toast(TYPE[k].n+' eklendi — '+pk.s.n+' · '+m(ns.gross)); return; }
   if(a==='createext'){ S.modal=null; render(); toast('Uzatma eklendi — ana satıra bağlandı'); return; }
-  if(a==='createpay'){ S.modal=null; render(); toast('Ödeme kaydedildi — dekont yüklendi'); return; }
+  if(a==='createpay'){
+    var cp=caseById(S.caseId), sp=cp && payTargetService(cp);
+    if(!sp){ S.modal=null; render(); return; }
+    var pm=S.payMethod||'havale', np=makePayment(cp, sp, pm, ME().k);
+    PAYMENTS.push(np); cp.docMissing=true; dataChanged();
+    S.modal=null; render();
+    toast('Ödeme kaydedildi — '+PAY_METHOD[pm].n+' · '+m(np.amount)+'. Dekont bekleniyor.'); return; }
   if(a==='createcoll'){ S.modal=null; S.screen='receivables'; render();
     toast('Tahsilat kaydedildi'); return; }
   if(a==='adddoc'){ S.docFile=null; S.modal='addDoc'; render(); return; }
@@ -3213,26 +3514,34 @@ function act(a){
     var f=S.docFile; if(!f) return;
     var nmEl=document.getElementById('docname'), tgEl=document.getElementById('doctag');
     var nm=(nmEl&&nmEl.value.trim())||f.name, tg=(tgEl&&tgEl.value)||'Diğer';
-    DOCS.push({ id:'dN'+Date.now(), caseId:S.caseId, name:nm, tag:tg, kind:f.kind,
-      bytesOrig:f.bytesOrig, bytes:f.bytes, by:ADMIN.k, at:TODAY, url:f.url });
+    var nd={ id:'dN'+Date.now(), caseId:S.caseId, name:nm, tag:tg, kind:f.kind,
+      bytesOrig:f.bytesOrig, bytes:f.bytes, by:ME().k, at:new Date(TODAY.getTime()), url:f.url };
+    DOCS.push(nd);
+    // dekontsa: dekontu eksik ilk ödemeye bağla
+    var linked='';
+    if(tg==='Dekont'){
+      var pp=payOf(S.caseId).filter(function(x){ return !x.hasDoc; })[0];
+      if(pp){ pp.hasDoc=true; nd.paymentId=pp.id; linked=' · '+pp.ref+' ödemesine bağlandı';
+        var cd=caseById(S.caseId); cd.docMissing=payOf(S.caseId).some(function(x){ return !x.hasDoc; }); }
+    }
     var saved=f.bytes<f.bytesOrig ? ' · %'+Math.round((1-f.bytes/f.bytesOrig)*100)+' küçültüldü' : '';
     S.docFile=null; S.modal=null; render();
-    toast('Belge eklendi — '+nm+' · '+kb(f.bytes)+saved); return; }
+    toast('Belge eklendi — '+nm+' · '+kb(f.bytes)+saved+linked); return; }
   if(a==='editloc'){ S.locDraft=null; S.modal='location'; render(); return; }
   if(a==='saveloc'){
     var c3=caseById(S.caseId), d=S.locDraft;
     if(!d){ S.modal=null; render(); toast('Konum değişmedi'); return; }
     c3.lat=d.lat; c3.lng=d.lng;
     c3.locSource = /whatsapp|google|apple|yandex|koordinat|bağlantı/i.test(d.src||'') ? 'whatsapp' : 'manual';
-    c3.locUpdatedAt=TODAY; c3.locUpdatedBy=ADMIN.k;
+    c3.locUpdatedAt=new Date(TODAY.getTime()); c3.locUpdatedBy=ME().k;
     S.locDraft=null; S.modal=null; render();
     toast('Konum güncellendi — '+d.lat+', '+d.lng+' · '+(d.src||'elle işaretlendi'));
     return; }
   if(a==='takeover'){ S.modal='takeover'; render(); return; }
   if(a==='dotakeover'){
     var c=caseById(S.caseId); var old=(USERS.filter(function(x){return x.k===c.user;})[0]||ADMIN).n;
-    c.user=ADMIN.k; S.modal=null; render();
-    toast('Dosya devralındı — sorumlu '+old+' → '+ADMIN.n+'. Aktiviteye yazıldı.'); return; }
+    c.user=ME().k; S.modal=null; render();
+    toast('Dosya devralındı — sorumlu '+old+' → '+ME().n+'. Aktiviteye yazıldı.'); return; }
   if(a==='savemargin'){
     var inp=document.getElementById('mgin');
     var v = (!inp || inp.value==='') ? null : +inp.value;
@@ -3253,8 +3562,707 @@ function act(a){
   if(a==='runbill'){ toast('Faturalandı işaretlendi ve kilitlendi'); return; }
 }
 
+/* ilk render tour.js sonunda (rehber katmanı tanımlandıktan sonra) */
+
+/* ===================================================================
+   HELPIST PROTOTİP — REHBER KATMANI
+   1) Kavram ipuçları (ⓘ)   2) Sayfa rehberi (Rehber düğmesi)
+   3) Karşılama ekranı       4) Hikâye turu
+   Hepsi rol duyarlı: operasyon rolünde kâr/marj/fatura hiç anılmaz.
+   =================================================================== */
+
+/* ---------- ortak: seçici çözümleyici ----------
+   'card:Başlık'  → başlığı bu metinle başlayan kart
+   'a || b'       → ilk bulunan
+   function       → element veya element dizisi döndürür              */
+function findEl(sel){
+  if(!sel) return null;
+  if(typeof sel==='function'){ try{ return sel(); }catch(e){ return null; } }
+  if(sel.indexOf(' || ')>0){
+    var alts=sel.split(' || ');
+    for(var a=0;a<alts.length;a++){ var r=findEl(alts[a]); if(r) return r; }
+    return null;
+  }
+  if(sel.indexOf('card:')===0){
+    var t=sel.slice(5), cs=document.querySelectorAll('#modal .card, #view .card');
+    for(var i=0;i<cs.length;i++){
+      var ct=cs[i].querySelector('.ct');
+      if(ct && ct.textContent.indexOf(t)===0) return cs[i];
+    }
+    return null;
+  }
+  try{ return document.querySelector(sel); }catch(e){ return null; }
+}
+function firstEl(x){ return !x ? null : (x.nodeType ? x : (x[0]||null)); }
+var REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ===================================================================
+   1) KAVRAM İPUÇLARI
+   =================================================================== */
+var CONCEPTS = {
+  matrah:{t:'Matrah', b:function(A){ return 'KDV hariç tutar: <b>brüt ÷ (1 + KDV oranı)</b>. Otelde KDV %10: '+
+    '₺11.000 brüt → ₺10.000 matrah, ₺1.000 KDV.'+(A?' Kâr marjı brüte değil <b>matraha</b> uygulanır.':''); }},
+  vatIn:{t:'İndirilecek KDV', b:function(A){ return 'Tedarikçinin faturasındaki KDV (brüt − matrah). '+
+    'Helpist bunu kendi KDV beyannamesinde düşer.'+(A?' Ödenecek KDV = hesaplanan − indirilecek.':''); }},
+  margin:{t:'Kâr marjı', b:function(){ return 'Matrah üzerine eklenen oran. Hangi oranın geçerli olduğu sırayla belirlenir: '+
+    '<b>satıra özel → dosyaya özel → hizmet türü kuralı → genel varsayılan</b>. En özel olan kazanır. '+
+    'Asgari oranın altı engellenmez ama gerekçesiyle loglanır.'; }},
+  base:{t:'Fatura matrahı', b:function(){ return 'Firmaya kesilecek faturanın KDV hariç tutarı: <b>matrah + kâr marjı</b>. '+
+    'Örnek: ₺10.000 matrah + %25 marj = ₺12.500.'; }},
+  vatOut:{t:'Hesaplanan KDV', b:function(){ return 'Firmaya kesilen faturadaki KDV: fatura matrahı × %20. ₺12.500 → ₺2.500. '+
+    'Tedarikçinin KDV oranı ne olursa olsun Helpist\'in faturası tek oranla kesilir (oran mali müşavir teyidinde).'; }},
+  ready:{t:'Faturaya hazır', b:function(){ return 'Dört şart: <b>hizmetler tamamlandı</b>, <b>maliyetler girildi</b>, '+
+    '<b>her ödemenin dekontu var</b>, Ford dosyasında <b>imzalı form geldi</b>. Biri eksikse dosya ay sonu faturalamaya girmez.'; }},
+  ext:{t:'Uzatma', b:function(A){ return 'İkame araç süresi uzarsa mevcut satır değiştirilmez; ana satıra bağlı yeni bir satır açılır. '+
+    'Araç, tedarikçi'+(A?', KDV ve marj oranı':' ve KDV')+' ana satırdan devralınır — geçmiş kayıt bozulmaz.'; }},
+  locsrc:{t:'Konum kaynağı', b:function(){ return '<b>Maildan okundu</b>: adres metninden, yaklaşık. '+
+    '<b>WhatsApp konumu</b>: müşterinin gönderdiği link yapıştırıldı, kesin. <b>Elle işaretlendi</b>: operatör haritada pin koydu. '+
+    'Tedarikçi önerileri bu konuma göre sıralanır.'; }},
+  supRank:{t:'Tedarikçi sırası', b:function(){ return '① Aynı şehirde, daha önce çalıştıklarımız · ② aynı şehirde, ilk kez · '+
+    '③ başka şehirde, daha önce çalıştıklarımız · ④ uzakta ve hiç çalışmadıklarımız (kapalı bölümde). Kara listedekiler seçilemez.'; }},
+  compress:{t:'Görsel sıkıştırma', b:function(){ return 'Telefonla çekilen fotoğraflar yüklenmeden önce tarayıcıda küçültülür: '+
+    'uzun kenar 1600 px, JPEG %72. 3–4 MB\'lık dekont tipik olarak 250–400 KB\'a iner, yazılar okunur kalır. PDF ve Excel olduğu gibi saklanır.'; }},
+  deduction:{t:'Kesinti', b:function(){ return 'Firma faturanın bir kısmını ödemeyip keserse (eksik evrak vb.) bu tutar tahsilata değil '+
+    'kesintiye yazılır. Böylece "ne kadar tahsil ettik" ile "ne kadar kaybettik" karışmaz.'; }},
+  aging:{t:'Alacak yaşlandırma', b:function(){ return 'Açık alacakların vadeden bu yana geçen güne göre dağılımı. '+
+    '60 gün üstü kırmızı — takip önceliği burada.'; }},
+  dateField:{t:'Hangi tarihe göre?', b:function(){ return '"Bu ay" sorusunun üç cevabı var: dosyanın <b>açıldığı</b> ay, hizmetin '+
+    '<b>verildiği</b> ay, dosyanın <b>kapandığı</b> ay. Sayılar farklı çıkar. Faturalama kapanış ayına göre yapılır.'; }},
+  payType:{t:'Ödeme tipleri', b:function(){ return '<b>Havale/EFT</b>: IBAN\'a; kayıtlı IBAN\'dan farklıysa uyarı verir. '+
+    '<b>Kredi kartı</b>: şirket kartıyla; yalnız banka ve son 4 hane saklanır. '+
+    '<b>Mail order</b>: otel kartı imzalı formla kendisi çeker.'; }}
+};
+function ci(k){
+  var C=CONCEPTS[k]; if(!C) return '';
+  return '<span class="ci" role="button" tabindex="0" data-concept="'+k+'" aria-label="'+esc(C.t)+' nedir?">i</span>';
+}
+function conceptOpen(){ var p=document.getElementById('cpop'); return !!(p && !p.hidden); }
+function hideConcept(){ var p=document.getElementById('cpop'); if(p && !p.hidden){ p.hidden=true; p.removeAttribute('data-k'); p.__anchor=null; } }
+function showConcept(el){
+  var k=el.getAttribute('data-concept'), C=CONCEPTS[k], p=document.getElementById('cpop');
+  if(!C || !p) return;
+  if(!p.hidden && p.getAttribute('data-k')===k){ hideConcept(); return; }
+  p.innerHTML='<span class="cpt">'+esc(C.t)+'</span>'+C.b(H());
+  p.setAttribute('data-k',k); p.hidden=false; p.__anchor=el;
+  placeConcept();
+}
+/** Kaydırmada kapanmaz, bağlı olduğu ⓘ ile birlikte hareket eder; ⓘ ekrandan çıkarsa kapanır */
+function placeConcept(){
+  var p=document.getElementById('cpop'), el=p && p.__anchor;
+  if(!p || p.hidden) return;
+  if(!el || !document.body.contains(el)){ hideConcept(); return; }
+  var r=el.getBoundingClientRect();
+  if(r.bottom<0 || r.top>innerHeight){ hideConcept(); return; }
+  var w=p.offsetWidth, h=p.offsetHeight;
+  var left=Math.min(Math.max(8, r.left+r.width/2-w/2), innerWidth-w-8);
+  var top=r.bottom+8; if(top+h>innerHeight-8) top=Math.max(8, r.top-h-8);
+  p.style.left=left+'px'; p.style.top=top+'px';
+}
+document.addEventListener('click', function(e){
+  if(conceptOpen() && !e.target.closest('#cpop') && !e.target.closest('[data-concept]')) hideConcept();
+}, true);
+window.addEventListener('resize', placeConcept);
+document.addEventListener('scroll', function(){ if(conceptOpen()) placeConcept(); }, true);
+
+/* ===================================================================
+   2) SAYFA REHBERİ
+   items: [başlık, açıklama, seçici]
+   =================================================================== */
+function guideData(){
+  var A=H(), sc=S.screen;
+  if(sc==='cases' && S.casesTab==='services') sc='services';
+  var G={
+    dashboard:{t:'Bugün',
+      why:'Güne başlarken "bugün neye bakmalıyım" sorusunun cevabı. Sabah ilk açılan ekran.',
+      who:'Herkes. Göstergeler role göre değişir.',
+      items:[['Günün özeti','Tek cümlede: biten hizmetler, eksik evrak, bekleyen formlar.','#view .note.b'],
+        ['Dört gösterge', A?'Açık dosya, faturaya hazır olmayan, ödendi–faturalanmadı, faturalandı–tahsil edilmedi.'
+                           :'Açık dosya, faturaya hazır olmayan, dekontu eksik ödeme, imza bekleyen form.','#view .grid.g4'],
+        ['24 saat içinde biten hizmetler','İkame araç iadesi, otel çıkışı. Satıra tıklayınca dosya açılır.','card:24 saat içinde'],
+        ['Onay bekleyen mailler','Firmalardan gelen, sistemin okuyup forma döktüğü talepler.','card:Onay bekleyen']],
+      tip:'Sol menüdeki kırmızı sayılar bekleyen işi gösterir: Onay Kuyruğu ve Ford Formları.'},
+    inbox:{t:'Onay Kuyruğu',
+      why:'Firmalardan gelen yol yardım maillerinin sistem tarafından okunup forma döküldüğü yer. Sistem hiçbir zaman kendi başına dosya açmaz.',
+      who:'Operasyon.',
+      items:[['Mailin orijinali','Firmanın gönderdiği metin, olduğu gibi.','card:Mailin orijinali'],
+        ['Sistemin doldurduğu form','Müşteri, araç, konum, sorun — mailden okunmuş.','card:Sistemin doldurduğu form'],
+        ['Sarı alan','Sistemin emin olamadığı alan; güven yüzdesi yanında.','#view .inp.warn'],
+        ['Mükerrer kontrolü','Aynı firma dosya no daha önce açılmış mı?','#view .note.g'],
+        ['Onayla ve dosya aç','Onaylanınca dosya açılır ve dosya detayına geçilir.','#view .mft']],
+      tip:'Dosya numarası açık bir dosyaya aitse sistem yeni dosya açmaz, mevcut dosyaya hizmet eklemeyi önerir.'},
+    cases:{t:'Dosyalar',
+      why:'Ana çalışma listesi. Her satır bir yol yardım dosyası.',
+      who:'Herkes.',
+      items:[['Arama','Müşteri adı, plaka, telefon, dosya no. Türkçe karakter ve boşluk fark etmez.','#qin'],
+        ['Hızlı tarih','Bugün, dün, bu hafta, bu ay, son 1 / 3 ay, bu yıl.','#view .qk[aria-pressed="true"] || #view .qk'],
+        ['Hangi tarihe göre','Açılış, kapanış veya hizmet tarihi — "bu ay" sorusunun cevabını değiştirir.','select[data-fset="dateField"]'],
+        ['Detaylı filtre', A?'Firma, durum, tip, sorumlu, il, tedarikçi, tutar ve marj aralığı.'
+                            :'Firma, durum, tip, sorumlu, il, tedarikçi ve tutar aralığı.','[data-drawer]'],
+        ['Gruplama','Müşteri, firma, tip, tedarikçi, personel, il veya aya göre ara toplam.','select[data-fset="group"]'],
+        ['Dosya / Hizmet görünümü','Aynı veriyi satır = hizmet olarak görmek için sekme.','#view .tabs'],
+        ['Müşteri kartı','Müşteri adına tıklayınca tüm dosyaları ve aldığı hizmetler.','#results .lnk']],
+      tip:'"Bu ay Ford\'a kaç otel ayarladık?" → Hizmet görünümü, Detaylı filtre\'de Firma: Ford ve Tip: Konaklama, sonra Bu ay.'},
+    services:{t:'Dosyalar — hizmet görünümü',
+      why:'Her satır tek bir hizmet: otel, taksi, ikame araç… Tedarikçi ve tür bazlı sorular için.',
+      who:'Herkes.',
+      items:[['Hizmet satırı','Tür, müşteri, kişi/oda/gece gibi türe özel bilgi.','#results tbody tr'],
+        ['Birim ücret','Gecelik, günlük veya kişi başı — tedarikçi karşılaştırması için.','#results table'],
+        ['Gruplama','Tedarikçiye göre grupla → hangi otelle ne kadar iş yaptık.','select[data-fset="group"]'],
+        ['Dosya görünümüne dön','Sekmeyle geçilir; filtreler ayrı tutulur.','#view .tabs']],
+      tip:'Satıra tıklamak hizmetin ait olduğu dosyayı açar.'},
+    detail:{t:'Dosya detayı',
+      why:'Bir dosyanın her şeyi tek ekranda: müşteri, konum, hizmetler, ödemeler, belgeler, form.',
+      who: A?'Herkes. Kâr ve fatura alanlarını yalnız yönetici görür.':'Herkes.',
+      items:[['Müşteri ve konum','Konumun kaynağı rozetle yazar: maildan (yaklaşık) veya WhatsApp (kesin).','card:Müşteri'],
+        ['Konumu güncelle','WhatsApp konum linkini yapıştır ya da haritada pin koy.','[data-act="editloc"]'],
+        ['Devral','Dosyanın sorumlusu siz olursunuz; gerekçesiyle loglanır.','[data-act="takeover"]'],
+        ['Hizmetler','Tarih, kişi/oda/gece, birim ücret. İkame araçta Uzat.','card:Hizmetler'],
+        ['+ Hizmet','Tür seç → konuma göre tedarikçi önerisi → brüt tutar.','#view [data-act="addsvc"]'],
+        ['Ödemeler','Havale, kart, mail order. Dekontsuz ödeme uyarı verir.','card:Ödemeler'],
+        ['Belgeler','Dekont, fatura, imzalı form. Fotoğraflar otomatik küçültülür.','card:Belgeler'],
+        ['Firma formu','Ford dosyalarında imzalı form gelmeden dosya faturaya girmez.','card:Ford hizmet formu || card:Firma formu'],
+        ['Tutarlar', A?'Brüt → matrah → KDV → marj → fatura toplamı.':'Ödenen brüt, matrah ve KDV.','card:Tutarlar']]
+        .concat(A?[['Satır marjı','Yeşil tutara tıklayınca yalnız o satırın oranı değişir.','#view .mgbtn'],
+                   ['Marjı değiştir','Tüm dosyaya tek oran; satıra özel olanlar etkilenmez.','[data-editcase]']]:[])
+        .concat([['Faturaya hazır mı?','Dört şarttan hangisi eksik, tek bakışta.','card:Faturaya hazır mı']]),
+      tip:'Terimlerin yanındaki <span class="ci" style="pointer-events:none">i</span> işaretine tıklayınca kısa açıklama açılır.'},
+    customer:{t:'Müşteri kartı',
+      why:'Bir müşterinin tüm dosyaları ve aldığı hizmetler — "bu müşteri daha önce ne almıştı?"',
+      who:'Herkes.',
+      items:[['Özet','Dosya ve hizmet sayısı, toplam brüt'+(A?', toplam kâr':'')+'.','#view .grid.g4 || #view .grid.g3'],
+        ['Aldığı hizmetler','Tür bazında adet, tedarikçi, tutar.','card:Aldığı hizmetler'],
+        ['Dosyaları','Tıklayınca dosya açılır.','card:Dosyaları']],
+      tip:'Müşteri kartına dosya listesinden veya üstteki Ara\'dan (⌘K) ulaşılır.'},
+    payments:{t:'Ödemeler',
+      why:'Tedarikçiye giden her kuruşun kaydı, dosya bazında gruplu.',
+      who:'Operasyon ve yönetici.',
+      items:[['Dosya satırı','Tıklayınca açılır; altında o dosyanın otel, taksi ödemeleri.','#results .payhead'],
+        ['Ödeme tipi','Havale/EFT, kredi kartı, mail order — rozetle.','#results .payhead .bdg'],
+        ['Ödeme detayı','Alt satıra tıklayınca IBAN veya kart, referans, kaydeden, dekont. Listede IBAN görünmez.','#results .paykid || #results .payhead'],
+        ['Arama','Tedarikçi, müşteri veya IBAN ile.','#qin'],
+        ['Dekontu eksikler','Detaylı filtre → Dekont eksik.','[data-drawer]']],
+      tip:'Ödeme detayındaki "Dosyaya git" ile ödemenin ait olduğu dosyaya geçilir.'},
+    forms:{t:'Ford Formları',
+      why:'Ford dosyalarında müşteriye imzalatılan hizmet formlarının takibi.',
+      who:'Operasyon.',
+      items:[['Form listesi','Oluşturuldu → imza bekliyor → imzalı geldi.','#results table'],
+        ['Bekleme süresi','Formun kaç gündür imza beklediği; 6 günden fazlası kırmızı.','#results tbody tr']],
+      tip:'İmzalı form, dosya detayındaki Belgeler\'den "İmzalı form" türüyle yüklenir.'},
+    suppliers:{t:'Tedarikçiler',
+      why:'Oteller, taksi durakları, kiralama firmaları ve diğer tedarikçiler.',
+      who:'Herkes.',
+      items:[['Tedarikçi listesi','Tip, konum, kaç kez çalışıldı, ortalama maliyet, son kullanım.','#results table'],
+        ['Durum','Önerilen, geçmiş, kara liste.','#results tbody tr'],
+        ['Arama','Ad, telefon veya il.','#qin']],
+      tip:'Hizmet eklerken öneri sırası buradan gelir: önce daha önce çalıştıklarımız.'},
+    billing:{t:'Faturalama',
+      why:'Ay sonu kapanışı: faturaya hazır dosyalar firma bazında toplanır.',
+      who:'Yalnız yönetici.',
+      items:[['Kapanış ön kontrolü','Hazır olmayan dosya sayısı ve nedenleri.','#view .note'],
+        ['Göstergeler','Hazır dosya, toplam matrah, marj, fatura toplamı.','#view .grid.g4'],
+        ['Firma tablosu','Net maliyet → marj → matrah → KDV → toplam.','#view .tw'],
+        ['Faturalandı işaretle','Tutarları dondurur, düzenlemeyi kilitler, vadeli alacak açar.','[data-act="runbill"]']],
+      tip:'Faturalanan dosyada marj oranı değiştirilemez; sonradan değişiklik düzeltme faturası ister.'},
+    receivables:{t:'Tahsilat',
+      why:'Kesilen faturaların ne kadarı tahsil edildi, ne kadarı vadede, ne kadarı gecikmede.',
+      who:'Yalnız yönetici.',
+      items:[['Göstergeler','Toplam alacak, vadesi geçen, kesinti, ortalama tahsil süresi.','#view .grid.g4'],
+        ['+ Tahsilat gir','Gelen ödemeyi işler; kesinti ayrı yazılır.','[data-act="collect"]'],
+        ['Fatura listesi','Vade, tahsil, kesinti, bakiye, durum.','#results table'],
+        ['Alacak yaşlandırma','Vadeden bu yana geçen güne göre dağılım.','card:Alacak yaşlandırma']],
+      tip:'Ödendi–faturalanmadı + faturalandı–tahsil edilmedi = şu an kasada olmayan para.'},
+    reports:{t:'Raporlar',
+      why: A?'Kârlılık, KDV, tedarikçi ve personel istatistikleri.':'Hacim, hizmet türü, tedarikçi ve personel istatistikleri.',
+      who: A?'Herkes; finansal kartlar yalnız yönetici.':'Herkes.',
+      items:[[A?'Aylık kâr':'Aylık brüt hacim','Son 6 ay, kapanış ayına göre.','card:Aylık'],
+        ['Hizmet türü dağılımı','Hangi hizmete ne kadar harcandı.','card:Hizmet türü']]
+        .concat(A?[['KDV özeti','İndirilecek, hesaplanan, ödenecek KDV — mali müşavir mutabakatı için.','card:KDV özeti']]:[])
+        .concat([['Otel istatistikleri','Hangi otelle kaç kez, ortalama gecelik.','card:Otel'],
+                 ['Personel','Kim kaç dosya, ortalama çözüm süresi.','card:Personel']])},
+    settings:{t:'Ayarlar',
+      why:'Görünüm, kurallar, kullanıcılar ve hatırlatma eşikleri.',
+      who: A?'Yönetici; tema seçimini herkes yapabilir.':'Tema seçimini herkes yapabilir.',
+      items:[['Görünüm teması','Beş tema; seçim bu tarayıcıda hatırlanır.','card:Görünüm teması']]
+        .concat(A?[['Kâr marjı ve KDV kuralları','Tür bazında oranlar; kod değişmeden güncellenir.','card:Kâr marjı']]:[])
+        .concat([['Kullanıcılar','Kim hangi rolde, son giriş.','card:Kullanıcılar'],
+                 ['Hatırlatma eşikleri','Hangi durumda kaç saat sonra uyarı gelir.','card:Hatırlatma']])}
+  };
+  return G[sc] || G.dashboard;
+}
+function renderGuide(){
+  var g=document.getElementById('guide'); if(!g) return;
+  var on=!!S.guide && !TR.on;
+  document.body.classList.toggle('guide-on', on);
+  if(!on){ g.hidden=true; g.innerHTML=''; return; }
+  var d=guideData(); g.hidden=false;
+  g.innerHTML=
+   '<div class="gd-hd"><div><div class="lb">Bu sayfa</div>'+
+   '<div class="dp" style="font-size:17px;margin-top:2px">'+esc(d.t)+'</div></div>'+
+   '<button class="x" data-guideclose aria-label="Rehberi kapat"><svg width="16" height="16" viewBox="0 0 24 24" '+
+   'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>'+
+   '<div class="gd-bd">'+
+    '<div class="gd-sec"><div class="lb">Ne için</div><p>'+d.why+'</p></div>'+
+    '<div class="gd-sec"><div class="lb">Kim kullanır</div><p>'+d.who+'</p></div>'+
+    '<div class="gd-sec"><div class="lb">Burada ne var · tıklayın, ekranda gösterelim</div>'+
+    d.items.map(function(it){
+      return '<button class="gd-it" data-flash="'+esc(it[2])+'"><b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span></button>';
+    }).join('')+'</div>'+
+    (d.tip?'<div class="gd-sec gd-tip"><b>İpucu · </b>'+d.tip+'</div>':'')+
+   '</div>'+
+   '<div class="gd-ft"><button class="btn pri sm" data-act="tourstart" style="align-self:flex-start">'+
+   icon('play')+'Hikâye turunu başlat</button>'+
+   '<span class="fnt" style="font-size:11px;line-height:1.5">Yanında <span class="ci" style="pointer-events:none">i</span> '+
+   'olan terimlere tıklayınca açıklama açılır.</span></div>';
+}
+function flashEl(sel){
+  var mob=innerWidth<=900;
+  if(mob && S.guide){ S.guide=false; render(); }          // mobilde alt panel öğeyi örtmesin
+  var el=firstEl(findEl(sel));
+  if(!el || !el.getClientRects().length){ toast('Bu öğe şu an ekranda yok'); return; }
+  el.classList.remove('gd-flash'); void el.offsetWidth; el.classList.add('gd-flash');
+  el.scrollIntoView({block:'center', behavior: REDUCED?'auto':'smooth'});
+  clearTimeout(el.__ft); el.__ft=setTimeout(function(){ el.classList.remove('gd-flash'); }, 2300);
+}
+
+/* ===================================================================
+   3) KARŞILAMA
+   =================================================================== */
+MODALS.welcome=function(){
+  return '<div class="ov" data-close><div class="mdl" style="max-width:560px">'+
+   '<div class="grab"></div>'+
+   '<div class="wel-hd"><div class="mark">H</div><div style="min-width:0">'+
+   '<div class="dp" style="font-size:20px">Helpist Operasyon Paneli</div>'+
+   '<div class="fnt" style="font-size:12px;margin-top:2px">Tıklanabilir prototip · veriler temsilidir</div></div>'+
+   '<button class="x" data-close aria-label="Kapat" style="align-self:flex-start"><svg width="16" height="16" '+
+   'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">'+
+   '<path d="M6 6l12 12M18 6 6 18"/></svg></button></div>'+
+   '<div class="mbd">'+
+    '<div class="mut" style="font-size:13.5px;line-height:1.6">Firmalardan gelen yol yardım talebini '+
+    '<b>mailin gelişinden tahsilata kadar</b> tek yerden yönetmek için. Nereden başlamak istersiniz?</div>'+
+    '<button class="wel-opt pri" data-act="tourstart"><b>▶ Hikâye turu</b>'+
+    '<span>Bir Ford talebini baştan sona izleyin · '+TOUR_STEPS.length+' adım · ~5 dk. '+
+    'Ekranı tur değiştirir; isterseniz düğmelere siz basarsınız.</span></button>'+
+    '<div class="grid g2" style="gap:10px">'+
+     '<button class="wel-opt" data-act="welfree"><b>Serbest gez</b>'+
+     '<span>Her ekranda sağ üstteki <b>Rehber</b> o sayfayı anlatır.</span></button>'+
+     '<button class="wel-opt" data-act="welops"><b>Operasyon gözüyle</b>'+
+     '<span>Çalışanın gördüğü panel: kâr ve fatura alanları hiç yok.</span></button>'+
+    '</div></div>'+
+   '<div class="mft"><span class="fnt" style="font-size:11.5px">Turda → ileri · ← geri · Esc kapat · '+
+   'Rol sağ üstten değişir</span></div>'+
+   '</div></div>';
+};
+
+/* ===================================================================
+   4) HİKÂYE TURU
+   Her adımın enter()'ı durumu SIFIRDAN kurar → ileri/geri/atlama güvenli.
+   doit: "Kendim deneyeyim" modunda kullanıcının basacağı düğme.
+   =================================================================== */
+function tstate(o){
+  S.role=o.role; if(o.screen) S.screen=o.screen; if(o.caseId) S.caseId=o.caseId;
+  if(o.tab) S.casesTab=o.tab;
+  S.modal=o.modal||null; S.drawer=null; S.guide=false;
+  render();
+}
+function payGroupEls(){
+  var h=document.querySelector('#results .payhead[data-toggle="'+DEMO_ID+'"]'); if(!h) return null;
+  var a=[h], n=h.nextElementSibling;
+  while(n && n.classList.contains('paykid')){ a.push(n); n=n.nextElementSibling; }
+  return a;
+}
+var OPS='Operasyon · Ayşe', ADM='Yönetici · Bircan';
+var TOUR_STEPS=[
+ {id:'intro', ch:'Başlangıç', role:'user', title:'Helpist Paneli — 5 dakikalık tur',
+  body:'Ford\'dan gelen bir yol yardım talebini <b>mailin gelişinden tahsilata kadar</b> izleyeceğiz. '+
+    'Önce operasyon çalışanı <b>Ayşe</b>\'nin gözünden, sonra yönetici <b>Bircan</b>\'ın.<br><br>'+
+    '<b>İleri</b> ekranı kendisi değiştirir. Bazı adımlarda <b>Kendim deneyeyim</b> çıkar — o zaman düğmeye siz basarsınız.',
+  enter:function(){ removeDemo(); tstate({role:'user', screen:'dashboard'}); }},
+
+ {id:'dash', ch:OPS, role:'user', title:'Güne başlangıç: Bugün ekranı', target:'#view .grid.g4',
+  body:'Ayşe güne bu ekranla başlar: açık dosyalar, faturaya hazır olmayanlar, dekontu eksik ödemeler, '+
+    'imza bekleyen Ford formları. Altında <b>24 saat içinde biten</b> ikame araçlar ve otel çıkışları, '+
+    'yanında onay bekleyen mailler.',
+  enter:function(){ removeDemo(); tstate({role:'user', screen:'dashboard'}); }},
+
+ {id:'inbox', ch:OPS, role:'user', title:'Mail geldi, sistem okudu', target:'card:Sistemin doldurduğu form',
+  body:'Ford\'un maili solda. Sistem maili okuyup formu kendisi doldurdu, emin olamadığı alanı <b>sarıyla</b> '+
+    'işaretledi (İlçe · %62). Dosya numarası daha önce açılmış mı, ona da baktı.<br><br>'+
+    'Sistem <b>hiçbir zaman kendi başına dosya açmaz</b> — son söz insanda.',
+  doit:{sel:'[data-act="approve"]', label:'Onayla ve dosya aç'},
+  enter:function(){ removeDemo(); tstate({role:'user', screen:'inbox'}); }},
+
+ {id:'opened', ch:OPS, role:'user', title:'Dosya açıldı', target:'card:Müşteri',
+  body:'<b>HLP-2026-000451</b> açıldı. Müşteri, araç ve adres maildan geldi. Konum şimdilik '+
+    '<b>yaklaşık</b>: mail yalnızca "Afyon–Konya karayolu 14. km" diyor, pin şehir merkezinde.',
+  doit:{sel:'[data-act="editloc"]', label:'Konumu güncelle'},
+  enter:function(){ ensureDemoCase(); demoSetLoc('mail'); demoRewind('svc');
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID}); }},
+
+ {id:'loc', ch:OPS, role:'user', title:'Kesin konum WhatsApp\'tan',
+  target:function(){ var i=document.getElementById('locin'); return i && i.parentElement; },
+  body:'Müşteri WhatsApp\'tan konumunu gönderdi, Ayşe linki yapıştırdı. <b>Google, Apple ve Yandex</b> '+
+    'linkleri tanınır; pin haritada kesin yere oturur, istenirse elle sürüklenir.<br><br>'+
+    'Bundan sonra tedarikçi önerileri <b>bu konuma göre</b> sıralanır.',
+  doit:{sel:'[data-act="saveloc"]', label:'Konumu kaydet'},
+  enter:function(){ ensureDemoCase(); demoSetLoc('mail'); demoRewind('svc'); S.locDraft=null;
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID, modal:'location'});
+    var i=document.getElementById('locin'); if(i){ i.value=DEMO_WA_LINK; locParseInput(); } }},
+
+ {id:'sup', ch:OPS, role:'user', title:'Otel lazım: tedarikçi önerisi', target:'#modal .supsec',
+  body:'Aile 4 kişi, konaklama acil. <b>Konaklama</b> seçilince liste konuma göre süzülür: '+
+    '<b>daha önce çalıştığımız oteller üstte</b>, kaç kez çalışıldığı ve ortalama fiyatı yanında. '+
+    'Telefon numarasına tıklayınca arar; kara listedekiler seçilemez.',
+  enter:function(){ ensureDemoCase(); demoSetLoc('wa'); demoRewind('svc');
+    S.svcType='konaklama'; S.supId=null;
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID, modal:'addService'}); }},
+
+ {id:'form', ch:OPS, role:'user', title:'Sadece brüt tutar yazılır', target:'#modal .svcform',
+  body:'Form türe göre değişir: konaklamada <b>kişi, oda, gece</b>; uçakta kişi ve PNR; lastikte yalnızca '+
+    'tarih ve tutar. Brüt tutarı yazmak yeterli — <b>matrahı ve KDV\'yi sistem ayırır</b>.',
+  doit:{sel:'[data-act="createsvc"]', label:'Hizmeti ekle'},
+  enter:function(){ ensureDemoCase(); demoSetLoc('wa'); demoRewind('svc'); S.svcType='konaklama';
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID, modal:'addService'}); }},
+
+ {id:'svc', ch:OPS, role:'user', title:'Hizmet dosyada', target:'card:Hizmetler',
+  body:'Otel satırı dosyaya düştü: tarih aralığı, <b>4 kişi · 2 oda · 3 gece</b>, oda başı gecelik ücret.<br><br>'+
+    'İkame araçta satırın yanında <b>Uzat</b> çıkar: eski satır bozulmaz, yenisi ona bağlanır.',
+  doit:{sel:'#view [data-act="payment"]', label:'+ Ödeme'},
+  enter:function(){ demoSetLoc('wa'); ensureDemoService(); demoRewind('pay');
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID}); }},
+
+ {id:'pay', ch:OPS, role:'user', title:'Otele ödeme', target:'#modal .paysec',
+  body:'Ödeme hizmete bağlanır; tedarikçi ve tutar oradan gelir. Üç tip var: <b>havale/EFT</b>, '+
+    '<b>kredi kartı</b>, <b>mail order</b>. Havalede IBAN kayıtlı olandan farklıysa sistem uyarır — '+
+    'sahte "IBAN\'ımız değişti" maili en yaygın dolandırıcılık yolu.',
+  doit:{sel:'[data-act="createpay"]', label:'Ödemeyi kaydet'},
+  enter:function(){ demoSetLoc('wa'); ensureDemoService(); demoRewind('pay'); S.payMethod='havale';
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID, modal:'payment'}); }},
+
+ {id:'doc', ch:OPS, role:'user', title:'Dekont: fotoğrafı çek, yükle', target:'#dropzone',
+  body:function(){
+    var f=S.docFile;
+    return 'Ödemenin dekontu <b>Belgeler</b>\'e yüklenir ve ödemeye bağlanır; yüklenene kadar ödeme '+
+      '"dekont eksik" görünür. Telefon fotoğrafı yüklenmeden önce tarayıcıda küçültülür'+
+      (f ? ': bu örnekte <b>'+kb(f.bytesOrig)+' → '+kb(f.bytes)+'</b>, %'+
+           Math.round((1-f.bytes/f.bytesOrig)*100)+' daha küçük. Yazılar okunur kalır.'
+         : ' — örnek fotoğraf hazırlanıyor…');
+  },
+  doit:{sel:'[data-act="savedoc"]', label:'Belgeyi ekle'},
+  enter:function(){ demoSetLoc('wa'); ensureDemoPayment(); demoRewind('doc'); S.docFile=null;
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID, modal:'addDoc'});
+    demoReceipt(function(file){
+      if(!TR.on || TR.steps[TR.i].id!=='doc' || S.modal!=='addDoc') return;
+      handleDocFile(file, function(f){
+        var p=payOf(DEMO_ID)[0]; f.name=(p?p.supplierName:'Otel')+' dekontu'; f.tag='Dekont'; });
+    }); }},
+
+ {id:'ready', ch:OPS, role:'user', title:'Faturaya hazır mı?', target:'card:Faturaya hazır mı',
+  body:'Dekont yüklendi, ödeme tamam. Ama dosya henüz <b>faturaya hazır değil</b>: konaklama bitmedi ve '+
+    'Ford\'un istediği <b>imzalı hizmet formu</b> gelmedi. Dört şart sağlanınca dosya ay sonu faturaya kendiliğinden girer.',
+  enter:function(){ demoSetLoc('wa'); ensureDemoDoc();
+    tstate({role:'user', screen:'detail', caseId:DEMO_ID}); }},
+
+ {id:'pays', ch:OPS, role:'user', title:'Ödemeler ekranı', target:payGroupEls,
+  body:'Her dosya tek satır; açınca altında otel, taksi gibi ödemeler. Ödeme tipi rozetle görünür, '+
+    'satıra tıklayınca detay açılır. <b>IBAN ve kart bilgisi yalnız detayda</b>, listede yok.',
+  enter:function(){ demoSetLoc('wa'); ensureDemoDoc(); resetFilter('payments'); S.openPay[DEMO_ID]=true;
+    tstate({role:'user', screen:'payments'}); }},
+
+ {id:'admin', ch:ADM, role:'admin', title:'Aynı dosya, yönetici gözüyle', target:'card:Tutarlar',
+  body:'Şimdi Bircan\'ın ekranı. Operasyonda hiç olmayan <b>kâr marjı, fatura matrahı ve fatura toplamı</b> burada.<br><br>'+
+    'Bu bir gizleme değil: operasyon kullanıcısına bu veri <b>hiç gönderilmez</b>, tarayıcısında bile yoktur. '+
+    '<span class="fnt">Sağ üstteki rol düğmesi yalnızca prototipte var.</span>',
+  doit:{sel:'#view .mgbtn', label:'satırdaki yeşil marj tutarı'},
+  enter:function(){ demoSetLoc('wa'); ensureDemoDoc();
+    tstate({role:'admin', screen:'detail', caseId:DEMO_ID}); }},
+
+ {id:'margin', ch:ADM, role:'admin', title:'Marj dört seviyede belirlenir', target:'#modal .mdl',
+  body:'<b>Satıra özel → dosyaya özel → hizmet türü kuralı → genel varsayılan.</b> En özel olan kazanır.<br><br>'+
+    'Asgari oranın altına inilirse işlem engellenmez ama gerekçesiyle loglanır. Faturalanmış dosyada oran donar.',
+  enter:function(){ demoSetLoc('wa'); ensureDemoDoc(); S.editScope='svc'; S.editSvc=ensureDemoService().id;
+    tstate({role:'admin', screen:'detail', caseId:DEMO_ID, modal:'margin'}); }},
+
+ {id:'billing', ch:ADM, role:'admin', title:'Ay sonu: faturalama',
+  target:function(){ var b=document.querySelector('[data-act="runbill"]'); return b && b.closest('.card'); },
+  body:'Faturaya hazır dosyalar firma bazında toplanır: net maliyet, marj, matrah, KDV, toplam. '+
+    'Hazır olmayanlar üstte nedenleriyle yazar.<br><br><b>Faturalandı işaretle</b> tutarları dondurur, '+
+    'düzenlemeyi kilitler ve her firma için vadeli alacak açar.',
+  enter:function(){ tstate({role:'admin', screen:'billing'}); }},
+
+ {id:'rec', ch:ADM, role:'admin', title:'Tahsilat ve kesinti', target:'card:Alacak yaşlandırma',
+  body:'Hangi firma ne kadar borçlu, vadesi kaç gün geçti. Firma kesinti yaparsa tahsilattan <b>ayrı</b> yazılır — '+
+    '"ne kadar tahsil ettik" ile "ne kadar kaybettik" karışmaz.<br><br>Yaşlandırma, işletme sermayesinin nerede bağlı kaldığını gösterir.',
+  enter:function(){ resetFilter('receivables'); tstate({role:'admin', screen:'receivables'}); }},
+
+ {id:'end', ch:'Son', role:'admin', title:'Tur bitti — şimdi kendiniz gezin', target:'#helpbtn',
+  body:'Her ekranda <b>Rehber</b> o sayfada ne olduğunu anlatır; maddeye tıklayınca öğeyi ekranda gösterir.<br><br>'+
+    'Yanında <span class="ci" style="pointer-events:none">i</span> olan terimler (matrah, marj, kesinti…) tıklanınca açıklanır. '+
+    'Tur, Rehber\'in altından yeniden başlar.',
+  enter:function(){ tstate({role:'admin', screen:'dashboard'}); }}
+];
+
+var TR={on:false, i:0, try:false, prevRole:null, steps:TOUR_STEPS, root:null, b:null, spot:null, card:null, rt:0};
+
+/* --- örnek dekont fotoğrafı (tarayıcıda çizilir; gerçek sıkıştırma bunun üzerinde çalışır) --- */
+function demoReceipt(cb){
+  var p=payOf(DEMO_ID)[0]; if(!p) return;
+  var key=p.supplierName+'|'+p.amount+'|'+p.method+'|'+p.ref;
+  if(window.__rcpt && window.__rcpt.key===key) return cb(window.__rcpt.file);
+  var W=3024, Hh=4032, cv=document.createElement('canvas'); cv.width=W; cv.height=Hh;  /* 12 MP — telefon kamerası */
+  var x=cv.getContext('2d');
+  var T=document.createElement('canvas'); T.width=T.height=256;
+  var tx=T.getContext('2d'), im=tx.createImageData(256,256);
+  for(var i=0;i<im.data.length;i+=4){ var v=198+Math.random()*44;
+    im.data[i]=v; im.data[i+1]=v-4; im.data[i+2]=v-12; im.data[i+3]=255; }
+  tx.putImageData(im,0,0);
+  x.fillStyle=x.createPattern(T,'repeat'); x.fillRect(0,0,W,Hh);
+  var g=x.createRadialGradient(W/2,Hh/2,Hh*0.18,W/2,Hh/2,Hh*0.78);
+  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(40,28,16,.42)');
+  x.fillStyle=g; x.fillRect(0,0,W,Hh);
+  x.save(); x.translate(W/2,Hh/2); x.rotate(-0.035);
+  x.scale(1.5,1.5);
+  var pw=1500, ph=2200, L=-pw/2+110, Rr=pw/2-110, y=-ph/2;
+  x.shadowColor='rgba(0,0,0,.35)'; x.shadowBlur=46; x.shadowOffsetY=20;
+  x.fillStyle='rgba(252,251,246,.9)'; x.fillRect(-pw/2,-ph/2,pw,ph);
+  x.shadowColor='transparent';
+  var title = p.method==='havale'?'HAVALE / EFT DEKONTU' : p.method==='kart'?'KREDİ KARTI SLİBİ':'MAIL ORDER ÇEKİM BELGESİ';
+  var iban=(p.iban||'').replace('…','0009 1234 5678 ');
+  x.textAlign='center'; x.fillStyle='#1b2a4a'; x.font='bold 80px Arial, sans-serif'; x.fillText('ÖRNEK BANKA A.Ş.',0,y+190);
+  x.fillStyle='#555'; x.font='46px Arial, sans-serif'; x.fillText(title,0,y+270);
+  x.fillStyle='#888'; x.fillRect(L,y+330,Rr-L,4);
+  var rows=[['İşlem tarihi','28.08.2026 18:04'],['Referans',p.ref],['Gönderen','HELPIST ASİSTANS LTD. ŞTİ.'],
+    ['Alıcı',p.supplierName.toLocaleUpperCase('tr-TR')],['Alıcı IBAN',iban||'—'],
+    ['Açıklama','HLP-2026-000451 · Konaklama'],['Kanal','İnternet şubesi']];
+  x.font='44px Arial, sans-serif';
+  rows.forEach(function(r,k){ var yy=y+440+k*118;
+    x.textAlign='left'; x.fillStyle='#777'; x.fillText(r[0],L,yy);
+    x.textAlign='right'; x.fillStyle='#1d1d1d'; x.fillText(r[1],Rr,yy);
+    x.fillStyle='#ddd'; x.fillRect(L,yy+38,Rr-L,2); });
+  var ty=y+440+rows.length*118+80;
+  x.textAlign='left'; x.fillStyle='#444'; x.font='bold 54px Arial, sans-serif'; x.fillText('TUTAR',L,ty);
+  x.textAlign='right'; x.fillStyle='#111'; x.font='bold 104px Arial, sans-serif';
+  x.fillText(p.amount.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' TL',Rr,ty+10);
+  x.save(); x.translate(Rr-230, ty+300); x.rotate(-0.2);
+  x.strokeStyle='rgba(170,30,40,.55)'; x.lineWidth=10; x.beginPath(); x.arc(0,0,170,0,Math.PI*2); x.stroke();
+  x.fillStyle='rgba(170,30,40,.6)'; x.font='bold 40px Arial, sans-serif'; x.textAlign='center';
+  x.fillText('ÖRNEK',0,-12); x.fillText('DEKONT',0,40); x.restore();
+  for(var bx=L; bx<L+900; bx+=6+Math.floor(Math.random()*12)){
+    x.fillStyle='#222'; x.fillRect(bx, ph/2-230, 2+Math.floor(Math.random()*6), 130); }
+  x.restore();
+  cv.toBlob(function(b){
+    if(!b) return;
+    var f; try{ f=new File([b],'IMG_4127.JPG',{type:'image/jpeg'}); }catch(e){ f=b; f.name='IMG_4127.JPG'; }
+    window.__rcpt={key:key, file:f}; cb(f);
+  },'image/jpeg',0.93);
+}
+
+/* --- yerleşim --- */
+function scrollParent(el){
+  var p=el.parentElement;
+  while(p && p!==document.body && p!==document.documentElement){
+    var cs=getComputedStyle(p);
+    if(/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight>p.clientHeight+2) return p;
+    p=p.parentElement;
+  }
+  return null;
+}
+function unionRect(els){
+  var r=null;
+  els.forEach(function(e){ var b=e.getBoundingClientRect(); if(!b.width && !b.height) return;
+    r = r ? {l:Math.min(r.l,b.left), t:Math.min(r.t,b.top), r:Math.max(r.r,b.right), b:Math.max(r.b,b.bottom)}
+          : {l:b.left, t:b.top, r:b.right, b:b.bottom}; });
+  return r;
+}
+function tscroll(els, mob){
+  var u=unionRect(els); if(!u) return;
+  var vh=innerHeight, head=mob?62:72, zTop, zH;
+  if(mob){ if(TR.try){ zTop=vh*0.42; zH=vh*0.54; } else { zTop=head; zH=vh*0.5-head; } }
+  else { zTop=head; zH=vh-head-16; }
+  var h=u.b-u.t, want = h<zH ? zTop+(zH-h)/2 : zTop, delta=u.t-want;
+  if(Math.abs(delta)<3) return;
+  var sp=scrollParent(els[0]);
+  if(sp) sp.scrollTop+=delta; else window.scrollTo(0, Math.max(0, window.scrollY+delta));
+}
+function setBlockers(hole, dim){
+  var b=TR.b, vw=innerWidth, vh=innerHeight;
+  function set(d,x,y,w,h){ d.style.left=x+'px'; d.style.top=y+'px';
+    d.style.width=Math.max(0,w)+'px'; d.style.height=Math.max(0,h)+'px'; }
+  b[0].classList.toggle('dim', !!dim);
+  if(!hole){ set(b[0],0,0,vw,vh); set(b[1],0,0,0,0); set(b[2],0,0,0,0); set(b[3],0,0,0,0); return; }
+  set(b[0],0,0,vw,hole.y); set(b[1],0,hole.y2,vw,vh-hole.y2);
+  set(b[2],0,hole.y,hole.x,hole.y2-hole.y); set(b[3],hole.x2,hole.y,vw-hole.x2,hole.y2-hole.y);
+}
+function placeCard(hole, mob){
+  var c=TR.card, vw=innerWidth, vh=innerHeight, M=8, g=14, ch, x, y;
+  if(mob){
+    c.style.width=''; c.style.left='8px'; ch=c.offsetHeight;
+    var atTop = TR.try || (hole && (hole.y+hole.y2)/2 > vh*0.58);
+    c.style.top=(atTop ? M : Math.max(M, vh-ch-M))+'px'; return;
+  }
+  var cw=Math.min(330, vw-16); c.style.width=cw+'px'; ch=c.offsetHeight;
+  function cl(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  if(!hole){ x=(vw-cw)/2; y=Math.max(M,(vh-ch)/2); }
+  else {
+    var o={ right:{x:hole.x2+g, y:cl(hole.y,M,vh-ch-M), ok:vw-hole.x2-g-M>=cw},
+            left: {x:hole.x-g-cw, y:cl(hole.y,M,vh-ch-M), ok:hole.x-g-M>=cw},
+            below:{x:cl(hole.x,M,vw-cw-M), y:hole.y2+g, ok:vh-hole.y2-g-M>=ch},
+            above:{x:cl(hole.x,M,vw-cw-M), y:hole.y-g-ch, ok:hole.y-g-M>=ch} };
+    var order=(hole.x2-hole.x)>vw*0.5 ? ['below','above','right','left'] : ['right','below','left','above'];
+    var pk=null; for(var k=0;k<order.length;k++) if(o[order[k]].ok){ pk=o[order[k]]; break; }
+    if(!pk){ // hiçbir yan sığmıyorsa hedefle en az çakışan köşe
+      var best=null, cs=[[M,M],[vw-cw-M,M],[M,vh-ch-M],[vw-cw-M,vh-ch-M]];
+      cs.forEach(function(p){
+        var ix=Math.max(0, Math.min(p[0]+cw,hole.x2)-Math.max(p[0],hole.x));
+        var iy=Math.max(0, Math.min(p[1]+ch,hole.y2)-Math.max(p[1],hole.y));
+        if(!best || ix*iy<best.a) best={x:p[0], y:p[1], a:ix*iy}; });
+      pk=best;
+    }
+    x=pk.x; y=pk.y;
+  }
+  c.style.left=Math.round(x)+'px'; c.style.top=Math.round(y)+'px';
+}
+function tourPlace(doScroll){
+  if(!TR.on) return;
+  var st=TR.steps[TR.i], vw=innerWidth, vh=innerHeight, mob=vw<=900;
+  var got=findEl((TR.try && st.doit) ? st.doit.sel : st.target), els=[];
+  if(got) els = got.nodeType ? [got] : Array.prototype.slice.call(got).filter(Boolean);
+  if(els.length && doScroll) tscroll(els, mob);
+  var r=els.length ? unionRect(els) : null, hole=null;
+  if(r){ var pad=6;
+    hole={x:Math.max(4,r.l-pad), y:Math.max(4,r.t-pad), x2:Math.min(vw-4,r.r+pad), y2:Math.min(vh-4,r.b+pad)};
+    if(hole.y2-hole.y<8 || hole.x2-hole.x<8) hole=null; }
+  var sp=TR.spot;
+  if(hole){ sp.style.display=''; sp.style.left=hole.x+'px'; sp.style.top=hole.y+'px';
+    sp.style.width=(hole.x2-hole.x)+'px'; sp.style.height=(hole.y2-hole.y)+'px'; sp.classList.toggle('try', TR.try); }
+  else sp.style.display='none';
+  setBlockers(TR.try && hole ? hole : null, !hole);
+  placeCard(hole, mob);
+}
+function tourRenderCard(){
+  var st=TR.steps[TR.i], n=TR.steps.length, last=TR.i===n-1;
+  var canTry = st.doit && findEl(st.doit.sel);
+  var body = typeof st.body==='function' ? st.body() : st.body;
+  var dots = TR.steps.map(function(x,j){
+    var gap = j>0 && TR.steps[j-1].ch!==x.ch ? ' gap' : '';
+    return '<button class="tr-dot'+(j<TR.i?' done':'')+(j===TR.i?' on':'')+gap+'" data-trgo="'+j+'" '+
+      'title="'+esc((j+1)+'. '+x.title)+'" aria-label="'+esc((j+1)+'. adım: '+x.title)+'"></button>'; }).join('');
+  TR.card.innerHTML=
+    '<div class="tr-top"><span class="tr-ch">'+esc(st.ch)+'</span>'+
+    '<span class="tr-n num">'+(TR.i+1)+' / '+n+'</span>'+
+    '<button class="tr-x" data-trclose aria-label="Turu kapat" title="Turu kapat (Esc)">×</button></div>'+
+    '<div class="tr-t">'+esc(st.title)+'</div>'+
+    (TR.try
+      ? '<div class="tr-try"><b>Sıra sizde:</b> vurgulanan <b>'+esc(st.doit.label)+'</b> düğmesine basın. '+
+        'Tur siz bastıktan sonra kendiliğinden devam eder.</div>'
+      : '<div class="tr-b">'+body+'</div>')+
+    '<div class="tr-dots">'+dots+'</div>'+
+    '<div class="tr-ft">'+
+      (TR.i>0 ? '<button class="btn sm" data-trprev>← Geri</button>' : '')+
+      (last ? '<button class="btn sm" data-trgo="0">↺ Baştan</button>' : '')+
+      (!TR.try && canTry ? '<button class="btn sm" data-trtry>Kendim deneyeyim</button>' : '')+
+      (TR.try ? '<button class="btn pri sm spread" data-trnext>Otomatik devam →</button>'
+              : '<button class="btn pri sm spread" data-trnext>'+(last?'Bitir':'İleri →')+'</button>')+
+    '</div>'+
+    '<div class="tr-kb desk">→ ileri · ← geri · Esc kapat</div>';
+  if(!TR.try){ var nb=TR.card.querySelector('[data-trnext]'); if(nb) try{ nb.focus({preventScroll:true}); }catch(e){} }
+}
+function tourGo(i){
+  if(!TR.on) return;
+  var n=TR.steps.length;
+  if(i<0) i=0;
+  if(i>=n){ tourClose(true); return; }
+  TR.i=i; TR.try=false; hideConcept();
+  try{ TR.steps[i].enter(); }catch(err){ if(window.console) console.error(err); }
+  tourRenderCard();
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ tourPlace(true); }); });
+  tourSettle();
+}
+/** Modal/sheet açılış animasyonu (0,2–0,25 sn) bitince hedef yer değiştirir → yeniden ölç */
+function tourSettle(){
+  clearTimeout(TR.st1); clearTimeout(TR.st2);
+  TR.st1=setTimeout(function(){ tourPlace(true); }, 300);
+  TR.st2=setTimeout(function(){ tourPlace(false); }, 700);
+}
+function tourStart(i){
+  if(!TR.on){
+    TR.on=true; TR.prevRole=S.role; S.guide=false;
+    try{ localStorage.setItem('helpist.welcome.v1','1'); }catch(e){}
+    document.body.classList.add('tour-on');
+    TR.root=document.getElementById('tour');
+    TR.root.innerHTML='<div class="tr-blk"></div><div class="tr-blk"></div><div class="tr-blk"></div>'+
+      '<div class="tr-blk"></div><div class="tr-spot"></div>'+
+      '<div class="tr-card" role="dialog" aria-label="Hikâye turu"></div>';
+    TR.b=TR.root.querySelectorAll('.tr-blk'); TR.spot=TR.root.querySelector('.tr-spot');
+    TR.card=TR.root.querySelector('.tr-card');
+  }
+  tourGo(i||0);
+}
+function tourClose(done){
+  if(!TR.on) return;
+  TR.on=false; TR.try=false; clearTimeout(TR.rt);
+  document.body.classList.remove('tour-on');
+  if(TR.root) TR.root.innerHTML='';
+  S.role=TR.prevRole||S.role;
+  if(!H() && ADMIN_SCREENS[S.screen]) S.screen='dashboard';
+  S.modal=null; S.docFile=null;
+  if(/^#tur/.test(location.hash)){ try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+  render();
+  toast(done ? 'Tur bitti — her ekranda Rehber o sayfayı anlatır'
+             : 'Tur kapatıldı — Rehber\'in altından yeniden başlatabilirsiniz');
+}
+/** render() her çağrıldığında: kartı tazele, spot'u yeniden konumla (DOM yenilendi) */
+function tourOnRender(){
+  if(!TR.on) return;
+  clearTimeout(TR.rt);
+  TR.rt=setTimeout(function(){ if(!TR.on) return; tourRenderCard(); tourPlace(true); }, 40);
+  tourSettle();
+}
+
+/* --- olaylar --- */
+document.getElementById('tour').addEventListener('click', function(e){
+  var t=e.target, b;
+  e.stopPropagation();
+  if(!TR.on) return;
+  if(t.closest('[data-trnext]')) tourGo(TR.i+1);
+  else if(t.closest('[data-trprev]')) tourGo(TR.i-1);
+  else if(t.closest('[data-trclose]')) tourClose(false);
+  else if(t.closest('[data-trtry]')){ TR.try=true; tourRenderCard(); tourPlace(true); }
+  else if((b=t.closest('[data-trgo]'))) tourGo(+b.getAttribute('data-trgo'));
+});
+// "Kendim deneyeyim": vurgulanan düğmeye basılınca uygulama işini yapsın, sonra ilerle
+document.addEventListener('click', function(e){
+  if(!TR.on || !TR.try) return;
+  var st=TR.steps[TR.i]; if(!st.doit) return;
+  if(e.target.closest && e.target.closest(st.doit.sel)){
+    var i=TR.i; setTimeout(function(){ if(TR.on && TR.i===i) tourGo(i+1); }, 80);
+  }
+}, true);
+document.addEventListener('keydown', function(e){
+  if(!TR.on) return;
+  var k=e.key;
+  if(k==='ArrowRight' || k==='PageDown'){ e.preventDefault(); e.stopPropagation(); tourGo(TR.i+1); }
+  else if(k==='ArrowLeft' || k==='PageUp'){ e.preventDefault(); e.stopPropagation(); tourGo(TR.i-1); }
+  else if(k==='Escape'){ e.preventDefault(); e.stopPropagation(); tourClose(false); }
+}, true);
+window.addEventListener('resize', function(){ if(TR.on) requestAnimationFrame(function(){ tourPlace(false); }); });
+document.addEventListener('animationend', function(e){
+  if(TR.on && e.target.closest && e.target.closest('#modal, #view')) tourPlace(false); }, true);
+document.addEventListener('scroll', function(){ if(TR.on) requestAnimationFrame(function(){ tourPlace(false); }); }, true);
+
+/* --- açılış: #tur / #tur-7 / #serbest / ilk ziyaret --- */
+function bootGuide(){
+  var h=location.hash||'', m=h.match(/^#tur(?:-(\d+))?$/);
+  if(m){ tourStart(m[1] ? Math.max(0,(+m[1])-1) : 0); return; }
+  if(h==='#serbest') return;
+  var seen=false; try{ seen=!!localStorage.getItem('helpist.welcome.v1'); }catch(e){}
+  if(!seen){ S.modal='welcome'; render(); try{ localStorage.setItem('helpist.welcome.v1','1'); }catch(e){} }
+}
+window.addEventListener('hashchange', function(){
+  var m=(location.hash||'').match(/^#tur(?:-(\d+))?$/);
+  if(m) tourStart(m[1] ? Math.max(0,(+m[1])-1) : 0);
+});
 render();
-if(!document.getElementById('fcount')) {} else refreshList();
+bootGuide();
 
 </script>
 
