@@ -489,6 +489,24 @@ input.inp,select.inp{display:block}
   .tr-b{font-size:12.5px}
 }
 @media (prefers-reduced-motion:reduce){ .tr-spot,.tr-card{transition:none} .tr-spot.try{animation:none} }
+
+/* ---------- seyir grafiği ---------- */
+.tc-body{position:relative}
+.tc-read{position:absolute;right:18px;top:12px;z-index:2;text-align:right;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--sf) 22%);padding-left:28px;line-height:1.45}
+.tc-read b{font-size:15.5px;font-weight:700;color:var(--ink)}
+.tc-read .fnt{font-size:12px}
+.tc-wrap{position:relative}
+.tc-scroll{overflow-x:auto;overflow-y:hidden;outline:none;scrollbar-width:thin;cursor:crosshair;touch-action:pan-x}
+.tc-scroll:focus-visible{box-shadow:inset 0 0 0 2px var(--ac);border-radius:var(--r)}
+.tc-scroll svg{display:block}
+.tc-y{position:absolute;inset:0 auto 0 0;pointer-events:none}
+.tc-y span{position:absolute;left:12px;transform:translateY(-100%);font-size:10.5px;color:var(--ink3);
+  background:var(--sf);padding:0 4px;border-radius:3px;font-variant-numeric:tabular-nums}
+.tc-foot{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;padding:6px 15px 12px}
+.tc-tab summary{cursor:pointer;font-size:12px;color:var(--ink2);text-align:right}
+.tc-tab[open]{flex-basis:100%}
+.tc-tab[open] summary{margin-bottom:8px}
 </style>
 
 <div class="shell">
@@ -702,15 +720,30 @@ var CASES=[], SERVICES=[], PAYMENTS=[], FORMS=[], RECEIVABLES=[], DOCS=[];
 var _byId = {};
 function caseByIdRaw(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) return CASES[i]; return null; }
 
-(function build(){
-  var caseNo = 300, svcId = 0, payId = 0;
+var CASE_SEQ = 0;                                          // son verilen dosya sıra numarası
+function caseNoOf(k){ return 'HLP-2026-'+String(k).padStart(6,'0'); }
+function poisson(l){ var L=Math.exp(-l), k=0, p=1; do { k++; p*=rnd(); } while(p>L); return k-1; }
 
-  for (var i=0;i<62;i++){
+(function build(){
+  var svcId = 0, payId = 0;
+
+  /* Günlük dosya akışı — 6 ay. Hafta sonu (Cuma–Pazar) ve bayram yolculuğunda artış,
+     yaz aylarında hafif yükseliş, dönem boyunca yavaş büyüme. Ortalama ~3 dosya/gün. */
+  var OPEN_AT=[];
+  for (var dd=179; dd>=0; dd--){
+    var day=dayStart(addDays(TODAY,-dd)), wd=day.getDay();
+    var lam = 1.7 + 1.2*(1-dd/179) + ((wd===0||wd===5||wd===6) ? 0.9 : 0);
+    if (day>=new Date(2026,4,25) && day<=new Date(2026,5,1)) lam += 2.4;   // Kurban Bayramı yolculuğu
+    if (day.getMonth()===6 || day.getMonth()===7) lam += 0.5;             // yaz tatili
+    var cnt=poisson(lam);
+    for (var q=0;q<cnt;q++)
+      OPEN_AT.push(new Date(day.getTime() + ri(7, dd===0?17:22)*3600000 + ri(0,59)*60000));
+  }
+
+  for (var i=0;i<OPEN_AT.length;i++){
     var co = pick(COMPANIES);
     var pl = pick(PLACES);
-    // ilk birkaç dosya bugün/dün açılsın ki "Bugün" ve "Dün" hızlı filtreleri boş kalmasın
-    var ageDays = i<2 ? 0 : (i<4 ? 1 : ri(0,178));
-    var openedAt = dayStart(addDays(TODAY, -ageDays));
+    var openedAt = OPEN_AT[i];
     var span = ri(2,11);
     var closedAt = addDays(openedAt, span);
     var isClosed = closedAt < TODAY;
@@ -724,11 +757,11 @@ function caseByIdRaw(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) r
 
     var u = pick(USERS);
     // müşterilerin bir kısmı tekrar eden müşteri olsun (müşteri kartı anlamlı olsun diye)
-    var reuse = (i>8 && rnd()<0.34) ? CASES[Math.floor(rnd()*CASES.length)] : null;
+    var reuse = (i>8 && rnd()<0.1) ? CASES[Math.floor(rnd()*CASES.length)] : null;
     var name = reuse ? reuse.cu : (pick(FIRST)+' '+pick(LAST));
     var c = {
       id:'c'+i,
-      no:'HLP-2026-000'+(++caseNo),
+      no:'',                          // aşağıda açılış sırasına göre verilir
       ext: co.substring(0,1)+'-'+ri(80000,89999),
       co: reuse ? reuse.co : co, cu:name,
       phone: reuse ? reuse.phone : ('+90 5'+ri(30,59)+' '+ri(100,999)+' '+ri(10,99)+' '+ri(10,99)),
@@ -818,7 +851,8 @@ function caseByIdRaw(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) r
       // ödeme
       var hasDoc = rnd() < (isClosed?0.88:0.62);
       var mth = rnd()<0.52 ? 'havale' : (rnd()<0.62 ? 'kart' : 'mailorder');
-      var pAt = addDays(st, ri(0,3)); pAt = new Date(pAt.getTime()+ (ri(9,18)*3600000) + ri(0,59)*60000);
+      var pAt = addDays(dayStart(st), ri(0,3)); pAt = new Date(pAt.getTime()+ (ri(9,18)*3600000) + ri(0,59)*60000);
+      if (pAt > TODAY) pAt = new Date(TODAY.getTime() - ri(10,420)*60000);   // gelecekte ödeme olmaz
       PAYMENTS.push({ id:'p'+(++payId), caseId:c.id, serviceId:s.id, svcType:tk, supplier:sup.id,
         supplierName:sup.n, iban:sup.iban, amount:gross, dir:'out',
         method:mth, card: mth==='havale'? null : {last4:String(ri(1000,9999)), bank:pick(['Garanti','İş Bankası','Yapı Kredi','Akbank'])},
@@ -832,15 +866,18 @@ function caseByIdRaw(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) r
         PAYMENTS.push({ id:'p'+(++payId), caseId:c.id, serviceId:s.id, svcType:tk, supplier:sup.id,
           supplierName:sup.n, iban:sup.iban, amount:Math.round(gross*0.2), dir:'refund',
           method:'havale', card:null, ref:'IAD-'+ri(100000,999999),
-          paidAt:addDays(st, ri(3,7)), enteredBy:u.k, hasDoc:true, status:'odendi',
+          paidAt:(function(d){ return d>TODAY ? new Date(TODAY.getTime()-ri(30,600)*60000) : d; })(addDays(dayStart(st), ri(3,7))),
+          enteredBy:u.k, hasDoc:true, status:'odendi',
           warn:'Müşteri erken çıktı — kısmi iade' });
       }
     }
 
     // --- Ford formu
     if (c.formNeeded){
+      // faturaya hazır / faturalanmış dosyada form mutlaka imzalı gelmiştir
       var fs = !isClosed ? 'olusturuldu'
-             : (rnd()<0.72 ? 'imzali_geldi' : 'gonderildi');
+             : (status==='faturaya_hazir' || status==='faturalandi') ? 'imzali_geldi'
+             : (rnd()<0.45 ? 'imzali_geldi' : 'gonderildi');
       FORMS.push({ id:'f'+i, caseId:c.id, type: rnd()<0.5?'Otel':'Taksi', status:fs,
         sentAt: fs==='olusturuldu'? null : addDays(closedAt, -1),
         signedAt: fs==='imzali_geldi'? addDays(closedAt, 1) : null });
@@ -848,7 +885,10 @@ function caseByIdRaw(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) r
     }
 
     if (status==='hazir_degil' && !c.docMissing && !c.formMissing) c.docMissing = true;
-    if (status==='faturaya_hazir' || status==='faturalandi'){ c.docMissing=false; c.formMissing=false; }
+    if (status==='faturaya_hazir' || status==='faturalandi'){
+      c.docMissing=false; c.formMissing=false;
+      for (var pp=PAYMENTS.length-1; pp>=0 && PAYMENTS[pp].caseId===c.id; pp--) PAYMENTS[pp].hasDoc=true;   // faturalanan dosyada dekont eksik olamaz
+    }
 
     CASES.push(c);
   }
@@ -888,6 +928,10 @@ function caseByIdRaw(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) r
     }
   });
 
+  // dosya numaraları açılış sırasına göre (en yeni = en büyük numara)
+  CASES.slice().sort(function(a,b){ return a.openedAt - b.openedAt; })
+    .forEach(function(c,k){ c.no = caseNoOf(1001+k); });
+  CASE_SEQ = 1000 + CASES.length;
   CASES.sort(function(a,b){ return b.openedAt - a.openedAt; });
 
   // --- faturalar / alacaklar (faturalanmış dosyalardan, firma+ay bazında)
@@ -1368,7 +1412,7 @@ function payTargetService(c){
 function demoCase(){ return caseByIdRaw(DEMO_ID); }
 function ensureDemoCase(){
   var c=demoCase(); if(c) return c;
-  c={ id:DEMO_ID, no:'HLP-2026-000451', ext:'F-88214', co:'FORD', cu:'Ahmet Yılmaz',
+  c={ id:DEMO_ID, no:caseNoOf(CASE_SEQ+1), ext:'F-88214', co:'FORD', cu:'Ahmet Yılmaz',
       phone:'+90 532 448 21 07', plate:'34ABC123', brand:'Ford', model:'Focus', year:2021,
       city:'Afyonkarahisar', district:'Merkez', issue:'Motor arızası · yolda kaldı',
       prio:'acil', status:'acik', user:'AY', openedAt:new Date(2026,7,28,9,21), closedAt:null,
@@ -1513,8 +1557,9 @@ var TITLES={
   suppliers:['Tedarikçiler','Oteller, taksi durakları, kiralama firmaları'],
   billing:['Faturalama','Ay sonu kapanışı · matrah / KDV / toplam'],
   receivables:['Tahsilat','Alacak takibi, vadeler ve kesintiler'],
-  reports:['Raporlar','Kârlılık, KDV, tedarikçi ve personel istatistikleri'],
-  settings:['Ayarlar','Tema, kâr marjı, KDV oranları, kullanıcılar'],
+  reports:['Raporlar','Kârlılık, KDV, tedarikçi ve personel istatistikleri',
+           'Dosya ve hacim seyri, tedarikçi ve personel istatistikleri'],
+  settings:['Ayarlar','Tema, kâr marjı, KDV oranları, kullanıcılar','Tanıtım, tema, kullanıcılar, hatırlatmalar'],
   customer:['Müşteri Kartı','']
 };
 var LIST_SCREENS=['cases','services','payments','forms','suppliers','receivables'];
@@ -1527,7 +1572,7 @@ function render(){
   var subEl=document.getElementById('sub');
   subEl.textContent = (sc==='detail' && S.caseId) ?
     (function(){ var c=caseById(S.caseId); return c.no+' · '+c.cu+' · '+c.co; })()
-    : (sc==='customer' && S.customer) ? S.customer : t[1];
+    : (sc==='customer' && S.customer) ? S.customer : (!H() && t[2]) ? t[2] : t[1];
   document.getElementById('merole').textContent = H()?'Yönetici':'Operasyon kullanıcısı';
   var _me=ME(), _av=document.getElementById('meav'), _mn=document.getElementById('mename');
   if(_av){ _av.textContent=_me.k; _av.style.background=_me.c; } if(_mn) _mn.textContent=_me.n;
@@ -1565,6 +1610,7 @@ function render(){
     dashboard:vDash, inbox:vInbox, cases:vList, payments:vList, forms:vList,
     suppliers:vList, receivables:vRecScreen, detail:vDetail, billing:vBilling,
     reports:vReports, settings:vSettings, customer:vCustomer }[sc]||vDash)();
+  if(sc==='reports' && typeof drawTrend==='function') drawTrend(); else TC=null;
 
   if(document.getElementById('fcount')){
     var _n=filterRows(curScope()).length;
@@ -1815,7 +1861,8 @@ function vRecScreen(){
     kpi('Ort. tahsilat süresi','47 gün','vade ortalama 45 gün')+'</div>'+
    '<div class="grid" style="grid-template-columns:1fr 320px;align-items:start">'+
     '<div class="card">'+fbarHTML('receivables')+'<div id="results">'+resultsHTML('receivables')+'</div></div>'+
-    '<div class="card"><div class="chd"><div class="ct">Alacak yaşlandırma'+ci('aging')+'</div></div>'+
+    '<div class="card"><div class="chd"><div class="ct">Vadesi geçen alacaklar'+ci('aging')+'</div>'+
+     '<span class="fnt spread" style="font-size:11px">vadeden bu yana geçen gün</span></div>'+
      '<div class="cbd stack" style="gap:14px">'+
      ag.map(function(g){ return '<div><div class="row" style="font-size:12px;margin-bottom:5px">'+
        '<span class="mut" style="font-weight:600">'+g.l+'</span><b class="num spread">'+m0(g.v)+'</b></div>'+
@@ -2666,15 +2713,7 @@ function adminOnly(){
 
 /* =============== RAPORLAR =============== */
 function vReports(){
-  var months=[];
-  for(var i=5;i>=0;i--){ var d=new Date(TODAY.getFullYear(), TODAY.getMonth()-i, 1); months.push(ym(d)); }
-  var byMonth={}; months.forEach(function(k){ byMonth[k]={mg:0,gross:0}; });
-  CASES.forEach(function(c){ var k=ym(c.closedAt); if(byMonth[k]){
-    var v=caseCalc(c); byMonth[k].mg+=v.margin; byMonth[k].gross+=v.gross; } });
   var A=H();
-  var mVal=function(k){ return A? byMonth[k].mg : byMonth[k].gross; };
-  var mxM=Math.max.apply(null, months.map(mVal).concat([1]));
-
   var byType={}; TKEYS.forEach(function(t){ byType[t]=0; });
   SERVICES.forEach(function(s){ byType[s.type]+=svcCalc(s).gross; });
   var tOrder=TKEYS.slice().sort(function(a,b){ return byType[b]-byType[a]; });
@@ -2701,18 +2740,8 @@ function vReports(){
     return {u:u, cs:cs.length, sv:sv.length, closed:closed.length, med:med}; });
 
   return '<div class="stack">'+
-   '<div class="grid '+(A?'g3':'g2')+'">'+
-    '<div class="card"><div class="chd"><div class="ct">'+
-     (A?'Aylık kâr — son 6 ay':'Aylık brüt hacim — son 6 ay')+'</div></div><div class="cbd">'+
-     '<div style="display:flex;align-items:flex-end;gap:11px;height:150px">'+
-     months.map(function(k,i){ var v=mVal(k);
-      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">'+
-       '<span class="num fnt" style="font-size:10.5px">'+mk(v)+'</span>'+
-       '<div style="width:100%;height:'+Math.max(4,Math.round(v/mxM*104))+'px;'+
-       'border-radius:var(--r) var(--r) 0 0;background:'+(i===5?'var(--ac)':'var(--ac-soft)')+';'+
-       'border:var(--bw) solid var(--ac)"></div>'+
-       '<span class="fnt" style="font-size:10.5px">'+k.substring(5)+'</span></div>'; }).join('')+
-     '</div></div></div>'+
+   trendCard()+
+   '<div class="grid '+(A?'g2':'')+'">'+
     '<div class="card"><div class="chd"><div class="ct">Hizmet türü dağılımı</div></div>'+
      '<div class="cbd stack" style="gap:11px">'+
      tOrder.map(function(t){ return '<div><div class="row" style="font-size:12px;margin-bottom:4px">'+
@@ -3494,7 +3523,7 @@ function act(a){
   if(a==='torole'){ setRole('admin'); return; }
   if(a==='torole2'){ setRole(H()?'user':'admin'); return; }
   if(a==='createcase'){
-    var c={ id:'cNEW', no:'HLP-2026-000452', ext:'F-88402', co:'FORD', cu:'Zeynep Aydın',
+    var c={ id:'cNEW', no:caseNoOf(CASE_SEQ+2), ext:'F-88402', co:'FORD', cu:'Zeynep Aydın',
       phone:'+90 545 217 63 44', plate:'06BFN45', brand:'Ford', model:'Kuga', year:2023,
       city:'Eskişehir', district:'Tepebaşı', issue:'Akü arızası · araç çalışmıyor',
       prio:'normal', status:'acik', user:'AY', openedAt:dayStart(TODAY), closedAt:null,
@@ -3502,7 +3531,7 @@ function act(a){
     CASES.unshift(c); _byId={};
     F.cases.preset='gun'; F.cases.dateField='opened';
     S.modal=null; S.screen='cases'; render();
-    toast('HLP-2026-000452 açıldı — filtre "Bugün"e alındı, yeni dosya listede'); return; }
+    toast(c.no+' açıldı — filtre "Bugün"e alındı, yeni dosya listede'); return; }
   if(a==='createsvc'){
     var cs=caseById(S.caseId), k=S.svcType, list=suppliersFor(k, cs.city);
     var pk=list.filter(function(x){ return x.s.id===S.supId && !x.s.black; })[0] ||
@@ -3577,6 +3606,228 @@ function act(a){
 /* ilk render tour.js sonunda (rehber katmanı tanımlandıktan sonra) */
 
 /* ===================================================================
+   SEYİR GRAFİĞİ — Raporlar, sol üst
+   Günlük / haftalık çizgi + alan. Nokta aralığı sabit; veri çoğaldıkça
+   grafik sağdan sola uzar, kaydırma en yeni güne (sağa) yaslı açılır.
+   Üzerine gelinen noktaya kadar renkli, sonrası gri; üstte okuma.
+   =================================================================== */
+var TREND_METRICS = {
+  count: {n:'Dosya',      fmt:function(v){ return Math.round(v)+' dosya'; },
+          avg:function(v){ return v.toFixed(1).replace('.',','); },
+          basis:'dosya açılış tarihine göre'},
+  gross: {n:'Brüt hacim', fmt:function(v){ return m0(v); },
+          avg:function(v){ return '₺'+mk(v); },
+          basis:'hizmet başlangıç tarihine göre, tedarikçiye ödenen brüt'},
+  margin:{n:'Kâr',        fmt:function(v){ return m0(v); }, admin:true,
+          avg:function(v){ return '₺'+mk(v); },
+          basis:'hizmet başlangıç tarihine göre, matrah üzerinden marj'}
+};
+var AY_UZUN=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+if(!S.trendMetric) S.trendMetric='count';
+if(!S.trendGran)   S.trendGran='day';
+
+function trendSeries(metric, gran){
+  var n=180, start=dayStart(addDays(TODAY,-(n-1))), arr=[];
+  for(var i=0;i<n;i++) arr.push({d:addDays(start,i), v:0});
+  if(metric==='count'){
+    CASES.forEach(function(c){ var k=daysBetween(start,c.openedAt); if(k>=0 && k<n) arr[k].v++; });
+  } else {
+    SERVICES.forEach(function(s){
+      var k=daysBetween(start,s.startAt); if(k<0 || k>=n) return;
+      var sc=svcCalc(s); arr[k].v += metric==='gross' ? sc.gross : sc.margin; });
+  }
+  if(gran!=='week') return arr;
+  var out=[];
+  arr.forEach(function(p){
+    var ws=addDays(p.d, -((p.d.getDay()+6)%7));               // haftanın pazartesisi
+    if(!out.length || +out[out.length-1].d!==+ws) out.push({d:ws, v:0, from:p.d, to:p.d});
+    var w=out[out.length-1]; w.v+=p.v; w.to=p.d;
+  });
+  return out;
+}
+function niceMax(v){
+  if(v<=0) return 1;
+  var e=Math.pow(10, Math.floor(Math.log10(v))), f=v/e;
+  return (f<=1?1: f<=2?2: f<=2.5?2.5: f<=5?5: 10)*e;
+}
+/** Monoton kübik eğri (Fritsch–Carlson): yumuşak, ama veri aralığının dışına taşmaz (sıfırın altına inmez) */
+function monoPath(P){
+  var n=P.length; if(n<2) return n? 'M'+P[0][0]+','+P[0][1] : '';
+  var dx=[], m=[], t=[], i;
+  for(i=0;i<n-1;i++){ dx[i]=P[i+1][0]-P[i][0]; m[i]=(P[i+1][1]-P[i][1])/dx[i]; }
+  t[0]=m[0]; t[n-1]=m[n-2];
+  for(i=1;i<n-1;i++) t[i] = (m[i-1]*m[i]<=0) ? 0 : (m[i-1]+m[i])/2;
+  for(i=0;i<n-1;i++){
+    if(m[i]===0){ t[i]=0; t[i+1]=0; continue; }
+    var a=t[i]/m[i], b=t[i+1]/m[i], s=a*a+b*b;
+    if(s>9){ var k=3/Math.sqrt(s); t[i]=k*a*m[i]; t[i+1]=k*b*m[i]; }
+  }
+  var d='M'+P[0][0].toFixed(1)+','+P[0][1].toFixed(1);
+  for(i=0;i<n-1;i++){
+    var h=dx[i]/3;
+    d+='C'+(P[i][0]+h).toFixed(1)+','+(P[i][1]+t[i]*h).toFixed(1)+' '+
+         (P[i+1][0]-h).toFixed(1)+','+(P[i+1][1]-t[i+1]*h).toFixed(1)+' '+
+         P[i+1][0].toFixed(1)+','+P[i+1][1].toFixed(1);
+  }
+  return d;
+}
+
+function trendCard(){
+  var A=H();
+  if(!A && TREND_METRICS[S.trendMetric].admin) S.trendMetric='count';
+  var chips=Object.keys(TREND_METRICS).filter(function(k){ return A || !TREND_METRICS[k].admin; })
+    .map(function(k){ return '<button class="chip" data-trm="'+k+'"'+(S.trendMetric===k?' aria-pressed="true"':'')+'>'+
+      TREND_METRICS[k].n+'</button>'; }).join('');
+  var gch=[['day','Günlük'],['week','Haftalık']].map(function(g){
+    return '<button class="chip" data-trg="'+g[0]+'"'+(S.trendGran===g[0]?' aria-pressed="true"':'')+'>'+g[1]+'</button>'; }).join('');
+  return '<div class="card tc-card">'+
+   '<div class="chd" style="flex-wrap:wrap;gap:8px 10px"><div class="ct">Son 6 ay seyri</div>'+
+    '<div class="row" style="gap:6px;flex-wrap:wrap">'+chips+'<span class="vr"></span>'+gch+'</div>'+
+    '<span class="fnt spread num" id="tcavg" style="font-size:12px"></span></div>'+
+   '<div class="tc-body">'+
+    '<div class="tc-read" id="tcread" aria-live="polite"></div>'+
+    '<div class="tc-wrap"><div class="tc-scroll" id="tcscroll" tabindex="0" '+
+      'aria-label="Seyir grafiği. Sol ve sağ ok tuşlarıyla noktalar arasında gezinin.">'+
+      '<svg id="tcsvg" role="img" aria-label="Son 6 ay seyri"></svg></div>'+
+     '<div class="tc-y" id="tcy" aria-hidden="true"></div></div>'+
+    '<div class="tc-foot"><span class="fnt" id="tcbasis" style="font-size:11px"></span>'+
+     '<details class="tc-tab spread"><summary>Tablo olarak göster</summary><div id="tctab"></div></details></div>'+
+   '</div></div>';
+}
+
+var TC=null;   // son çizimin durumu (seçim güncellemesi için)
+function drawTrend(keepScroll){
+  var sc=document.getElementById('tcscroll'), svg=document.getElementById('tcsvg');
+  if(!sc || !svg) return;
+  var M=TREND_METRICS[S.trendMetric], day=S.trendGran==='day';
+  var data=trendSeries(S.trendMetric, S.trendGran), n=data.length;
+  // görünen alanda ~30 gün (günlük) / 26 hafta (haftalık); fazlası sağdan sola kayar
+  var vw=sc.clientWidth, step=day ? Math.max(24, vw/30) : Math.max(34, vw/26), padL=16, padR=22;
+  var W=Math.max(vw, padL+padR+(n-1)*step), Hh=250, top=70, bot=Hh-30;
+  var xs=n>1 ? (W-padL-padR)/(n-1) : 0;
+  var vals=data.map(function(p){ return p.v; });
+  var sum=vals.reduce(function(a,b){ return a+b; },0), avg=n? sum/n : 0;
+  var max=niceMax(Math.max.apply(null, vals.concat([1]))*1.08);
+  function X(i){ return padL+i*xs; }
+  function Y(v){ return bot-(v/max)*(bot-top); }
+  var P=data.map(function(p,i){ return [X(i), Y(p.v)]; });
+  var line=monoPath(P);
+  var area=line+'L'+X(n-1).toFixed(1)+','+bot+'L'+X(0).toFixed(1)+','+bot+'Z';
+
+  var grid='';
+  [0, max/2, max].forEach(function(g){
+    grid+='<line x1="0" x2="'+W+'" y1="'+Y(g).toFixed(1)+'" y2="'+Y(g).toFixed(1)+'" style="stroke:var(--line);stroke-width:1"/>'; });
+  var labels='';
+  for(var i=n-1;i>=0;i-=(day?7:4)){
+    var x=X(i), anc = x<34?'start' : (x>W-34?'end':'middle');
+    labels+='<text x="'+x.toFixed(1)+'" y="'+(Hh-8)+'" text-anchor="'+anc+'" '+
+      'style="fill:var(--ink3);font-size:11px;font-family:var(--ft),sans-serif">'+fmtDM(data[i].d)+'</text>';
+  }
+  svg.setAttribute('width', W); svg.setAttribute('height', Hh);
+  svg.setAttribute('viewBox','0 0 '+W+' '+Hh);
+  svg.innerHTML=
+    '<defs><linearGradient id="tcg" x1="0" y1="0" x2="0" y2="1">'+
+     '<stop offset="0" style="stop-color:var(--ac);stop-opacity:.22"/>'+
+     '<stop offset="1" style="stop-color:var(--ac);stop-opacity:0"/></linearGradient>'+
+     '<clipPath id="tccl"><rect id="tcclr" x="0" y="0" width="'+W+'" height="'+Hh+'"/></clipPath>'+
+     '<clipPath id="tccr"><rect id="tccrr" x="0" y="0" width="'+W+'" height="'+Hh+'"/></clipPath></defs>'+
+    grid+
+    '<line x1="0" x2="'+W+'" y1="'+Y(avg).toFixed(1)+'" y2="'+Y(avg).toFixed(1)+'" '+
+      'style="stroke:var(--ink3);stroke-width:1;stroke-dasharray:2 4;opacity:.7"/>'+
+    '<path d="'+area+'" clip-path="url(#tccl)" style="fill:url(#tcg)"/>'+
+    '<path d="'+line+'" clip-path="url(#tccr)" style="fill:none;stroke:var(--ink3);stroke-opacity:.45;stroke-width:2;stroke-linejoin:round;stroke-linecap:round"/>'+
+    '<path d="'+line+'" clip-path="url(#tccl)" style="fill:none;stroke:var(--ac);stroke-width:2;stroke-linejoin:round;stroke-linecap:round"/>'+
+    '<line id="tcguide" y1="'+(top-18)+'" y2="'+bot+'" style="stroke:var(--line2);stroke-width:1"/>'+
+    '<circle id="tcdot" r="5" style="fill:var(--ac);stroke:var(--sf);stroke-width:2"/>'+
+    labels;
+
+  document.getElementById('tcy').innerHTML=[max, max/2].map(function(g){
+    return '<span style="top:'+(Y(g)-3).toFixed(0)+'px">'+(S.trendMetric==='count'? Math.round(g) : '₺'+mk(g))+'</span>'; }).join('');
+  document.getElementById('tcavg').textContent='ort. '+M.avg(avg)+(day?'/gün':'/hafta');
+  document.getElementById('tcbasis').textContent=(day?'Günlük':'Haftalık')+' · '+M.basis;
+  document.getElementById('tctab').innerHTML='<div class="tw" style="max-height:240px;overflow-y:auto"><table><thead><tr>'+
+    '<th>'+(day?'Gün':'Hafta')+'</th><th class="r">'+M.n+'</th></tr></thead><tbody>'+
+    data.slice().reverse().map(function(p){ return '<tr><td data-l="'+(day?'Gün':'Hafta')+'" class="num">'+
+      esc(trendDate(p))+'</td><td data-l="'+M.n+'" class="r num">'+esc(M.fmt(p.v))+'</td></tr>'; }).join('')+
+    '</tbody></table></div>';
+
+  TC={data:data, n:n, X:X, Y:Y, W:W, M:M, day:day};
+  var sel = (S.trendSel!=null && S.trendSel<n) ? S.trendSel : n-1;
+  trendSelect(sel);
+  if(!keepScroll) sc.scrollLeft = sc.scrollWidth;          // en yeni güne yaslı aç
+}
+function weekPartial(p){ return !!(p.to && daysBetween(p.d, p.to) < 6); }
+function trendDate(p, withSuffix){
+  if(!TC || TC.day) return p.d.getDate()+' '+AY_UZUN[p.d.getMonth()]+' '+p.d.getFullYear();
+  var to=p.to||addDays(p.d,6);
+  var s=p.d.getDate()+(p.d.getMonth()!==to.getMonth()?' '+AY_UZUN[p.d.getMonth()]:'')+'–'+
+        to.getDate()+' '+AY_UZUN[to.getMonth()]+' '+to.getFullYear();
+  if(!withSuffix) return s;
+  return s+' haftası'+(weekPartial(p) ? ' · sürüyor, '+(daysBetween(p.d,p.to)+1)+'/7 gün' : '');
+}
+function trendSelect(i){
+  if(!TC) return;
+  i=Math.max(0, Math.min(TC.n-1, i));
+  var p=TC.data[i], x=TC.X(i), y=TC.Y(p.v);
+  var L=document.getElementById('tcclr'), R=document.getElementById('tccrr');
+  if(!L) return;
+  L.setAttribute('width', x.toFixed(1));
+  R.setAttribute('x', x.toFixed(1)); R.setAttribute('width', Math.max(0,TC.W-x).toFixed(1));
+  var g=document.getElementById('tcguide'); g.setAttribute('x1',x); g.setAttribute('x2',x);
+  var d=document.getElementById('tcdot'); d.setAttribute('cx',x); d.setAttribute('cy',y);
+  var prev=i>0 ? TC.data[i-1].v : null, delta='';
+  if(prev && !(!TC.day && weekPartial(p))){ var ch=(p.v-prev)/prev*100;   // süren haftayı tam haftayla kıyaslama
+    delta=(ch>=0?'+%':'−%')+Math.abs(ch).toFixed(1).replace('.',','); }
+  var r=document.getElementById('tcread');
+  r.innerHTML='<div><b class="num"></b> <span class="fnt num"></span></div><div class="fnt"></div>';
+  r.children[0].children[0].textContent=TC.M.fmt(p.v);
+  r.children[0].children[1].textContent=delta;
+  r.children[1].textContent=trendDate(p, true);
+  TC.sel=i;
+}
+function trendIndexAt(clientX){
+  var svg=document.getElementById('tcsvg'); if(!svg || !TC) return null;
+  var rx=clientX-svg.getBoundingClientRect().left;
+  return Math.round((rx-TC.X(0))/(TC.n>1 ? (TC.X(1)-TC.X(0)) : 1));
+}
+document.addEventListener('pointermove', function(e){
+  if(!TC || !e.target.closest || !e.target.closest('#tcscroll')) return;
+  var i=trendIndexAt(e.clientX); if(i!=null) trendSelect(i);
+});
+document.addEventListener('pointerout', function(e){
+  if(!TC || e.pointerType==='touch') return;
+  var sc=document.getElementById('tcscroll');
+  if(sc && e.target.closest && e.target.closest('#tcscroll') && !(e.relatedTarget && sc.contains(e.relatedTarget)))
+    trendSelect(TC.n-1);
+});
+document.addEventListener('keydown', function(e){
+  if(!TC || !e.target || e.target.id!=='tcscroll') return;
+  if(e.key!=='ArrowLeft' && e.key!=='ArrowRight' && e.key!=='Home' && e.key!=='End') return;
+  e.preventDefault();
+  var i = e.key==='Home'?0 : e.key==='End'?TC.n-1 : TC.sel+(e.key==='ArrowRight'?1:-1);
+  trendSelect(i);
+  var sc=e.target, x=TC.X(TC.sel);
+  if(x<sc.scrollLeft+40) sc.scrollLeft=x-40;
+  if(x>sc.scrollLeft+sc.clientWidth-60) sc.scrollLeft=x-sc.clientWidth+60;
+});
+document.addEventListener('click', function(e){
+  var t=e.target.closest && e.target.closest('[data-trm],[data-trg]'); if(!t) return;
+  if(t.hasAttribute('data-trm')) S.trendMetric=t.getAttribute('data-trm');
+  else S.trendGran=t.getAttribute('data-trg');
+  S.trendSel=null;
+  document.querySelectorAll('[data-trm]').forEach(function(b){
+    b.setAttribute('aria-pressed', b.getAttribute('data-trm')===S.trendMetric?'true':'false'); });
+  document.querySelectorAll('[data-trg]').forEach(function(b){
+    b.setAttribute('aria-pressed', b.getAttribute('data-trg')===S.trendGran?'true':'false'); });
+  drawTrend();
+});
+var _tcRz;
+window.addEventListener('resize', function(){
+  if(S.screen!=='reports') return;
+  clearTimeout(_tcRz); _tcRz=setTimeout(function(){ drawTrend(); }, 120);
+});
+
+/* ===================================================================
    HELPIST PROTOTİP — REHBER KATMANI
    1) Kavram ipuçları (ⓘ)   2) Sayfa rehberi (Rehber düğmesi)
    3) Karşılama ekranı       4) Hikâye turu
@@ -3636,7 +3887,8 @@ var CONCEPTS = {
     'uzun kenar 1600 px, JPEG %72. 3–4 MB\'lık dekont tipik olarak 250–400 KB\'a iner, yazılar okunur kalır. PDF ve Excel olduğu gibi saklanır.'; }},
   deduction:{t:'Kesinti', b:function(){ return 'Firma faturanın bir kısmını ödemeyip keserse (eksik evrak vb.) bu tutar tahsilata değil '+
     'kesintiye yazılır. Böylece "ne kadar tahsil ettik" ile "ne kadar kaybettik" karışmaz.'; }},
-  aging:{t:'Alacak yaşlandırma', b:function(){ return 'Açık alacakların vadeden bu yana geçen güne göre dağılımı. '+
+  aging:{t:'Vadesi geçen alacaklar', b:function(){ return 'Vadesi geçmiş, henüz tahsil edilmemiş faturaların vadeden bu yana geçen güne göre dağılımı '+
+    '(muhasebedeki adıyla alacak yaşlandırma). '+
     '60 gün üstü kırmızı — takip önceliği burada.'; }},
   dateField:{t:'Hangi tarihe göre?', b:function(){ return '"Bu ay" sorusunun üç cevabı var: dosyanın <b>açıldığı</b> ay, hizmetin '+
     '<b>verildiği</b> ay, dosyanın <b>kapandığı</b> ay. Sayılar farklı çıkar. Faturalama kapanış ayına göre yapılır.'; }},
@@ -3727,7 +3979,7 @@ function guideData(){
       who: A?'Herkes. Kâr ve fatura alanlarını yalnız yönetici görür.':'Herkes.',
       items:[['Müşteri ve konum','Konumun kaynağı rozetle yazar: maildan (yaklaşık) veya WhatsApp (kesin).','card:Müşteri'],
         ['Konumu güncelle','WhatsApp konum linkini yapıştır ya da haritada pin koy.','[data-act="editloc"]'],
-        ['Devral','Dosyanın sorumlusu siz olursunuz; gerekçesiyle loglanır.','[data-act="takeover"]'],
+        ['Devral','Dosyanın sorumlusu siz olursunuz; gerekçesiyle loglanır. Dosya zaten sizdeyse "Sizde" yazar.','[data-act="takeover"] || #view .btn[disabled]'],
         ['Hizmetler','Tarih, kişi/oda/gece, birim ücret. İkame araçta Uzat.','card:Hizmetler'],
         ['+ Hizmet','Tür seç → konuma göre tedarikçi önerisi → brüt tutar.','#view [data-act="addsvc"]'],
         ['Ödemeler','Havale, kart, mail order. Dekontsuz ödeme uyarı verir.','card:Ödemeler'],
@@ -3781,12 +4033,12 @@ function guideData(){
       items:[['Göstergeler','Toplam alacak, vadesi geçen, kesinti, ortalama tahsil süresi.','#view .grid.g4'],
         ['+ Tahsilat gir','Gelen ödemeyi işler; kesinti ayrı yazılır.','[data-act="collect"]'],
         ['Fatura listesi','Vade, tahsil, kesinti, bakiye, durum.','#results table'],
-        ['Alacak yaşlandırma','Vadeden bu yana geçen güne göre dağılım.','card:Alacak yaşlandırma']],
+        ['Vadesi geçen alacaklar','Vadeden bu yana geçen güne göre dağılım.','card:Vadesi geçen alacaklar']],
       tip:'Ödendi–faturalanmadı + faturalandı–tahsil edilmedi = şu an kasada olmayan para.'},
     reports:{t:'Raporlar',
       why: A?'Kârlılık, KDV, tedarikçi ve personel istatistikleri.':'Hacim, hizmet türü, tedarikçi ve personel istatistikleri.',
       who: A?'Herkes; finansal kartlar yalnız yönetici.':'Herkes.',
-      items:[[A?'Aylık kâr':'Aylık brüt hacim','Son 6 ay, kapanış ayına göre.','card:Aylık'],
+      items:[['Son 6 ay seyri','Dosya, brüt hacim'+(A?' ve kâr':'')+'; günlük veya haftalık. Üzerine gelin, o günün değeri üstte yazar; sola kaydırınca eski günler.','card:Son 6 ay seyri'],
         ['Hizmet türü dağılımı','Hangi hizmete ne kadar harcandı.','card:Hizmet türü']]
         .concat(A?[['KDV özeti','İndirilecek, hesaplanan, ödenecek KDV — mali müşavir mutabakatı için.','card:KDV özeti']]:[])
         .concat([['Otel istatistikleri','Hangi otelle kaç kez, ortalama gecelik.','card:Otel'],
@@ -3905,8 +4157,8 @@ var TOUR_STEPS=[
   enter:function(){ removeDemo(); tstate({role:'user', screen:'inbox'}); }},
 
  {id:'opened', ch:OPS, role:'user', title:'Dosya açıldı', target:'card:Müşteri',
-  body:'<b>HLP-2026-000451</b> açıldı. Müşteri, araç ve adres maildan geldi. Konum şimdilik '+
-    '<b>yaklaşık</b>: mail yalnızca "Afyon–Konya karayolu 14. km" diyor, pin şehir merkezinde.',
+  body:function(){ return '<b>'+(demoCase()?demoCase().no:'Dosya')+'</b> açıldı. Müşteri, araç ve adres maildan geldi. Konum şimdilik '+
+    '<b>yaklaşık</b>: mail yalnızca "Afyon–Konya karayolu 14. km" diyor, pin şehir merkezinde.'; },
   doit:{sel:'[data-act="editloc"]', label:'Konumu güncelle'},
   enter:function(){ ensureDemoCase(); demoSetLoc('mail'); demoRewind('svc');
     tstate({role:'user', screen:'detail', caseId:DEMO_ID}); }},
@@ -4002,9 +4254,9 @@ var TOUR_STEPS=[
     'düzenlemeyi kilitler ve her firma için vadeli alacak açar.',
   enter:function(){ tstate({role:'admin', screen:'billing'}); }},
 
- {id:'rec', ch:ADM, role:'admin', title:'Tahsilat ve kesinti', target:'card:Alacak yaşlandırma',
+ {id:'rec', ch:ADM, role:'admin', title:'Tahsilat ve kesinti', target:'card:Vadesi geçen alacaklar',
   body:'Hangi firma ne kadar borçlu, vadesi kaç gün geçti. Firma kesinti yaparsa tahsilattan <b>ayrı</b> yazılır — '+
-    '"ne kadar tahsil ettik" ile "ne kadar kaybettik" karışmaz.<br><br>Yaşlandırma, işletme sermayesinin nerede bağlı kaldığını gösterir.',
+    '"ne kadar tahsil ettik" ile "ne kadar kaybettik" karışmaz.<br><br>Sağdaki dağılım, işletme sermayesinin nerede bağlı kaldığını gösterir.',
   enter:function(){ resetFilter('receivables'); tstate({role:'admin', screen:'receivables'}); }},
 
  {id:'end', ch:'Son', role:'admin', title:'Tur bitti — şimdi kendiniz gezin', target:'#helpbtn',
@@ -4045,7 +4297,7 @@ function demoReceipt(cb){
   x.fillStyle='#888'; x.fillRect(L,y+330,Rr-L,4);
   var rows=[['İşlem tarihi','28.08.2026 18:04'],['Referans',p.ref],['Gönderen','HELPIST ASİSTANS LTD. ŞTİ.'],
     ['Alıcı',p.supplierName.toLocaleUpperCase('tr-TR')],['Alıcı IBAN',iban||'—'],
-    ['Açıklama','HLP-2026-000451 · Konaklama'],['Kanal','İnternet şubesi']];
+    ['Açıklama',((demoCase()||{}).no||'')+' · Konaklama'],['Kanal','İnternet şubesi']];
   x.font='44px Arial, sans-serif';
   rows.forEach(function(r,k){ var yy=y+440+k*118;
     x.textAlign='left'; x.fillStyle='#777'; x.fillText(r[0],L,yy);
