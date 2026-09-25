@@ -500,8 +500,8 @@ input.inp,select.inp{display:block}
     </div>
     <nav class="nav" id="nav"></nav>
     <div class="sidefoot">
-      <div class="av" id="meav" style="background:var(--ac)">BB</div>
-      <div style="min-width:0"><div style="font-size:12.5px;font-weight:700" id="mename">Bircan Bayram</div>
+      <div class="av" id="meav" style="background:#a06a10">SK</div>
+      <div style="min-width:0"><div style="font-size:12.5px;font-weight:700" id="mename">Serpil Kaya</div>
       <div class="fnt" style="font-size:10.5px" id="merole">Yönetici</div></div>
     </div>
   </aside>
@@ -575,10 +575,10 @@ var CO_CLS = {FORD:'b-ac',BORUSAN:'b-ok','TOFAŞ':'b-wn',RENAULT:'b-nt'};
 var CO_TERM = {FORD:45, BORUSAN:45, 'TOFAŞ':60, RENAULT:30};
 var USERS = [
   {k:'AY', n:'Ayşe Yıldız',   c:'#2f4f9e'},
-  {k:'SK', n:'Serpil Kaya',   c:'#9b2a52'},
+  {k:'EA', n:'Elif Arslan',   c:'#9b2a52'},
   {k:'MD', n:'Mehmet Demir',  c:'#1a7f4b'}
 ];
-var ADMIN = {k:'BB', n:'Bircan Bayram', c:'#a06a10'};
+var ADMIN = {k:'SK', n:'Serpil Kaya', c:'#a06a10'};
 
 var PLACES = [
   ['Afyonkarahisar','Merkez'],['Ankara','Çankaya'],['İzmir','Bornova'],['Bursa','Nilüfer'],
@@ -1442,7 +1442,7 @@ try{
 }catch(e){}
 
 var THEMES=[
-  {id:'konsol',   name:'Konsol',       desc:'Nötr, yoğun, tablo odaklı. Günlük operasyon için varsayılan.',
+  {id:'konsol',   name:'Konsol',       desc:'Nötr, yoğun, tablo odaklı. Günlük operasyon için önerilir.',
    c:['#f7f8fa','#2f4f9e','#e3e6eb','#15181d']},
   {id:'kokpit',   name:'Kokpit',       desc:'Koyu zemin, mono tipografi, kehribar sinyal. Gece vardiyası.',
    c:['#0b0d10','#ffb020','#1c2129','#41d18a']},
@@ -1450,7 +1450,7 @@ var THEMES=[
    c:['#faf7f2','#9a4b23','#e2dbcf','#231f1a']},
   {id:'brutalist',name:'Brutalist',    desc:'Kalın siyah çizgi, mono etiket. Uyarı gerçekten uyarı.',
    c:['#ffffff','#0033ff','#000000','#ffe600']},
-  {id:'yumusak',  name:'Yumuşak kart', desc:'Yuvarlak kart, katmanlı gölge. Mobil öncelikli.',
+  {id:'yumusak',  name:'Yumuşak kart', desc:'Yuvarlak kart, katmanlı gölge. Mobil öncelikli. İlk açılışta varsayılan.',
    c:['#eef0f6','#5b6ee1','#e8eaf2','#2f9e6e']}
 ];
 
@@ -1464,7 +1464,7 @@ function mk(n){ return n>=1000000 ? (n/1000000).toFixed(1).replace('.',',')+'M'
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function H(){ return S.role==='admin'; }
-/** Oturumdaki kişi: yönetici rolünde Bircan, operasyonda Ayşe */
+/** Oturumdaki kişi: yönetici rolünde Serpil, operasyonda Ayşe */
 function ME(){ return H() ? ADMIN : USERS[0]; }
 
 function icon(n){
@@ -2753,8 +2753,8 @@ function vReports(){
 function vSettings(){
   var RU=TKEYS.map(function(k){ var T=TYPE[k]; return [T.n,'%'+T.mg,'%'+T.mg,'%'+T.vat]; });
   RU.push(['Genel varsayılan','%20','%20','%20']);
-  var US=[[ADMIN.n,'bircan@helpist.com.tr',ADMIN.k,ADMIN.c,'Yönetici','b-ac','Bugün 08:42']]
-   .concat(USERS.map(function(u,i){ return [u.n, u.n.toLowerCase().split(' ')[0]+'@helpist.com.tr',
+  var US=[[ADMIN.n,'serpil@helpist.com.tr',ADMIN.k,ADMIN.c,'Yönetici','b-ac','Bugün 08:42']]
+   .concat(USERS.map(function(u,i){ return [u.n, norm(u.n.split(' ')[0])+'@helpist.com.tr',
      u.k, u.c, 'Operasyon','b-nt', i?'Dün 18:0'+i:'Bugün 09:10']; }));
   var SLA=[['İkame araç bitişine kalan süre — uyarı','24 saat','wn'],
    ['İkame araç bitişine kalan süre — kritik','2 saat','dg'],
@@ -2763,6 +2763,17 @@ function vSettings(){
 
   var A=H();
   return '<div class="stack">'+
+   '<div class="card"><div class="chd"><div class="ct">Tanıtım ve rehber</div>'+
+    '<span class="fnt spread desk" style="font-size:11px">Sunum ve yeni kullanıcı için</span></div>'+
+    '<div class="cbd stack" style="gap:12px">'+
+    '<div class="mut" style="font-size:12.5px">Paneli ilk kez açan birinin gördüğü deneyimi baştan başlatır: '+
+    'karşılama ekranı, Yumuşak kart teması, yönetici rolü ve temiz demo verisi. Karşılamadan hikâye turu seçilir.</div>'+
+    '<div class="row" style="flex-wrap:wrap;gap:9px">'+
+     '<button class="btn pri" data-act="firstrun"'+tip('Tema, rol, filtreler ve tur verisi sıfırlanır; karşılama ekranı açılır. Veriler temsili olduğu için hiçbir şey kaybolmaz.')+'>'+
+      icon('play')+'İlk açılış gibi başlat</button>'+
+     '<button class="btn" data-act="tourstart"'+tip('Karşılamayı atlayıp 17 adımlık hikâye turunu doğrudan başlatır. Mevcut tema korunur.')+'>Hikâye turunu başlat</button>'+
+     '<button class="btn" data-act="guide"'+tip('Bulunduğunuz ekranın rehberini sağda açar.')+'>'+icon('help')+'Bu sayfanın rehberi</button>'+
+    '</div></div></div>'+
    '<div class="card"><div class="chd"><div class="ct">Görünüm teması</div>'+
     '<span class="fnt spread desk" style="font-size:11px">Seçim bu tarayıcıda hatırlanır</span></div>'+
     '<div class="cbd stack">'+
@@ -3470,6 +3481,7 @@ function act(a){
   if(a==='approve'){ var dc=ensureDemoCase(); S.caseId=dc.id; S.screen='detail'; S.modal=null; render();
     toast(dc.no+' açıldı — Ford maili onaylandı'); return; }
   if(a==='tourstart'){ S.modal=null; tourStart(0); return; }
+  if(a==='firstrun'){ firstRun(); return; }
   if(a==='guide'){ S.modal=null; S.guide=true; render(); return; }
   if(a==='welfree'){ S.modal=null; render();
     toast('Her ekranda sağ üstteki Rehber o sayfayı anlatır'); return; }
@@ -3782,7 +3794,8 @@ function guideData(){
     settings:{t:'Ayarlar',
       why:'Görünüm, kurallar, kullanıcılar ve hatırlatma eşikleri.',
       who: A?'Yönetici; tema seçimini herkes yapabilir.':'Tema seçimini herkes yapabilir.',
-      items:[['Görünüm teması','Beş tema; seçim bu tarayıcıda hatırlanır.','card:Görünüm teması']]
+      items:[['Tanıtım ve rehber','Hikâye turu ve "ilk açılış gibi başlat" — sunumdan önce buradan sıfırlayın.','card:Tanıtım'],
+             ['Görünüm teması','Beş tema; seçim bu tarayıcıda hatırlanır.','card:Görünüm teması']]
         .concat(A?[['Kâr marjı ve KDV kuralları','Tür bazında oranlar; kod değişmeden güncellenir.','card:Kâr marjı']]:[])
         .concat([['Kullanıcılar','Kim hangi rolde, son giriş.','card:Kullanıcılar'],
                  ['Hatırlatma eşikleri','Hangi durumda kaç saat sonra uyarı gelir.','card:Hatırlatma']])}
@@ -3870,11 +3883,11 @@ function payGroupEls(){
   while(n && n.classList.contains('paykid')){ a.push(n); n=n.nextElementSibling; }
   return a;
 }
-var OPS='Operasyon · Ayşe', ADM='Yönetici · Bircan';
+var OPS='Operasyon · Ayşe', ADM='Yönetici · Serpil';
 var TOUR_STEPS=[
  {id:'intro', ch:'Başlangıç', role:'user', title:'Helpist Paneli — 5 dakikalık tur',
   body:'Ford\'dan gelen bir yol yardım talebini <b>mailin gelişinden tahsilata kadar</b> izleyeceğiz. '+
-    'Önce operasyon çalışanı <b>Ayşe</b>\'nin gözünden, sonra yönetici <b>Bircan</b>\'ın.<br><br>'+
+    'Önce operasyon çalışanı <b>Ayşe</b>\'nin gözünden, sonra yönetici <b>Serpil</b>\'in.<br><br>'+
     '<b>İleri</b> ekranı kendisi değiştirir. Bazı adımlarda <b>Kendim deneyeyim</b> çıkar — o zaman düğmeye siz basarsınız.',
   enter:function(){ removeDemo(); tstate({role:'user', screen:'dashboard'}); }},
 
@@ -3969,7 +3982,7 @@ var TOUR_STEPS=[
     tstate({role:'user', screen:'payments'}); }},
 
  {id:'admin', ch:ADM, role:'admin', title:'Aynı dosya, yönetici gözüyle', target:'card:Tutarlar',
-  body:'Şimdi Bircan\'ın ekranı. Operasyonda hiç olmayan <b>kâr marjı, fatura matrahı ve fatura toplamı</b> burada.<br><br>'+
+  body:'Şimdi Serpil\'in ekranı. Operasyonda hiç olmayan <b>kâr marjı, fatura matrahı ve fatura toplamı</b> burada.<br><br>'+
     'Bu bir gizleme değil: operasyon kullanıcısına bu veri <b>hiç gönderilmez</b>, tarayıcısında bile yoktur. '+
     '<span class="fnt">Sağ üstteki rol düğmesi yalnızca prototipte var.</span>',
   doit:{sel:'#view .mgbtn', label:'satırdaki yeşil marj tutarı'},
@@ -4249,6 +4262,17 @@ document.addEventListener('animationend', function(e){
   if(TR.on && e.target.closest && e.target.closest('#modal, #view')) tourPlace(false); }, true);
 document.addEventListener('scroll', function(){ if(TR.on) requestAnimationFrame(function(){ tourPlace(false); }); }, true);
 
+/* --- "İlk açılış gibi başlat" (Ayarlar): kayıtlı tercihler ve tur verisi sıfırlanır --- */
+function firstRun(){
+  if(TR.on) tourClose(false);
+  try{ Object.keys(localStorage).forEach(function(k){ if(k.indexOf('helpist.')===0) localStorage.removeItem(k); }); }catch(e){}
+  removeDemo();
+  Object.keys(F).forEach(function(k){ resetFilter(k); });
+  S.theme='yumusak'; S.role='admin'; S.screen='dashboard'; S.casesTab='cases'; S.caseId=null;
+  S.openPay={}; S.guide=false; S.docFile=null; S.locDraft=null; S.supId=null;
+  S.modal='welcome'; render();
+  try{ localStorage.setItem('helpist.welcome.v1','1'); }catch(e){}
+}
 /* --- açılış: #tur / #tur-7 / #serbest / ilk ziyaret --- */
 function bootGuide(){
   var h=location.hash||'', m=h.match(/^#tur(?:-(\d+))?$/);
